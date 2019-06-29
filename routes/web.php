@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', function () { $title = 'Home V1'; return view('index',compact('title'));})->name('home1');
+Route::get('/', function () { $title = 'Home'; return view('index',compact('title'));})->name('home1');
 
 Route::get('/index', function () { $title = 'Home V2'; return view('index2',compact('title'));})->name('home2');
 
@@ -37,3 +37,6 @@ Route::get('/single_news', function () { $title = 'News Details'; return view('s
 
 Route::get('/login', function () { $title = 'Login'; return view('login',compact('title'));})->name('login');
 
+Route::get('/contact', function () { $title = 'Contact Us'; return view('contact',compact('title'));})->name('contact');
+
+Route::get('/register', function () { $title = 'Register'; return view('register',compact('title'));})->name('register');

@@ -42,7 +42,7 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
 </head>
-<body class="home1">
+<body class="home1 about_us_page">
 
 <!-- preloader -->
 <div class="preloader-bg">

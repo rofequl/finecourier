@@ -58,20 +58,20 @@
                         <div class="footer_address">
                             <ul>
                                 <li><span class="fa fa-paper-plane-o"></span>
-                                    <div class="address_right">50 Main Design Street,Australia - Alabama 55455</div>
+                                    <div class="address_right">house 1287, road 11, ave 02, mirpur dohs, dhaka 1216</div>
                                 </li>
                                 <li>
                                     <span class="fa fa-phone"></span>
                                     <div class="number address_right">
-                                        <a href="tel:01212347794">+012 (1234) 7794</a>
-                                        <a href="tel:01212347794">+012 (2345) 9874</a>
+                                        <a href="tel:01971335588">01971335588</a>
+                                        <a href="tel:01994807666">01994807666</a>
                                     </div>
                                 </li>
                                 <li>
                                     <span class="fa fa-envelope-o"></span>
                                     <div class="address_right">
-                                        <a href="mailto:youremail@gmail.com">youremail@gmail.com</a>
-                                        <a href="#">finecourier.net</a>
+                                        <a href="mailto:finecourier@gmail.com">finecourier@gmail.com</a>
+                                        <a href="#">finecourier.com</a>
                                     </div>
                                 </li>
                             </ul>
@@ -126,7 +126,7 @@
                         <li><a href="{{route('about_us')}}">About Us</a></li>
                         <li><a href="{{route('track_trace')}}">Track & Trace</a></li>
                         <li><a href="{{route('news')}}">News</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="{{route('contact')}}">Contact Us</a></li>
                     </ul>
                 </div>
             </div>

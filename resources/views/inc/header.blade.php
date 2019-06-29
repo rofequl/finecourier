@@ -50,15 +50,15 @@
                         <div class="single_info_section">
                             <span class="fa fa-headphones v_middle"></span>
                             <div class="contact_numbers v_middle right_info">
-                                <p><a href="tel:+123445637894">+1234 (4563) 7894</a></p>
-                                <p><a href="tel:+123445637894">+1234 (4563) 7894</a></p>
+                                <p><a href="tel:01971335588">01971335588</a></p>
+                                <p><a href="tel:01994807666">01994807666</a></p>
                             </div>
                         </div>
                         <div class="single_info_section">
                             <span class="fa fa-envelope v_middle"></span>
                             <div class="contact_numbers right_info v_middle">
-                                <p><a href="mailto:youremail@gmail.com">youremail@gmail.com</a></p>
-                                <p><a href="mailto:trusttransport.net">finecourier.net</a></p>
+                                <p><a href="mailto:finecourier@gmail.com">finecourier@gmail.com</a></p>
+                                <p><a href="mailto:trusttransport.net">finecourier.com</a></p>
                             </div>
                         </div>
                     </div>
