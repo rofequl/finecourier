@@ -40,3 +40,21 @@ Route::get('/login', function () { $title = 'Login'; return view('login',compact
 Route::get('/contact', function () { $title = 'Contact Us'; return view('contact',compact('title'));})->name('contact');
 
 Route::get('/register', function () { $title = 'Register'; return view('register',compact('title'));})->name('register');
+
+/*
+|--------------------------------------------------------------------------
+| backend Admin Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::get('admin-login', function () {return view('admin.login');});
+Route::post('/admin-login-check', 'AdminController@LoginCheck')->name('AdminLoginCheck');
+Route::get('/AdminLogout', 'AdminController@Logout')->name('AdminLogout');
+Route::post('/admin-user-register', 'AdminController@AdminRegister')->name('AdminUserRegister');
+
+Route::group(['middleware' => 'CheckAdmin'], function () {
+
+    Route::get('/admin', 'AdminController@index')->name('admin');
+    Route::get('/basic-information', 'HomeController@BasicInformation')->name('BasicInformation');
+
+});
