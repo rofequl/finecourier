@@ -56,5 +56,6 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
 
     Route::get('/admin', 'AdminController@index')->name('admin');
     Route::get('/basic-information', 'HomeController@BasicInformation')->name('BasicInformation');
+    Route::post('/basic-information', 'HomeController@BasicInformationUpdate')->name('BasicInformationUpdate');
 
 });
