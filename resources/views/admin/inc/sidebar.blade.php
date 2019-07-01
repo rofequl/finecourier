@@ -1,7 +1,8 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
-            <a href="{{route('admin')}}" class="site_title"><i class="fa fa-paw"></i> <span>Fine Courier!</span></a>
+            <a href="{{route('admin')}}" class="site_title"><img
+                        src="{{asset('storage/logo/'.basic_information()->company_logo)}}"></a>
         </div>
 
         <div class="clearfix"></div>
@@ -19,6 +20,12 @@
                     <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{route('BasicInformation')}}">Basic Information</a></li>
+                            <li><a href="{{route('SliderManage')}}">Slider Manage</a></li>
+                        </ul>
+                    </li>
+                    <li><a><i class="fa fa-home"></i> About us <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{route('OurService')}}">Our Service</a></li>
                         </ul>
                     </li>
 

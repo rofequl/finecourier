@@ -15,7 +15,7 @@
                             <h1>{{$title}}</h1>
                         </div>
                         <ul class="bread_crumb">
-                            <li><a href="{{route('home1')}}">Home</a></li>
+                            <li><a href="{{route('home')}}">Home</a></li>
                             <li class="bread_active">{{$title}}</li>
                         </ul>
                     </div>

@@ -15,7 +15,7 @@
     <link href="{{asset('assets/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
     <!-- NProgress -->
     <link href="{{asset('assets/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
-
+    @stack('style')
     <!-- Custom Theme Style -->
     <link href="{{asset('assets/build/css/custom.css')}}" rel="stylesheet">
 </head>

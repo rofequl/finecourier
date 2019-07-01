@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Fine - {{$title}}</title>
+    <title>Fine -</title>
 
     <!-- owl carousel css -->
     <link rel="stylesheet" href="{{asset('css/owl.carousel.css')}}"/>

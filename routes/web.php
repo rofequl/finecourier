@@ -4,14 +4,9 @@
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
 */
 
-Route::get('/', function () { $title = 'Home'; return view('index',compact('title'));})->name('home1');
+Route::get('/', 'FrontendController@index')->name('home');
 
 Route::get('/index', function () { $title = 'Home V2'; return view('index2',compact('title'));})->name('home2');
 
@@ -57,5 +52,17 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::get('/admin', 'AdminController@index')->name('admin');
     Route::get('/basic-information', 'HomeController@BasicInformation')->name('BasicInformation');
     Route::post('/basic-information', 'HomeController@BasicInformationUpdate')->name('BasicInformationUpdate');
+
+    Route::get('/slider-manage/{data?}', 'HomeController@SliderManage')->name('SliderManage');
+    Route::get('/slider-manage-status', 'HomeController@SliderManageStatus')->name('SliderManageStatus');
+    Route::get('/slider-manage-delete', 'HomeController@SliderManageDelete')->name('SliderManageDelete');
+    Route::post('/slider-manage', 'HomeController@SliderManageAdd')->name('SliderManageAdd');
+    Route::post('/slider-manage-update', 'HomeController@SliderManageUpdate')->name('SliderManageUpdate');
+
+    Route::get('/our-service/{data?}', 'AboutController@OurService')->name('OurService');
+    Route::post('/our-service', 'AboutController@OurServiceAdd')->name('OurServiceAdd');
+    Route::get('/our-service-status', 'AboutController@OurServiceStatus')->name('OurServiceStatus');
+    Route::get('/our-service-delete', 'AboutController@OurServiceDelete')->name('OurServiceDelete');
+    Route::post('/our-service-update', 'AboutController@OurServiceUpdate')->name('OurServiceUpdate');
 
 });

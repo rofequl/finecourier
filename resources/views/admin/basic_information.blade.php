@@ -208,17 +208,21 @@
                                             <thead>
                                             <tr class="bg-dark">
                                                 <th>#</th>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Username</th>
+                                                <th>Website Title</th>
+                                                <th>Company Name</th>
+                                                <th>Website Url</th>
+                                                <th>Phone Number</th>
+                                                <th>Email</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
                                                 <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
+                                                <td>{{basic_information()->website_title}}</td>
+                                                <td>{{basic_information()->company_name}}</td>
+                                                <td>{{basic_information()->website_link}}</td>
+                                                <td>{{basic_information()->phone_number_one}}</td>
+                                                <td>{{basic_information()->email}}</td>
                                             </tr>
                                             </tbody>
                                         </table>
