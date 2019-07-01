@@ -1,33 +1,20 @@
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav magic_menu">
-        <li>
-            <a href="{{route('home1')}}">home</a>
-        </li>
         <li class="active">
+            <a href="{{route('home')}}">home</a>
+        </li>
+        <li>
             <a href="{{route('about_us')}}">About us</a>
-{{--            <div class="dropdwon">--}}
-{{--                <ul>--}}
-{{--                    <li><a href="{{route('about_us')}}">About Us</a></li>--}}
-{{--                    <li><a href="{{route('about_us2')}}">about us 2</a></li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
         </li>
-        <li class="">
+        <li>
             <a href="{{route('service')}}">services</a>
-{{--            <div class="dropdwon">--}}
-{{--                <ul>--}}
-{{--                    <li><a href="{{route('service')}}">services</a></li>--}}
-{{--                    <li><a href="{{route('service_sidebar')}}">Sidebar Services</a></li>--}}
-{{--                    <li><a href="{{route('single_service')}}">Service Detail</a></li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
         </li>
-        <li><a href="{{route('track_trace')}}">Track & Trace</a></li>
+{{--        <li><a href="{{route('track_trace')}}">Track & Trace</a></li>--}}
 {{--        <li class="has_megamenu">--}}
 {{--            <a href="#">pages<span class="fa fa-angle-down"></span></a>--}}
 {{--            <div class="megamenu">--}}
 {{--                <ul>--}}
-{{--                    <li><a href="{{route('home1')}}">Home V1 </a></li>--}}
+{{--                    <li><a href="{{route('home')}}">Home V1 </a></li>--}}
 
 {{--                    <li><a href="{{route('about_us')}}">About Us</a></li>--}}
 {{--                    <li><a href="{{route('about_us2')}}">About Us-2</a></li>--}}

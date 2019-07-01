@@ -11,45 +11,28 @@
             <!-- hero slides -->
             <div class="hero_sliders">
 
-                <!-- single hero_slide -->
-                <div class="hero_slide" data-src="images/slider_1.jpg">
-                    <div class="captions_wrapper right">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-8 col-md-offset-4">
-                                    <div class="single_slider_wrapper">
-                                        <span class="small_title fadeInRightShort animated">FAST DELIVERY</span><br>
-                                        <h1 class="big_title fadeInRightShort animated">fine is world wide courier
-                                            service</h1>
-                                        <div class="hero_btn">
-                                            <a href="#" class="trust_btn">see more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- single hero_slide -->
+                @foreach($slide as $slider)
 
-                <!-- single hero_slide -->
-                <div class="hero_slide" data-src="images/slider_2.jpg">
-                    <div class="captions_wrapper left">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="single_slider_wrapper">
-                                        <span class="small_title fadeInLeftShort animated">FAST DELIVERY</span><br>
-                                        <h1 class="big_title fadeInLeftShort animated">fine is world wide courier
-                                            service</h1>
-                                        <div class="hero_btn">
-                                            <a href="#" class="trust_btn">see more</a>
+                    <div class="hero_slide" data-src="{{asset('storage/slider/'.$slider->image)}}">
+                        <div class="captions_wrapper right">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-8 col-md-offset-4">
+                                        <div class="single_slider_wrapper">
+                                            <span class="small_title fadeInRightShort animated">{{$slider->slider_title_one}}</span><br>
+                                            <h1 class="big_title fadeInRightShort animated">{{$slider->slider_title_two}}</h1>
+                                            <div class="hero_btn">
+                                                <a href="#" class="trust_btn">see more</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div><!-- single hero_slide -->
+
+                @endforeach
+
 
             </div><!-- ./hero slides  -->
         </div><!-- /.sliders ends -->
@@ -118,62 +101,26 @@
                         <!-- service slider start -->
                         <div class="service_slider">
 
-                            <div class="single_service_wrapper">
-                                <div class="service_img">
-                                    <img src="images/service1.jpg" alt="service-img">
+                            @foreach($service as $services)
+                                <div class="single_service_wrapper">
+                                    <div class="service_img">
+                                        <img src="{{asset('storage/service/'.$services->image)}}" alt="service-img">
+                                    </div>
+                                    <div class="service_content">
+                                        <div class="service_title">
+                                            <a href="single_service.html"><h3>{{$services->title}}</h3></a>
+                                        </div>
+                                        <div class="service_text">
+                                            <p>{{str_limit($services->description,80)}}</p>
+                                        </div>
+                                        <div class="read_more">
+                                            <a href="single_service.html">read more <span
+                                                        class="fa fa-long-arrow-right"></span></a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="service_content">
-                                    <div class="service_title">
-                                        <a href="single_service.html"><h3>ground shipping</h3></a>
-                                    </div>
-                                    <div class="service_text">
-                                        <p>Claritas est etiam processus dynamicus sequitur the mutationem lectorum Mirum
-                                            est.. </p>
-                                    </div>
-                                    <div class="read_more">
-                                        <a href="single_service.html">read more <span
-                                                    class="fa fa-long-arrow-right"></span></a>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
 
-                            <div class="single_service_wrapper">
-                                <div class="service_img">
-                                    <img src="images/service2.jpg" alt="service-img">
-                                </div>
-                                <div class="service_content">
-                                    <div class="service_title">
-                                        <a href="single_service.html"><h3>air shipping</h3></a>
-                                    </div>
-                                    <div class="service_text">
-                                        <p>Claritas est etiam processus dynamicus sequitur the mutationem lectorum Mirum
-                                            est.. </p>
-                                    </div>
-                                    <div class="read_more">
-                                        <a href="single_service.html">read more <span
-                                                    class="fa fa-long-arrow-right"></span></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="single_service_wrapper">
-                                <div class="service_img">
-                                    <img src="images/service3.jpg" alt="service-img">
-                                </div>
-                                <div class="service_content">
-                                    <div class="service_title">
-                                        <a href="single_service.html"><h3>sea delivery</h3></a>
-                                    </div>
-                                    <div class="service_text">
-                                        <p>Claritas est etiam processus dynamicus sequitur the mutationem lectorum Mirum
-                                            est.. </p>
-                                    </div>
-                                    <div class="read_more">
-                                        <a href="single_service.html">read more <span
-                                                    class="fa fa-long-arrow-right"></span></a>
-                                    </div>
-                                </div>
-                            </div>
                         </div><!-- service slider start -->
 
                         <!-- slider control start -->

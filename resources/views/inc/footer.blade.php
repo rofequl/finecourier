@@ -122,7 +122,7 @@
             <div class="col-md-6 xs_fullwidth col-xs-6">
                 <div class="footer_menu clearfix">
                     <ul>
-                        <li><a href="{{route('home1')}}">Home</a></li>
+                        <li><a href="{{route('home')}}">Home</a></li>
                         <li><a href="{{route('about_us')}}">About Us</a></li>
                         <li><a href="{{route('track_trace')}}">Track & Trace</a></li>
                         <li><a href="{{route('news')}}">News</a></li>

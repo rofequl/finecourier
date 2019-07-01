@@ -25,10 +25,10 @@
 
                         <div class="social_links">
                             <ul>
-                                <li><a href="#"><span class="fa fa-facebook"></span></a></li>
-                                <li><a href="#"><span class="fa fa-pinterest-p"></span></a></li>
-                                <li><a href="#"><span class="fa fa-google-plus"></span></a></li>
-                                <li><a href="#"><span class="fa fa-dribbble"></span></a></li>
+                                <li><a href="{{basic_information()->facebook_link}}"><span class="fa fa-facebook"></span></a></li>
+                                <li><a href="{{basic_information()->pinterest_link}}"><span class="fa fa-pinterest-p"></span></a></li>
+                                <li><a href="{{basic_information()->google_plus_link}}"><span class="fa fa-google-plus"></span></a></li>
+                                <li><a href="{{basic_information()->twiter_link}}"><span class="fa fa-twitter"></span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
             <div class="header_middle_wrapper clearfix">
                 <div class="col-md-3 xs_fullwidth col-xs-3">
                     <div class="logo_container">
-                        <a href="{{route('home1')}}"><img src="images/logo.png" alt="logo Here"></a>
+                        <a href="{{route('home')}}"><img src="images/logo.png" alt="logo Here"></a>
                     </div>
                 </div>
 
@@ -50,22 +50,23 @@
                         <div class="single_info_section">
                             <span class="fa fa-headphones v_middle"></span>
                             <div class="contact_numbers v_middle right_info">
-                                <p><a href="tel:01971335588">01971335588</a></p>
-                                <p><a href="tel:01994807666">01994807666</a></p>
+                                <p><a href="tel:{{basic_information()->phone_number_one}}">{{basic_information()->phone_number_one}}</a></p>
+                                <p><a href="tel:{{basic_information()->phone_number_two}}">{{basic_information()->phone_number_two}}</a></p>
                             </div>
                         </div>
                         <div class="single_info_section">
                             <span class="fa fa-envelope v_middle"></span>
                             <div class="contact_numbers right_info v_middle">
-                                <p><a href="mailto:finecourier@gmail.com">finecourier@gmail.com</a></p>
-                                <p><a href="mailto:trusttransport.net">finecourier.com</a></p>
+                                <p><a href="mailto:{{basic_information()->email}}">{{basic_information()->email}}</a></p>
+                                <p><a href="mailto:{{basic_information()->website_link}}">{{basic_information()->website_link}}</a></p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-3 xs_fullwidth col-xs-3 col-lg-2 col-lg-offset-1">
+                <div class="col-md-3 xs_fullwidth col-xs-3 col-lg-3">
                     <a href="{{route('quote')}}" class="trust_btn quote_btn">get a free quote</a>
+                    <a href="{{route('quote')}}" class="trust_btn quote_btn">track & trace</a>
                 </div>
             </div>
         </div><!-- /.row end -->

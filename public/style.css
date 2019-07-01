@@ -999,8 +999,9 @@
 		color: #777;
 	}
 	.quote_btn{
-		padding: 0 20px;
-		font-size: 11px;
+		padding: 0 8px;
+		margin: 3px 0;
+		font-size: 9px;
 		line-height: 40px;
 	}
 	.quote_btn:hover{

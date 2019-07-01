@@ -27,7 +27,7 @@ class CreateBasicInformationsTable extends Migration
             $table->string('linkedin_link')->nullable();
             $table->string('pinterest_link')->nullable();
             $table->string('footer_text')->nullable();
-            $table->string('address')->nullable();
+            $table->text('address')->nullable();
             $table->string('company_logo')->nullable();
             $table->boolean('status')->nullable();
             $table->timestamps();
