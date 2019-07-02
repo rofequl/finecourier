@@ -18,18 +18,32 @@
                     <div class="login_text">
                         <p>If you have an account with Fine Courier , please log in.</p>
                     </div>
-
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                {{$error}}
+                            </div>
+                        @endforeach
+                    @endif
+                    @if(session()->has('login_error'))
+                        <div class="alert alert-danger alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ session()->get('login_error') }}
+                        </div>
+                    @endif
                     <div class="login_form">
-                        <form action="#">
-                            <input type="text" placeholder="Email or Phone">
-                            <input type="text" placeholder="Password">
+                        <form action="{{route('LoginCheck')}}" method="post">
+                            {{csrf_field()}}
+                            <input type="text" placeholder="Email" name="email">
+                            <input type="text" placeholder="Password" name="password">
                             <div class="rem_for">
                                 <input id="remeber" type="checkbox" name="remember" value=""><label for="remeber"><span></span>Remember Me</label>
                                 <a href="#">Forgot Password?</a>
                             </div>
                             <div class="login_content">
                                 <button type="submit" class="trust_btn">Log in</button>
-                                <p>don't have an account? <a href="register.html">register</a></p>
+                                <p>don't have an account? <a href="{{route('register')}}">register</a></p>
                             </div>
                         </form>
                     </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\basic_information;
+use App\service;
 
 function basic_information(){
     $data = basic_information::all();
@@ -12,5 +13,10 @@ function basic_information(){
         $insert->save();
     }
     $data = basic_information::all()->first();
+    return $data;
+}
+
+function service(){
+    $data = service::all();
     return $data;
 }

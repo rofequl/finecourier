@@ -245,56 +245,25 @@
                     <!-- service slider start -->
                     <div class="service_slider">
 
-                        <div class="single_service_wrapper">
-                            <div class="service_img">
-                                <img src="images/service1.jpg" alt="service-img">
-                            </div>
-                            <div class="service_content">
-                                <div class="service_title">
-                                    <a href="single_service.html"><h3>ground shipping</h3></a>
+                        @foreach($service as $services)
+                            <div class="single_service_wrapper">
+                                <div class="service_img">
+                                    <img src="{{asset('storage/service/'.$services->image)}}" alt="service-img">
                                 </div>
-                                <div class="service_text">
-                                    <p>Claritas est etiam processus dynamicus sequitur the mutationem consuetudium lectorum est </p>
-                                </div>
-                                <div class="read_more">
-                                    <a href="single_service.html">read more <span class="fa fa-long-arrow-right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="single_service_wrapper">
-                            <div class="service_img">
-                                <img src="images/service2.jpg" alt="service-img">
-                            </div>
-                            <div class="service_content">
-                                <div class="service_title">
-                                    <a href="single_service.html"><h3>air shipping</h3></a>
-                                </div>
-                                <div class="service_text">
-                                    <p>Claritas est etiam processus dynamicus sequitur the mutationem consuetudium lectorum est </p>
-                                </div>
-                                <div class="read_more">
-                                    <a href="single_service.html">read more <span class="fa fa-long-arrow-right"></span></a>
+                                <div class="service_content">
+                                    <div class="service_title">
+                                        <a href="single_service.html"><h3>{{$services->title}}</h3></a>
+                                    </div>
+                                    <div class="service_text">
+                                        <p>{{str_limit($services->description,80)}}</p>
+                                    </div>
+                                    <div class="read_more">
+                                        <a href="single_service.html">read more <span
+                                                    class="fa fa-long-arrow-right"></span></a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="single_service_wrapper">
-                            <div class="service_img">
-                                <img src="images/service3.jpg" alt="service-img">
-                            </div>
-                            <div class="service_content">
-                                <div class="service_title">
-                                    <a href="single_service.html"><h3>sea delivery</h3></a>
-                                </div>
-                                <div class="service_text">
-                                    <p>Claritas est etiam processus dynamicus sequitur the mutationem consuetudium lectorum est </p>
-                                </div>
-                                <div class="read_more">
-                                    <a href="single_service.html">read more <span class="fa fa-long-arrow-right"></span></a>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div><!-- service slider start -->
 
                     <!-- slider control start -->
@@ -338,38 +307,25 @@
             <div class="col-md-12">
                 <div class="testimonial_slider_wrapper">
                     <div class="testimonial_slider">
-                        <div class="single_slider">
-                            <div class="testimonial">
-                                <p>Placerat facer possim assum. Typi non habent claritatem insitam est usulegentis in iis qui
-                                    facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii
-                                    legunt saepius. Claritas est etiam processus <span class="quote fa fa-quote-right"></span></p>
-                            </div>
-                            <div class="person_about">
-                                <div class="image">
-                                    <img src="images/testimonial1.png" alt="testimonial-img">
+                        @foreach($testimonial as $testimonials)
+                            <div class="single_slider">
+                                <div class="testimonial">
+                                    <p>
+                                        {{str_limit($testimonials->message,200)}}
+                                        <span class="quote fa fa-quote-right"></span>
+                                    </p>
                                 </div>
-                                <div class="desig">
-                                    <p class="name">Md.Salam</p>
-                                    <span>Web Developer</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single_slider">
-                            <div class="testimonial">
-                                <p>Placerat facer possim assum. Typi non habent claritatem insitam est usulegentis in iis qui
-                                    facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii
-                                    legunt saepius. Claritas est etiam processus <span class="quote fa fa-quote-right"></span></p>
-                            </div>
-                            <div class="person_about">
-                                <div class="image">
-                                    <img src="images/testimonial2.png" alt="testimonial-img">
-                                </div>
-                                <div class="desig">
-                                    <p class="name">Md.Salam</p>
-                                    <span>Web Developer</span>
+                                <div class="person_about">
+                                    <div class="image">
+                                        <img src="{{asset('storage/testimonial/'.$testimonials->image)}}" alt="testimonial-img">
+                                    </div>
+                                    <div class="desig">
+                                        <p class="name">{{$testimonials->name}}</p>
+                                        <span>{{$testimonials->profession}}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div><!-- /.col-md-12 starts -->

@@ -8,9 +8,15 @@
 
 Route::get('/', 'FrontendController@index')->name('home');
 
-Route::get('/index', function () { $title = 'Home V2'; return view('index2',compact('title'));})->name('home2');
+Route::get('/login', 'FrontendController@login')->name('login');
+Route::post('/login-check', 'FrontendController@LoginCheck')->name('LoginCheck');
 
-Route::get('/about_us', function () { $title = 'About us'; return view('about_us',compact('title'));})->name('about_us');
+Route::get('/register', 'FrontendController@register')->name('register');\
+Route::post('/register-submit', 'FrontendController@RegisterSubmit')->name('RegisterSubmit');
+
+Route::get('/logout', 'FrontendController@logout')->name('logout');
+
+Route::get('/about', 'FrontendController@about')->name('about_us');
 
 Route::get('/about_us2', function () { $title = 'About us'; return view('about_us2',compact('title'));})->name('about_us2');
 
@@ -30,11 +36,7 @@ Route::get('/news_list', function () { $title = 'News List'; return view('news_l
 
 Route::get('/single_news', function () { $title = 'News Details'; return view('single_news',compact('title'));})->name('single_news');
 
-Route::get('/login', function () { $title = 'Login'; return view('login',compact('title'));})->name('login');
-
 Route::get('/contact', function () { $title = 'Contact Us'; return view('contact',compact('title'));})->name('contact');
-
-Route::get('/register', function () { $title = 'Register'; return view('register',compact('title'));})->name('register');
 
 /*
 |--------------------------------------------------------------------------
@@ -64,5 +66,14 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::get('/our-service-status', 'AboutController@OurServiceStatus')->name('OurServiceStatus');
     Route::get('/our-service-delete', 'AboutController@OurServiceDelete')->name('OurServiceDelete');
     Route::post('/our-service-update', 'AboutController@OurServiceUpdate')->name('OurServiceUpdate');
+
+    Route::get('/admin-contact/{data?}', 'HomeController@AdminContact')->name('AdminContact');
+    Route::post('/admin-contact', 'HomeController@AdminContactAdd')->name('AdminContactAdd');
+    Route::get('/admin-contact-delete', 'HomeController@AdminContactDelete')->name('AdminContactDelete');
+
+    Route::get('/admin-testimonial/{data?}', 'HomeController@AdminTestimonial')->name('AdminTestimonial');
+    Route::post('/admin-testimonial', 'HomeController@AdminTestimonialAdd')->name('AdminTestimonialAdd');
+    Route::get('/admin-testimonial-status', 'HomeController@AdminTestimonialStatus')->name('AdminTestimonialStatus');
+    Route::get('/admin-testimonial-delete', 'HomeController@AdminTestimonialDelete')->name('AdminTestimonialDelete');
 
 });
