@@ -441,7 +441,6 @@
     <section class="testimonial_area section_padding reveal animated" data-delay="0.2s" data-anim="fadeInUpShort">
         <!-- container starts -->
         <div class="container">
-            <!-- row start -->
             <div class="row">
                 <div class="col-md-12">
                     <!-- section_title starts -->
@@ -460,46 +459,25 @@
                 <div class="col-md-12">
                     <div class="testimonial_slider_wrapper">
                         <div class="testimonial_slider">
-                            <div class="single_slider">
-                                <div class="testimonial">
-                                    <p>Placerat facer possim assum. Typi non habent claritatem insitam est usulegentis
-                                        in iis qui
-                                        facit eorum claritatem. Investigationes demonstrav erunt lectores legere me lius
-                                        quod ii
-                                        legunt saepius. Claritas est etiam processus <span
-                                                class="quote fa fa-quote-right"></span>
-                                    </p>
-                                </div>
-                                <div class="person_about">
-                                    <div class="image">
-                                        <img src="images/testimonial1.png" alt="testimonial-img">
+                            @foreach($testimonial as $testimonials)
+                                <div class="single_slider">
+                                    <div class="testimonial">
+                                        <p>
+                                            {{str_limit($testimonials->message,200)}}
+                                            <span class="quote fa fa-quote-right"></span>
+                                        </p>
                                     </div>
-                                    <div class="desig">
-                                        <p class="name">Md.Salam</p>
-                                        <span>Web Developer</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single_slider">
-                                <div class="testimonial">
-                                    <p>Placerat facer possim assum. Typi non habent claritatem insitam est usulegentis
-                                        in iis qui
-                                        facit eorum claritatem. Investigationes demonstrav erunt lectores legere me lius
-                                        quod ii
-                                        legunt saepius. Claritas est etiam processus <span
-                                                class="quote fa fa-quote-right"></span>
-                                    </p>
-                                </div>
-                                <div class="person_about">
-                                    <div class="image">
-                                        <img src="images/testimonial2.png" alt="testimonial-img">
-                                    </div>
-                                    <div class="desig">
-                                        <p class="name">Shahadat Hossain</p>
-                                        <span>Web Developer</span>
+                                    <div class="person_about">
+                                        <div class="image">
+                                            <img src="{{asset('storage/testimonial/'.$testimonials->image)}}" alt="testimonial-img">
+                                        </div>
+                                        <div class="desig">
+                                            <p class="name">{{$testimonials->name}}</p>
+                                            <span>{{$testimonials->profession}}</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div><!-- /.col-md-12 starts -->

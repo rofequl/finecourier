@@ -21,12 +21,17 @@
                         <ul class="nav child_menu">
                             <li><a href="{{route('BasicInformation')}}">Basic Information</a></li>
                             <li><a href="{{route('SliderManage')}}">Slider Manage</a></li>
+                            <li><a href="{{route('AdminContact')}}">Contact us</a></li>
+                            <li><a href="{{route('AdminTestimonial')}}">Testimonials</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-home"></i> About us <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{route('OurService')}}">Our Service</a></li>
-                            <li><a href="{{route('WhoWeAre')}}">Who We Are</a></li>
+                            <li><a href="{{route('OurService')}}">Faq</a></li>
+                            <li><a href="{{route('OurService')}}">Mission & Vision</a></li>
+                            <li><a href="{{route('WhoWeAre')}}">Our Information</a></li>
+                            <li><a href="{{route('OurService')}}">News</a></li>
                         </ul>
                     </li>
                     <li><a href="{{route('faq')}}"><i class="fa fa-question-circle" aria-hidden="true"></i> FAQ</a>

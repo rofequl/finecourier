@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\basic_information;
+use App\contact;
 use App\slider_manage;
+use App\testimonial;
 use Illuminate\Http\Request;
 use Session;
 
@@ -126,6 +128,96 @@ class HomeController extends Controller
         $insert->save();
         Session::flash('message', 'Slider Update successfully');
         return redirect('slider-manage');
+    }
+
+    public function AdminContact()
+    {
+        $contact = contact::all();
+        return view('admin.contact',compact('contact'));
+    }
+
+    public function AdminContactAdd(Request $request)
+    {
+        $request->validate([
+            'contact_title' => 'required|max:191',
+            'contact_information' => 'required',
+        ]);
+
+        $insert = new contact();
+        $insert->contact_title = $request->contact_title;
+        $insert->contact_information = $request->contact_information;
+        $insert->save();
+        Session::flash('message', 'Contact add successfully');
+        return redirect('admin-contact');
+    }
+
+    public function AdminContactDelete(Request $request)
+    {
+        if ($request->delete) {
+            $data = contact::find($request->delete);
+            $data->delete();
+            Session::flash('message', 'Contact Delete Successfully');
+            return redirect('admin-contact');
+        } else {
+            echo "Something Wrong";
+        }
+    }
+
+    public function AdminTestimonial()
+    {
+        $contact = testimonial::all();
+        return view('admin.testimonial',compact('contact'));
+    }
+
+    public function AdminTestimonialAdd(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:191',
+            'profession' => 'required|max:191',
+            'message' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000'
+        ]);
+
+        $insert = new testimonial();
+        $insert->name = $request->name;
+        $insert->profession = $request->profession;
+        $insert->message = $request->message;
+        if ($request->hasFile('image')) {
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileStore3 = rand(10, 100) . time() . "." . $extension;
+            $request->file('image')->storeAs('public/testimonial', $fileStore3);
+            $insert->image = $fileStore3;
+        }
+        $insert->save();
+        Session::flash('message', 'Testimonial add successfully');
+        return redirect('admin-testimonial');
+    }
+
+    public function AdminTestimonialStatus(Request $request)
+    {
+        if ($request->show){
+            $insert = testimonial::find($request->show);
+            $insert->status = 1;
+            $insert->save();
+            return redirect('admin-testimonial');
+        }else{
+            $insert = testimonial::find($request->hide);
+            $insert->status = 0;
+            $insert->save();
+            return redirect('admin-testimonial');
+        }
+    }
+
+    public function AdminTestimonialDelete(Request $request)
+    {
+        if ($request->delete) {
+            $data = testimonial::find($request->delete);
+            $data->delete();
+            Session::flash('message', 'Testimonial Delete Successfully');
+            return redirect('admin-testimonial');
+        } else {
+            echo "Something Wrong";
+        }
     }
 
 }

@@ -20,11 +20,16 @@
                         <div class="footer_social">
                             <h4>get connected</h4>
                             <ul>
-                                <li><a href="#"><span class="fa fa-facebook"></span></a></li>
-                                <li><a href="#"><span class="fa fa-twitter"></span></a></li>
-                                <li><a href="#"><span class="fa fa-pinterest-p"></span></a></li>
-                                <li><a href="#"><span class="fa fa-linkedin"></span></a></li>
-                                <li><a href="#"><span class="fa fa-skype"></span></a></li>
+                                <li><a href="{{basic_information()->facebook_link}}"><span
+                                                class="fa fa-facebook"></span></a></li>
+                                <li><a href="{{basic_information()->twiter_link}}"><span
+                                                class="fa fa-twitter"></span></a></li>
+                                <li><a href="{{basic_information()->pinterest_link}}"><span
+                                                class="fa fa-pinterest-p"></span></a></li>
+                                <li><a href="{{basic_information()->linkedin}}"><span class="fa fa-linkedin"></span></a>
+                                </li>
+                                <li><a href="{{basic_information()->google_plus_link}}"><span
+                                                class="fa fa-google-plus"></span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -38,12 +43,9 @@
                         </div>
                         <div class="footer_links">
                             <ul>
-                                <li><a href="#">Sea Freight</a></li>
-                                <li><a href="#">Road Transportation</a></li>
-                                <li><a href="#">Air Freight</a></li>
-                                <li><a href="#">Railway Logistics</a></li>
-                                <li><a href="#">Packaging & Storage</a></li>
-                                <li><a href="#">Warehousing</a></li>
+                                @foreach(service() as $services)
+                                    <li><a href="#">{{$services->title}}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -58,20 +60,20 @@
                         <div class="footer_address">
                             <ul>
                                 <li><span class="fa fa-paper-plane-o"></span>
-                                    <div class="address_right">house 1287, road 11, ave 02, mirpur dohs, dhaka 1216</div>
+                                    <div class="address_right">{{basic_information()->address}}</div>
                                 </li>
                                 <li>
                                     <span class="fa fa-phone"></span>
                                     <div class="number address_right">
-                                        <a href="tel:01971335588">01971335588</a>
-                                        <a href="tel:01994807666">01994807666</a>
+                                        <a href="tel:{{basic_information()->phone_number_one}}">{{basic_information()->phone_number_one}}</a>
+                                        <a href="tel:{{basic_information()->phone_number_two}}">{{basic_information()->phone_number_two}}</a>
                                     </div>
                                 </li>
                                 <li>
                                     <span class="fa fa-envelope-o"></span>
                                     <div class="address_right">
-                                        <a href="mailto:finecourier@gmail.com">finecourier@gmail.com</a>
-                                        <a href="#">finecourier.com</a>
+                                        <a href="mailto:{{basic_information()->email}}">{{basic_information()->email}}</a>
+                                        <a href="{{basic_information()->website_link}}">{{basic_information()->website_link}}</a>
                                     </div>
                                 </li>
                             </ul>
@@ -115,8 +117,9 @@
         <div class="container">
             <div class="col-md-6 xs_fullwidth col-xs-6">
                 <div class="footer_text_wrapper">
-                    <p class="footer_text">Copyright © 2019 FINE COURIER. All Rights Reserved by <a
-                                href="https://themeforest.net/user/themeebit">FINE COURIER</a></p>
+                    <p class="footer_text">{{basic_information()->footer_text}} <a
+                                href="{{basic_information()->website_link}}">{{basic_information()->company_name}}</a>
+                    </p>
                 </div>
             </div>
             <div class="col-md-6 xs_fullwidth col-xs-6">
