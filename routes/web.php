@@ -65,4 +65,16 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::get('/our-service-delete', 'AboutController@OurServiceDelete')->name('OurServiceDelete');
     Route::post('/our-service-update', 'AboutController@OurServiceUpdate')->name('OurServiceUpdate');
 
+    Route::get('/who-we-are/{id?}', 'AboutController@WhoWeAre')->name('WhoWeAre');
+    Route::post('/who-we-are', 'AboutController@WhoWeAreAdd')->name('WhoWeAreAdd');
+    Route::get('/who-we-are-status', 'AboutController@whoWeAreStatus')->name('whoWeAreStatus');
+    Route::post('/who-we-are-update', 'AboutController@WhoWeAreAddUpdate')->name('WhoWeAreAddUpdate');
+    Route::get('/who-we-are-delete', 'AboutController@WhoWeAreAddDelete')->name('WhoWeAreAddDelete');
+
+    Route::get('/faq/{data?}','faqController@faq')->name('faq');
+    Route::post('/faq','faqController@faqAdd')->name('faqAdd');
+    Route::get('/faqStatus','faqController@faqStatus')->name('faqStatus');
+    Route::post('/faq-update','faqController@faqUpdate')->name('faqUpdate');
+    Route::get('/faq-delete', 'faqController@faqDelete')->name('faqDelete');
+
 });

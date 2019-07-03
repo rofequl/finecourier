@@ -26,10 +26,11 @@
                     <li><a><i class="fa fa-home"></i> About us <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{route('OurService')}}">Our Service</a></li>
+                            <li><a href="{{route('WhoWeAre')}}">Who We Are</a></li>
                         </ul>
                     </li>
-
-                </ul>
+                    <li><a href="{{route('faq')}}"><i class="fa fa-question-circle" aria-hidden="true"></i> FAQ</a>
+               </ul>
             </div>
 
         </div>
