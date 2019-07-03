@@ -1,7 +1,15 @@
 @extends('admin.layout.app')
 @section('content')
 
-
+    <style>
+        #previewImage {
+            width: 100px;
+            height: 100px;
+            border: 1px dotted gray;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
     <div class="right_col" role="main">
         <div class="">
             <div class="clearfix"></div>
@@ -24,17 +32,33 @@
                     <div class="x_panel">
                         <div class="x_content">
                             <form class="form-horizontal form-label-left" novalidate=""
-                                  action="{{ route('WhoWeAreAddUpdate') }}" method="post"
+                                  action="{{ route('AdminSponsorUpdate') }}" method="post"
                                   enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <input type="hidden" value="{{$oneData->id}}" name="id">
-                                <span class="section">Add Our Service</span>
+                                <span class="section">Update Sponsor</span>
 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name2">Service Information</label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Sponsor
+                                        Image</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <textarea id="textarea" name="description"
-                                                  class="form-control col-md-7 col-xs-12">{{$oneData->description}}</textarea>
+                                        <div onclick="chooseFile()" id="previewImage">
+                                            <div class="mt-5">
+                                                <i class="fa fa-cloud-upload fa-3x"></i><br>
+                                                Add a Sponsor Image
+                                            </div>
+                                        </div>
+                                        <input type="file" name="image" class="ImageUpload hidden">
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Sponsor
+                                        Link</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="name" class="form-control col-md-7 col-xs-12"
+                                               data-validate-length-range="6" data-validate-words="2"
+                                               name="url" value="{{$oneData->url}}"
+                                               placeholder="Sponsor URL" type="url">
                                     </div>
                                 </div>
                                 <div class="ln_solid"></div>
@@ -59,19 +83,34 @@
                             <div class="x_panel">
                                 <div class="x_content">
                                     <form class="form-horizontal form-label-left" novalidate=""
-                                          action="{{ route('WhoWeAreAdd') }}" method="post"
+                                          action="{{ route('AdminSponsorAdd') }}" method="post"
                                           enctype="multipart/form-data">
                                         {{csrf_field()}}
-                                        <span class="section">Add Who We Are</span>
+                                        <span class="section">Add New Sponsor</span>
 
                                         <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name2">Description (Who We Are)</label>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Sponsor
+                                                Image</label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <textarea id="textarea" name="description"
-                                                          class="form-control col-md-7 col-xs-12"></textarea>
+                                                <div onclick="chooseFile()" id="previewImage">
+                                                    <div class="mt-5">
+                                                        <i class="fa fa-cloud-upload fa-3x"></i><br>
+                                                        Add a Sponsor Image
+                                                    </div>
+                                                </div>
+                                                <input type="file" name="image" class="ImageUpload hidden">
                                             </div>
                                         </div>
-
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Sponsor
+                                                Link</label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="name" class="form-control col-md-7 col-xs-12"
+                                                       data-validate-length-range="6" data-validate-words="2"
+                                                       name="url"
+                                                       placeholder="Sponsor URL" type="url">
+                                            </div>
+                                        </div>
                                         <div class="ln_solid"></div>
                                         <div class="form-group">
                                             <div class="col-md-6 col-md-offset-3">
@@ -96,12 +135,12 @@
                             <div class="col-12">
                                 <div class="x_panel">
                                     <div class="x_title">
-                                        <h2>Who-We-Are Manage</h2>
+                                        <h2>Sponsor Manage</h2>
                                         <ul class="nav navbar-right panel_toolbox">
                                             <li><a data-toggle="collapse" data-target=".multi-collapse"
                                                    aria-expanded="false"
                                                    aria-controls="multiCollapseExample1 multiCollapseExample2"><i
-                                                            class="fa fa-plus"></i> Add New Description</a>
+                                                            class="fa fa-plus"></i> Add New Sponsor</a>
                                             </li>
                                         </ul>
                                         <div class="clearfix"></div>
@@ -112,42 +151,33 @@
                                             <thead>
                                             <tr class="bg-dark">
                                                 <th>#</th>
-                                                <th>Description (Who-We-Are)</th>
-                                                <th>Status</th>
+                                                <th>Image</th>
+                                                <th>Url</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             @foreach($data as $datas)
-                                            <tr>
-                                                <td>{{ $datas->id }}</td>
-                                                <td>{{ str_limit($datas->description,80)  }}</td>
-                                                <td>
-                                                    @if($datas->status == 0)
-                                                        <a href="{{route('whoWeAreStatus','show='.$datas->id)}}"
-                                                           type="button" class="btn btn-sm btn-success"
-                                                           data-toggle="tooltip" data-placement="top" title=""
-                                                           data-original-title="Click to show this who-we-are">Inactive
-                                                        </a>
-                                                    @else
-                                                        <a href="{{route('whoWeAreStatus','hide='.$datas->id)}}"
-                                                           type="button" class="btn btn-sm btn-primary"
-                                                           data-toggle="tooltip" data-placement="top" title=""
-                                                           data-original-title="Click to hide this who-we-are">Active
-                                                        </a>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <a href="{{route('WhoWeAre',$datas->id)}}" style="margin: 0 2px" data-toggle="tooltip"
-                                                       data-placement="top" title=""
-                                                       data-original-title="Edit"><i
-                                                                class="fa fa-edit fa-2x"></i></a>
-                                                    <a href="{{route('WhoWeAreAddDelete','delete='.$datas->id)}}" style="margin: 0 2px" data-toggle="tooltip"
-                                                       data-placement="top" title=""
-                                                       data-original-title="Delete" class="delete"><i
-                                                                class="fa fa-trash fa-2x"></i></a>
-                                                </td>
-                                            </tr>
+
+                                                <tr>
+                                                    <th scope="row">{{$datas->id}}</th>
+                                                    <td><img src="{{asset('storage/sponsor/'.$datas->image)}}"
+                                                             width="100px"></td>
+                                                    <td>
+                                                        {{$datas->url}}
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{route('AdminSponsor',$datas->id)}}" style="margin: 0 2px" data-toggle="tooltip"
+                                                           data-placement="top" title=""
+                                                           data-original-title="Edit"><i
+                                                                    class="fa fa-edit fa-2x"></i></a>
+                                                        <a href="{{route('AdminSponsorDelete','delete='.$datas->id)}}" style="margin: 0 2px" data-toggle="tooltip"
+                                                           data-placement="top" title=""
+                                                           data-original-title="Delete" class="delete"><i
+                                                                    class="fa fa-trash fa-2x"></i></a>
+                                                    </td>
+                                                </tr>
+
                                             @endforeach
                                             </tbody>
                                         </table>
@@ -168,11 +198,35 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
 @endpush
 
- @push('scripts')
+@push('scripts')
     <!-- validator -->
     <script src="{{asset('assets/vendors/validator/validator.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <script>
+        function chooseFile() {
+            $(".ImageUpload").click();
+        }
+
+        $(function () {
+            $(".ImageUpload").change(function () {
+                let file = this.files[0];
+                let imagefile = file.type;
+                let match = ["image/jpeg", "image/png", "image/jpg"];
+                if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2]))) {
+                    alert("only jpeg, jpg and png Images type allowed");
+                    return false;
+                } else {
+                    $('#previewImage').html('<img src="" class="img-thumbnail h-100 mx-auto" id="previewLogo">');
+                    let reader = new FileReader();
+                    reader.onload = imageIsLoaded;
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        });
+
+        function imageIsLoaded(e) {
+            $('#previewLogo').attr('src', e.target.result);
+        }
 
         $('.delete').click(function (e) {
             e.preventDefault(); // Prevent the href from redirecting directly

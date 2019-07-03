@@ -18,9 +18,11 @@ Route::get('/logout', 'FrontendController@logout')->name('logout');
 
 Route::get('/about', 'FrontendController@about')->name('about_us');
 
-Route::get('/about_us2', function () { $title = 'About us'; return view('about_us2',compact('title'));})->name('about_us2');
+Route::get('/service', 'FrontendController@service')->name('service');
 
-Route::get('/service', function () { $title = 'Our Service'; return view('service',compact('title'));})->name('service');
+Route::get('/contact', 'FrontendController@contact')->name('contact');
+
+Route::get('/news', 'FrontendController@news')->name('news');
 
 Route::get('/service_sidebar', function () { $title = 'Service Sidebar'; return view('service_sidebar',compact('title'));})->name('service_sidebar');
 
@@ -30,13 +32,9 @@ Route::get('/track_trace', function () { $title = 'Track & Trace'; return view('
 
 Route::get('/quote', function () { $title = 'Request Quote'; return view('quote',compact('title'));})->name('quote');
 
-Route::get('/news', function () { $title = 'Latest News'; return view('news',compact('title'));})->name('news');
-
 Route::get('/news_list', function () { $title = 'News List'; return view('news_list',compact('title'));})->name('news_list');
 
 Route::get('/single_news', function () { $title = 'News Details'; return view('single_news',compact('title'));})->name('single_news');
-
-Route::get('/contact', function () { $title = 'Contact Us'; return view('contact',compact('title'));})->name('contact');
 
 /*
 |--------------------------------------------------------------------------
@@ -67,19 +65,15 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::get('/our-service-delete', 'AboutController@OurServiceDelete')->name('OurServiceDelete');
     Route::post('/our-service-update', 'AboutController@OurServiceUpdate')->name('OurServiceUpdate');
 
-<<<<<<< HEAD
-    Route::get('/who-we-are/{id?}', 'AboutController@WhoWeAre')->name('WhoWeAre');
-    Route::post('/who-we-are', 'AboutController@WhoWeAreAdd')->name('WhoWeAreAdd');
-    Route::get('/who-we-are-status', 'AboutController@whoWeAreStatus')->name('whoWeAreStatus');
-    Route::post('/who-we-are-update', 'AboutController@WhoWeAreAddUpdate')->name('WhoWeAreAddUpdate');
-    Route::get('/who-we-are-delete', 'AboutController@WhoWeAreAddDelete')->name('WhoWeAreAddDelete');
+    Route::get('/our-information', 'AboutController@OurInformation')->name('OurInformation');
+    Route::post('/our-information', 'AboutController@OurInformationAdd')->name('OurInformationAdd');
 
-    Route::get('/faq/{data?}','faqController@faq')->name('faq');
-    Route::post('/faq','faqController@faqAdd')->name('faqAdd');
-    Route::get('/faqStatus','faqController@faqStatus')->name('faqStatus');
-    Route::post('/faq-update','faqController@faqUpdate')->name('faqUpdate');
-    Route::get('/faq-delete', 'faqController@faqDelete')->name('faqDelete');
-=======
+    Route::get('/faq/{data?}','AboutController@faq')->name('faq');
+    Route::post('/faq','AboutController@faqAdd')->name('faqAdd');
+    Route::get('/faqStatus','AboutController@faqStatus')->name('faqStatus');
+    Route::post('/faq-update','AboutController@faqUpdate')->name('faqUpdate');
+    Route::get('/faq-delete', 'AboutController@faqDelete')->name('faqDelete');
+
     Route::get('/admin-contact/{data?}', 'HomeController@AdminContact')->name('AdminContact');
     Route::post('/admin-contact', 'HomeController@AdminContactAdd')->name('AdminContactAdd');
     Route::get('/admin-contact-delete', 'HomeController@AdminContactDelete')->name('AdminContactDelete');
@@ -88,6 +82,16 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::post('/admin-testimonial', 'HomeController@AdminTestimonialAdd')->name('AdminTestimonialAdd');
     Route::get('/admin-testimonial-status', 'HomeController@AdminTestimonialStatus')->name('AdminTestimonialStatus');
     Route::get('/admin-testimonial-delete', 'HomeController@AdminTestimonialDelete')->name('AdminTestimonialDelete');
->>>>>>> ed8d9a082f1a1f63b49f948160f3ac6d3d45d5c8
+
+    Route::get('/admin-sponsor/{data?}', 'HomeController@AdminSponsor')->name('AdminSponsor');
+    Route::post('/admin-sponsor', 'HomeController@AdminSponsorAdd')->name('AdminSponsorAdd');
+    Route::get('/admin-sponsor-delete', 'HomeController@AdminSponsorDelete')->name('AdminSponsorDelete');
+    Route::post('/admin-sponsor-update', 'HomeController@AdminSponsorUpdate')->name('AdminSponsorUpdate');
+
+    Route::get('/admin-news/{data?}', 'AboutController@AdminNews')->name('AdminNews');
+    Route::post('/admin-news', 'AboutController@AdminNewsAdd')->name('AdminNewsAdd');
+    Route::get('/admin-news-status', 'AboutController@AdminNewsStatus')->name('AdminNewsStatus');
+    Route::get('/admin-news-delete', 'AboutController@AdminNewsDelete')->name('AdminNewsDelete');
+    Route::post('/admin-news-update', 'AboutController@AdminNewsUpdate')->name('AdminNewsUpdate');
 
 });

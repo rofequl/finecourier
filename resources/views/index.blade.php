@@ -231,12 +231,10 @@
 
                     <div class="about_us_content">
                         <div class="who_we_text">
-                            @foreach($WhoWeAre as $WhoWeAres)
-                                <p>
-                                    {{$WhoWeAres->description}}
-                                </p>
+                            <p>
+                                {{$information->who_we_are}}
+                            </p>
 
-                            @endforeach
                         </div>
 
                         <div class="who_we_btn">
@@ -262,23 +260,23 @@
 
                             <!-- single accprdion pnae start -->
                             @foreach($faq as $faqs)
-                            <div class="panel panel-default">
-                               <div class="single_acco_title">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#{{$faqs->id}}"
-                                           aria-expanded="false" class="collapsed">
-                                            {{$faqs->title}}
-                                            <span class="fa fa-plus"></span></a>
-                                    </h4>
-                                </div>
-                                <div id="{{$faqs->id}}" class="panel-collapse collapse" aria-expanded="false"
-                                     style="height: 0px;" role="tablist">
-                                    <div class="panel-body text-justify"><p>{{$faqs->description}}</p>
-                                        <span class="acoo_icon fa fa-truck"></span>
+                                <div class="panel panel-default">
+                                    <div class="single_acco_title">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#{{$faqs->id}}"
+                                               aria-expanded="false" class="collapsed">
+                                                {{$faqs->title}}
+                                                <span class="fa fa-plus"></span></a>
+                                        </h4>
                                     </div>
-                                </div>
-                            </div><!-- single accprdion pnae end -->
-                        @endforeach
+                                    <div id="{{$faqs->id}}" class="panel-collapse collapse" aria-expanded="false"
+                                         style="height: 0px;" role="tablist">
+                                        <div class="panel-body text-justify"><p>{{$faqs->description}}</p>
+                                            <span class="acoo_icon fa fa-truck"></span>
+                                        </div>
+                                    </div>
+                                </div><!-- single accprdion pnae end -->
+                            @endforeach
                         </div><!-- /.panel-group ends -->
                     </div><!-- accrodion area ends  -->
                 </div><!-- /.col-md-6 ends -->
@@ -469,7 +467,8 @@
                                     </div>
                                     <div class="person_about">
                                         <div class="image">
-                                            <img src="{{asset('storage/testimonial/'.$testimonials->image)}}" alt="testimonial-img">
+                                            <img src="{{asset('storage/testimonial/'.$testimonials->image)}}"
+                                                 alt="testimonial-img">
                                         </div>
                                         <div class="desig">
                                             <p class="name">{{$testimonials->name}}</p>
@@ -522,18 +521,12 @@
                 <div class="col-md-12">
                     <div class="partner_wrapper">
                         <div class="partner_slider">
-                            <div class="partner">
-                                <img src="images/partner1.png" alt="">
-                            </div>
-                            <div class="partner">
-                                <img src="images/partner2.png" alt="">
-                            </div>
-                            <div class="partner">
-                                <img src="images/partner1.png" alt="">
-                            </div>
-                            <div class="partner">
-                                <img src="images/partner2.png" alt="">
-                            </div>
+                            @foreach($sponsor as $sponsors)
+                                <div class="partner">
+                                    <a href="{{$sponsors->url}}"><img
+                                                src="{{asset('storage/sponsor/'.$sponsors->image)}}" alt="" height="100%"></a>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

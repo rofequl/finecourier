@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-md-6 col-xs-6 xs_fullwidth v_middle">
                 <div class="about_us_img">
-                    <img src="images/about_us_img.jpg" alt="">
+                    <img src="{{asset('storage/our_information/'.$information->image)}}" alt="">
                 </div>
             </div>
             <div class="col-md-6 col-xs-6 xs_fullwidth v_middle">
@@ -29,24 +29,12 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fadeInUpShort animated active" id="mission">
-                                <div class="mission_vision_title"><h4>Our Next Mission</h4></div>
-                                <p>Claritas est etiam processus dynamicus qui sequitur mutationem consuetudium the Mirum est notare quam
-                                    littera gothica quam nunc putamus parum claram anteposuerit litterarum formas humanitatis per seacula
-                                    quarta decima et quinta decima Eodem modo typi qui nunc nobis videntur parum clari fiant sollemnes in
-                                    futurum.</p>
-                                <p>Formas humanitatis per seacula quarta decima et quinta decima Eodem modo typi quinunc nobis
-                                    videntur parum clari fiant sollemnes in futurum.formas humanitatis per seacuquarta decima et
-                                    quinta decima Eodem modo typi qui nunc mnes in futurum.</p>
+                                <div class="mission_vision_title"><h4>{{$information->mission_title}}</h4></div>
+                                <p>{{$information->mission}}</p>
                             </div>
                             <div role="tabpanel" class="tab-pane fadeInUpShort animated" id="vision">
-                                <div class="mission_vision_title"><h4>Our Next Vision</h4></div>
-                                <p>Claritas est etiam processus dynamicus qui sequitur mutationem consuetudium the Mirum est notare quam
-                                    littera gothica quam nunc putamus parum claram anteposuerit litterarum formas humanitatis per seacula
-                                    quarta decima et quinta decima Eodem modo typi qui nunc nobis videntur parum clari fiant sollemnes in
-                                    futurum.</p>
-                                <p>Formas humanitatis per seacula quarta decima et quinta decima Eodem modo typi quinunc nobis
-                                    videntur parum clari fiant sollemnes in futurum.formas humanitatis per seacuquarta decima et
-                                    quinta decima Eodem modo typi qui nunc mnes in futurum.</p>
+                                <div class="mission_vision_title"><h4>{{$information->vision_title}}</h4></div>
+                                <p>{{$information->vision}}</p>
                             </div>
                         </div>
                     </div>
@@ -82,14 +70,8 @@
 
                 <div class="about_us_content">
                     <div class="who_we_text">
-                        <p>Claritas est etiam processus dynamicus qui sequitur mutationem consuetudium lectorum.
-                            Mirum est notare quam littera gothica quam nunc putamus parum claram antep litterarum
-                            formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi qununc
-                            nobis videntur parum clari fiant sollemnes. </p>
+                        <p>{{$information->who_we_are}}</p>
 
-                        <p>Delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobeleifend
-                            option congue nihil imperdiet doming id quod mazim placerat facer possim assum Typi non habent
-                            claritatem insitam est usus legentis in iis qui facit eorum claritatem</p>
                     </div>
 
                     <div class="who_we_btn">
@@ -114,55 +96,25 @@
                     <div class="panel-group" id="accordion">
 
                         <!-- single accprdion pnae start -->
-                        <div class="panel panel-default">
-                            <div class="single_acco_title">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" class="collapsed">
-                                        Mirum est notare quam littera gothica quam nunc putamus ?<span class="fa fa-plus"></span></a>
-                                </h4>
-                            </div>
-                            <div id="collapse1" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;" role="tablist">
-                                <div class="panel-body"><p>Mirum est notare quam littera gothica, quam nunc putamus parum anteposuerit litterarum
-                                        formas humanitatis per seacula quarta decima et quinta deceo Eodem modo typi, qui nunc nobis videntur parum
-                                        clari, fiant sollemn</p>
-                                    <span class="acoo_icon fa fa-truck"></span>
+                        @foreach($faq as $faqs)
+                            <div class="panel panel-default">
+                                <div class="single_acco_title">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#{{$faqs->id}}"
+                                           aria-expanded="false" class="collapsed">
+                                            {{$faqs->title}}
+                                            <span class="fa fa-plus"></span></a>
+                                    </h4>
                                 </div>
-                            </div>
-                        </div><!-- single accprdion pnae end -->
+                                <div id="{{$faqs->id}}" class="panel-collapse collapse" aria-expanded="false"
+                                     style="height: 0px;" role="tablist">
+                                    <div class="panel-body text-justify"><p>{{$faqs->description}}</p>
+                                        <span class="acoo_icon fa fa-truck"></span>
+                                    </div>
+                                </div>
+                            </div><!-- single accprdion pnae end -->
+                        @endforeach
 
-                        <!-- single accprdion pnae start -->
-                        <div class="panel panel-default">
-                            <div class="single_acco_title">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="collapsed" aria-expanded="false">
-                                        Typi non habent claritatem insitam; est usus legentis ? <span class="fa fa-plus"></span></a>
-                                </h4>
-                            </div>
-                            <div id="collapse2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;" role="tablist">
-                                <div class="panel-body"><p>Mirum est notare quam littera gothica, quam nunc putamus parum anteposuerit litterarum
-                                        formas humanitatis per seacula quarta decima et quinta deceo Eodem modo typi, qui nunc nobis videntur parum
-                                        clari, fiant sollemn</p>
-                                    <span class="acoo_icon fa fa-truck"></span>
-                                </div>
-                            </div>
-                        </div><!-- single accprdion pnae end -->
-
-                        <!-- single accprdion pnae start -->
-                        <div class="panel panel-default">
-                            <div class="single_acco_title">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="collapsed" aria-expanded="false">
-                                        Processus dynamicus, qui sequitur mutationem cons ? <span class="fa fa-plus"></span></a>
-                                </h4>
-                            </div>
-                            <div id="collapse3" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;" role="tablist">
-                                <div class="panel-body"><p>Mirum est notare quam littera gothica, quam nunc putamus parum anteposuerit litterarum
-                                        formas humanitatis per seacula quarta decima et quinta deceo Eodem modo typi, qui nunc nobis videntur parum
-                                        clari, fiant sollemn</p>
-                                    <span class="acoo_icon fa fa-truck"></span>
-                                </div>
-                            </div>
-                        </div><!-- single accprdion pnae end -->
 
                     </div><!-- /.panel-group ends -->
                 </div><!-- accrodion area ends  -->
@@ -368,18 +320,12 @@
             <div class="col-md-12">
                 <div class="partner_wrapper">
                     <div class="partner_slider">
-                        <div class="partner">
-                            <img src="images/partner1.png" alt="">
-                        </div>
-                        <div class="partner">
-                            <img src="images/partner2.png" alt="">
-                        </div>
-                        <div class="partner">
-                            <img src="images/partner1.png" alt="">
-                        </div>
-                        <div class="partner">
-                            <img src="images/partner2.png" alt="">
-                        </div>
+                        @foreach($sponsor as $sponsors)
+                            <div class="partner">
+                                <a href="{{$sponsors->url}}"><img
+                                            src="{{asset('storage/sponsor/'.$sponsors->image)}}" alt="" height="100%"></a>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

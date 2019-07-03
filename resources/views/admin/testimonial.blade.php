@@ -3,12 +3,12 @@
     <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
     <style>
         #previewImage {
-            width: 100px;
-            height: 100px;
-            border: 1px dotted gray;
-            text-align: center;
-            cursor: pointer;
-        }
+             width: 100px;
+             height: 100px;
+             border: 1px dotted gray;
+             text-align: center;
+             cursor: pointer;
+         }
     </style>
     <div class="right_col" role="main">
         <div class="">

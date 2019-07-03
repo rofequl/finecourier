@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\basic_information;
 use App\contact;
 use App\slider_manage;
+use App\sponsor;
 use App\testimonial;
 use Illuminate\Http\Request;
 use Session;
@@ -218,6 +219,70 @@ class HomeController extends Controller
         } else {
             echo "Something Wrong";
         }
+    }
+
+    public function AdminSponsor($id = false)
+    {
+        if ($id){
+            $data = sponsor::all();
+            $oneData = sponsor::find($id);
+            return view('admin.sponsor',compact('data','oneData'));
+        }else{
+            $data = sponsor::all();
+            return view('admin.sponsor',compact('data'));
+        }
+    }
+
+    public function AdminSponsorAdd(Request $request)
+    {
+        $request->validate([
+            'url' => 'required|max:191',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5000'
+        ]);
+
+        $insert = new sponsor();
+        $insert->url = $request->url;
+        if ($request->hasFile('image')) {
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileStore3 = rand(10, 100) . time() . "." . $extension;
+            $request->file('image')->storeAs('public/sponsor', $fileStore3);
+            $insert->image = $fileStore3;
+        }
+        $insert->save();
+        Session::flash('message', 'Sponsor add successfully');
+        return redirect('admin-sponsor');
+    }
+
+    public function AdminSponsorDelete(Request $request)
+    {
+        if ($request->delete) {
+            $data = sponsor::find($request->delete);
+            $data->delete();
+            Session::flash('message', 'Sponsor Delete Successfully');
+            return redirect('/admin-sponsor');
+        } else {
+            echo "Something Wrong";
+        }
+    }
+
+    public function AdminSponsorUpdate(Request $request)
+    {
+        $request->validate([
+            'url' => 'required|max:191',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000'
+        ]);
+
+        $insert = sponsor::find($request->id);
+        $insert->url = $request->url;
+        if ($request->hasFile('image')) {
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileStore3 = rand(10, 100) . time() . "." . $extension;
+            $request->file('image')->storeAs('public/sponsor', $fileStore3);
+            $insert->image = $fileStore3;
+        }
+        $insert->save();
+        Session::flash('message', 'Sponsor Update successfully');
+        return redirect('admin-sponsor');
     }
 
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWhoWeAresTable extends Migration
+class CreateNewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CreateWhoWeAresTable extends Migration
      */
     public function up()
     {
-        Schema::create('who_we_ares', function (Blueprint $table) {
+        Schema::create('news', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('title');
             $table->text('description');
+            $table->string('image');
+            $table->string('name');
+            $table->string('like')->default(0);
             $table->boolean('status')->default(0);
             $table->timestamps();
         });
@@ -28,6 +32,6 @@ class CreateWhoWeAresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('who_we_ares');
+        Schema::dropIfExists('news');
     }
 }

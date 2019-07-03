@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class who_we_are extends Model
+class our_inmormation extends Model
 {
     //
 }

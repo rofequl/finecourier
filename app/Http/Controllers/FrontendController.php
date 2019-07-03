@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\contact;
+use App\news;
+use App\our_inmormation;
 use App\service;
 use App\slider_manage;
+use App\sponsor;
 use App\who_we_are;
 use App\faq;
 use App\testimonial;
@@ -17,17 +21,43 @@ class FrontendController extends Controller
     public function index(){
         $slide = slider_manage::where('status',1)->get();
         $service = service::where('status',1)->get();
-        $WhoWeAre = who_we_are::where('status',1)->get();
+        $information = our_inmormation::all()->first();
         $faq = faq::where('status',1)->get();
         $testimonial = testimonial::where('status',1)->get();
-        return view('index',compact('slide','service','testimonial','WhoWeAre','faq'));
+        $sponsor = sponsor::all();
+        return view('index',compact('slide','service','testimonial','information','faq','sponsor'));
     }
 
     public function about(){
         $title = "About us";
         $service = service::where('status',1)->get();
+        $faq = faq::where('status',1)->get();
+        $information = our_inmormation::all()->first();
         $testimonial = testimonial::where('status',1)->get();
-        return view('about_us',compact('title','service','testimonial'));
+        $sponsor = sponsor::all();
+        return view('about_us',compact('title','service','testimonial','faq','information','sponsor'));
+    }
+
+    public function service(){
+        $title = "Service";
+        $service = service::all();
+        $faq = faq::where('status',1)->get();
+        $sponsor = sponsor::all();
+        return view('service',compact('title','service','faq','sponsor'));
+    }
+
+    public function contact(){
+        $title = "Contact";
+        $contact = contact::all();
+        $sponsor = sponsor::all();
+        return view('contact',compact('title','contact','sponsor'));
+    }
+
+    public function news(){
+        $title = "Latest News";
+        $news = news::all();
+        $sponsor = sponsor::all();
+        return view('news',compact('title','news','sponsor'));
     }
 
     public function login(){
