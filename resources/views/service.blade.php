@@ -19,13 +19,13 @@
                             </div>
                             <div class="service_content">
                                 <div class="service_title">
-                                    <a href="single_service.html"><h3>{{$services->title}}</h3></a>
+                                    <a href="{{route('SingleService',$services->id)}}"><h3>{{$services->title}}</h3></a>
                                 </div>
                                 <div class="service_text">
                                     <p>{{str_limit($services->description,80)}}</p>
                                 </div>
                                 <div class="read_more">
-                                    <a href="single_service.html">read more <span class="fa fa-long-arrow-right"></span></a>
+                                    <a href="{{route('SingleService',$services->id)}}">read more <span class="fa fa-long-arrow-right"></span></a>
                                 </div>
                             </div>
                         </div>

@@ -25,7 +25,7 @@
                     </div>
                 </div>
             </div>
-            <div class="clearfix"></div>
+            <div class="clearfix"></div><hr>
             @if ($errors->any())
                 @foreach ($errors->all() as $error)
                     <div class="alert alert-danger alert-dismissible">
@@ -41,7 +41,48 @@
                 </div>
             @endif
             <div class="row">
+                @if(isset($oneData))
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <form class="form-horizontal form-label-left" novalidate=""
+                                  action="{{ route('AdminContactUpdate') }}" method="post"
+                                  enctype="multipart/form-data">
+                                {{csrf_field()}}
+                                <input type="hidden" value="{{$oneData->id}}" name="id">
+                                <span class="section">Update Slider</span>
 
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Contact title</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="name" class="form-control col-md-7 col-xs-12"
+                                               data-validate-length-range="6" data-validate-words="2"
+                                               name="contact_title" value="{{$oneData->contact_title}}"
+                                               placeholder="Contact title" type="text">
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name2">Slider
+                                        Title Two</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <textarea id="editor2" name="contact_information">{{$oneData->contact_information}}</textarea>
+                                        <script>
+                                            CKEDITOR.replace('editor2');
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <a href="{{route('AdminContact')}}" type="reset" class="btn btn-primary">
+                                            Cancel
+                                        </a>
+                                        <button id="send" type="submit" class="btn btn-success">Update</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                @endif
                 @foreach($contact as $contacts)
 
                     <div class="col-md-3 col-xs-12 widget widget_tally_box">
@@ -57,7 +98,7 @@
                                     </a>
                                     <ul id="menu6" class="dropdown-menu animated fadeInDown" role="menu">
                                         <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                                   href="https://twitter.com/fat"><i
+                                                                   href="{{route('AdminContact',$contacts->id)}}"><i
                                                         class="fa fa-edit"></i> Edit</a>
                                         </li>
                                         <li role="presentation"><a role="menuitem" tabindex="-1" class="delete"

@@ -44,7 +44,7 @@
                         <div class="footer_links">
                             <ul>
                                 @foreach(service() as $services)
-                                    <li><a href="#">{{$services->title}}</a></li>
+                                    <li><a href="{{route('SingleService',$services->id)}}">{{$services->title}}</a></li>
                                 @endforeach
                             </ul>
                         </div>

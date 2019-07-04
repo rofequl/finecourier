@@ -26,7 +26,8 @@
                     </div>
                 </div>
             </div>
-            <div class="clearfix"></div><hr>
+            <div class="clearfix"></div>
+            <hr>
             @if ($errors->any())
                 @foreach ($errors->all() as $error)
                     <div class="alert alert-danger alert-dismissible">
@@ -53,7 +54,8 @@
                                 <span class="section">Add Our Service</span>
 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Service Title</label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Service
+                                        Title</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input id="name" class="form-control col-md-7 col-xs-12"
                                                data-validate-length-range="6" data-validate-words="2"
@@ -62,7 +64,8 @@
                                     </div>
                                 </div>
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name2">Service Information</label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name2">Service
+                                        Information</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <textarea id="textarea" name="description"
                                                   class="form-control col-md-7 col-xs-12">{{$oneData->description}}</textarea>
@@ -108,7 +111,8 @@
                                         {{csrf_field()}}
                                         <span class="section">Add News</span>
                                         <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">News Writer Name</label>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">News
+                                                Writer Name</label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input id="name" class="form-control col-md-7 col-xs-12"
                                                        data-validate-length-range="6" data-validate-words="2"
@@ -117,7 +121,8 @@
                                             </div>
                                         </div>
                                         <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">News Title</label>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">News
+                                                Title</label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input id="name" class="form-control col-md-7 col-xs-12"
                                                        data-validate-length-range="6" data-validate-words="2"
@@ -126,10 +131,18 @@
                                             </div>
                                         </div>
                                         <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name2">News Information</label>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name2">News
+                                                Information</label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <textarea id="textarea" name="description"
                                                           class="form-control col-md-7 col-xs-12"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">News Tags</label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="tags_1" type="text" class="tags form-control" value="" name="tag"/>
+                                                <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
                                             </div>
                                         </div>
                                         <div class="item form-group">
@@ -180,7 +193,8 @@
                                             @endif
                                         </div>
                                         <div role="presentation" class="dropdown pull-right">
-                                            <a id="drop4" href="#" data-toggle="dropdown" aria-haspopup="true" role="button"
+                                            <a id="drop4" href="#" data-toggle="dropdown" aria-haspopup="true"
+                                               role="button"
                                                aria-expanded="false">
                                                 <i class="fa fa-reorder"></i>
                                             </a>
@@ -201,10 +215,13 @@
                                                     <img src="{{asset('storage/news/'.$datas->image)}}" alt="..."
                                                          class="img-circle profile_img img-responsive center-block">
                                                 </div>
-                                            </div><br>
+                                            </div>
+                                            <br>
                                             <ul class="list-inline">
-                                                <li><a href="#"><span class="fa fa-user"></span> {{$datas->name}}</a></li>
-                                                <li><a href="#"><span class="fa fa-heart-o"></span> {{$datas->like}}</a></li>
+                                                <li><a href="#"><span class="fa fa-user"></span> {{$datas->name}}</a>
+                                                </li>
+                                                <li><a href="#"><span class="fa fa-heart-o"></span> {{$datas->like}}</a>
+                                                </li>
                                             </ul>
                                             <h4 class="">{{$datas->title}}</h4>
                                             <hr>
@@ -224,7 +241,7 @@
 @endsection
 
 @push('style')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet"/>
 @endpush
 
 @push('scripts')

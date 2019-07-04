@@ -30,7 +30,6 @@
                         <ul class="nav child_menu">
                             <li><a href="{{route('OurService')}}">Our Service</a></li>
                             <li><a href="{{route('faq')}}">Faq</a></li>
-                            <li><a href="{{route('OurService')}}">Mission & Vision</a></li>
                             <li><a href="{{route('OurInformation')}}">Our Information</a></li>
                             <li><a href="{{route('AdminNews')}}">News</a></li>
                         </ul>

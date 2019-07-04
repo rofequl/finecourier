@@ -114,7 +114,7 @@ class AboutController extends Controller
             'vision_title' => 'required|max:191',
             'vision' => 'required',
             'who_we_are' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5000'
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000'
         ]);
 
         $insert = our_inmormation::all()->first();
@@ -218,6 +218,7 @@ class AboutController extends Controller
 
     public function AdminNewsAdd(Request $request)
     {
+        dd($request->all());
         $request->validate([
             'name' => 'required|max:191',
             'title' => 'required|max:191',

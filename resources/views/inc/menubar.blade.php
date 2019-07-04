@@ -41,7 +41,7 @@
             <a href="{{route('news')}}">News</a>
             {{--            <div class="dropdwon">--}}
             {{--                <ul>--}}
-            {{--                    <li><a href="{{route('news_list')}}">news list</a></li>--}}
+            {{--                    <li><a href="">news list</a></li>--}}
             {{--                    <li><a href="{{route('news')}}">news grid</a></li>--}}
             {{--                </ul>--}}
             {{--            </div>--}}
@@ -79,7 +79,7 @@
                 <a href="#">My Account</a>
                 <div class="dropdwon" style="width: 117px;">
                     <ul>
-                        <li><a href="{{route('news_list')}}">Dashboard</a></li>
+                        <li><a href="{{route('dashboard')}}">Dashboard</a></li>
                         <li><a href="{{route('logout')}}">Logout</a></li>
                     </ul>
                 </div>

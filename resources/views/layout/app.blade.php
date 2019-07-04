@@ -94,7 +94,7 @@
 
 <!-- Waypoint -->
 <script src="{{asset('js/waypoints.min.js')}}"></script>
-
+<script src="{{ asset('js/share.js') }}"></script>
 <!-- Main js -->
 <script src="{{asset('js/main.js')}}"></script>
 @stack('scripts')

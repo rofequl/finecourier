@@ -104,17 +104,19 @@
                             @foreach($service as $services)
                                 <div class="single_service_wrapper">
                                     <div class="service_img">
-                                        <img src="{{asset('storage/service/'.$services->image)}}" alt="service-img">
+                                        <img src="{{asset('storage/service/'.$services->image)}}" alt="service-img"
+                                             height="180px">
                                     </div>
                                     <div class="service_content">
                                         <div class="service_title">
-                                            <a href="single_service.html"><h3>{{$services->title}}</h3></a>
+                                            <a href="{{route('SingleService',$services->id)}}">
+                                                <h3>{{$services->title}}</h3></a>
                                         </div>
                                         <div class="service_text">
                                             <p>{{str_limit($services->description,80)}}</p>
                                         </div>
                                         <div class="read_more">
-                                            <a href="single_service.html">read more <span
+                                            <a href="{{route('SingleService',$services->id)}}">read more <span
                                                         class="fa fa-long-arrow-right"></span></a>
                                         </div>
                                     </div>
@@ -318,104 +320,40 @@
                         <!-- service slider start -->
                         <div class="blog_slider">
 
-                            <div class="single_blog_wrapper">
-                                <div class="blog_img">
-                                    <img src="images/blog1.jpg" alt="service-img">
-                                </div>
-
-                                <div class="blog_content">
-                                    <div class="date">
-                                        <span>FEB</span>
-                                        <span class="num">10</span>
+                            @foreach($news as $newss)
+                                <div class="single_blog_wrapper">
+                                    <div class="blog_img">
+                                        <img src="{{asset('storage/news/'.$newss->image)}}" alt="service-img" width="100%" height="163px">
                                     </div>
 
-                                    <div class="blog_meta">
-                                        <ul>
-                                            <li><a href="#"><span class="fa fa-user"></span>Md.Masud</a></li>
-                                            <li><a href="#"><span class="fa fa-commenting-o"></span>250</a></li>
-                                            <li><a href="#"><span class="fa fa-heart-o"></span>120</a></li>
-                                        </ul>
-                                    </div>
+                                    <div class="blog_content">
+                                        <div class="date">
+                                            <span>{{$newss->updated_at->format('M')}}</span>
+                                            <span class="num">{{$newss->updated_at->format('d')}}</span>
+                                        </div>
 
-                                    <div class="blog_title">
-                                        <a href="single_news.html"><h3>Quarta Decima Etquinta</h3></a>
-                                    </div>
-                                    <div class="blog_text">
-                                        <p>Claritas est etiam processus dynamicus sequitur the consuetudium lectorum
-                                            Mirum est </p>
-                                    </div>
-                                    <div class="read_more">
-                                        <a href="single_news.html">read more <span
-                                                    class="fa fa-long-arrow-right"></span></a>
-                                    </div>
-                                </div>
-                            </div>
+                                        <div class="blog_meta">
+                                            <ul>
+                                                <li><a href="#"><span class="fa fa-user"></span>{{$newss->name}}</a></li>
+                                                <li><a href="#"><span class="fa fa-commenting-o"></span>250</a></li>
+                                                <li><a href="#"><span class="fa fa-heart-o"></span>{{$newss->like}}</a></li>
+                                            </ul>
+                                        </div>
 
-                            <div class="single_blog_wrapper">
-                                <div class="blog_img">
-                                    <img src="images/blog2.jpg" alt="service-img">
-                                </div>
-
-                                <div class="blog_content">
-                                    <div class="date">
-                                        <span>FEB</span>
-                                        <span class="num">10</span>
-                                    </div>
-
-                                    <div class="blog_meta">
-                                        <ul>
-                                            <li><a href="#"><span class="fa fa-user"></span>Md.Salam</a></li>
-                                            <li><a href="#"><span class="fa fa-commenting-o"></span>250</a></li>
-                                            <li><a href="#"><span class="fa fa-heart-o"></span>120</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="blog_title">
-                                        <a href="single_news.html"><h3> Mirum est notare quame </h3></a>
-                                    </div>
-                                    <div class="blog_text">
-                                        <p>Claritas est etiam processus dynamicus sequitur the consuetudium lectorum
-                                            Mirum est </p>
-                                    </div>
-                                    <div class="read_more">
-                                        <a href="single_news.html">read more <span
-                                                    class="fa fa-long-arrow-right"></span></a>
+                                        <div class="blog_title">
+                                            <a href="{{route('SingleNews',$newss->id)}}"><h3>{{$newss->title}}</h3></a>
+                                        </div>
+                                        <div class="blog_text">
+                                            <p>{{str_limit($newss->description,120)}}</p>
+                                        </div>
+                                        <div class="read_more">
+                                            <a href="{{route('SingleNews',$newss->id)}}">read more <span
+                                                        class="fa fa-long-arrow-right"></span></a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
 
-                            <div class="single_blog_wrapper">
-                                <div class="blog_img">
-                                    <img src="images/blog3.jpg" alt="service-img">
-                                </div>
-
-                                <div class="blog_content">
-                                    <div class="date">
-                                        <span>FEB</span>
-                                        <span class="num">10</span>
-                                    </div>
-
-                                    <div class="blog_meta">
-                                        <ul>
-                                            <li><a href="#"><span class="fa fa-user"></span>Md.Salam</a></li>
-                                            <li><a href="#"><span class="fa fa-commenting-o"></span>250</a></li>
-                                            <li><a href="#"><span class="fa fa-heart-o"></span>120</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="blog_title">
-                                        <a href="single_news.html"><h3>Quarta Decima Etquinta</h3></a>
-                                    </div>
-                                    <div class="blog_text">
-                                        <p>Claritas est etiam processus dynamicus sequitur the consuetudium lectorum
-                                            Mirum est </p>
-                                    </div>
-                                    <div class="read_more">
-                                        <a href="single_news.html">read more <span
-                                                    class="fa fa-long-arrow-right"></span></a>
-                                    </div>
-                                </div>
-                            </div>
                         </div><!-- service slider start -->
 
                         <!-- slider control start -->
@@ -524,7 +462,8 @@
                             @foreach($sponsor as $sponsors)
                                 <div class="partner">
                                     <a href="{{$sponsors->url}}"><img
-                                                src="{{asset('storage/sponsor/'.$sponsors->image)}}" alt="" height="100%"></a>
+                                                src="{{asset('storage/sponsor/'.$sponsors->image)}}" alt=""
+                                                height="100%"></a>
                                 </div>
                             @endforeach
                         </div>

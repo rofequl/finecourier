@@ -19,22 +19,22 @@ Route::get('/logout', 'FrontendController@logout')->name('logout');
 Route::get('/about', 'FrontendController@about')->name('about_us');
 
 Route::get('/service', 'FrontendController@service')->name('service');
+Route::get('/single-service/{id}', 'FrontendController@SingleService')->name('SingleService');
 
 Route::get('/contact', 'FrontendController@contact')->name('contact');
 
 Route::get('/news', 'FrontendController@news')->name('news');
-
-Route::get('/service_sidebar', function () { $title = 'Service Sidebar'; return view('service_sidebar',compact('title'));})->name('service_sidebar');
-
-Route::get('/single_service', function () { $title = 'Service Details'; return view('single_service',compact('title'));})->name('single_service');
+Route::get('/single-news/{id}', 'FrontendController@SingleNews')->name('SingleNews');
 
 Route::get('/track_trace', function () { $title = 'Track & Trace'; return view('track_trace',compact('title'));})->name('track_trace');
 
 Route::get('/quote', function () { $title = 'Request Quote'; return view('quote',compact('title'));})->name('quote');
 
-Route::get('/news_list', function () { $title = 'News List'; return view('news_list',compact('title'));})->name('news_list');
-
 Route::get('/single_news', function () { $title = 'News Details'; return view('single_news',compact('title'));})->name('single_news');
+
+Route::group(['middleware' => 'CheckUser'], function () {
+    Route::get('/dashboard', 'UserController@dashboard')->name('dashboard');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +76,7 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
 
     Route::get('/admin-contact/{data?}', 'HomeController@AdminContact')->name('AdminContact');
     Route::post('/admin-contact', 'HomeController@AdminContactAdd')->name('AdminContactAdd');
+    Route::post('/admin-contact-update', 'HomeController@AdminContactUpdate')->name('AdminContactUpdate');
     Route::get('/admin-contact-delete', 'HomeController@AdminContactDelete')->name('AdminContactDelete');
 
     Route::get('/admin-testimonial/{data?}', 'HomeController@AdminTestimonial')->name('AdminTestimonial');

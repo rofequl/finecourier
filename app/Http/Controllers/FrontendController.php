@@ -18,59 +18,87 @@ use Illuminate\Support\Facades\Hash;
 
 class FrontendController extends Controller
 {
-    public function index(){
-        $slide = slider_manage::where('status',1)->get();
-        $service = service::where('status',1)->get();
+    public function index()
+    {
+        $slide = slider_manage::where('status', 1)->get();
+        $service = service::where('status', 1)->get();
+        $news = news::where('status', 1)->get();
         $information = our_inmormation::all()->first();
-        $faq = faq::where('status',1)->get();
-        $testimonial = testimonial::where('status',1)->get();
+        $faq = faq::where('status', 1)->get();
+        $testimonial = testimonial::where('status', 1)->get();
         $sponsor = sponsor::all();
-        return view('index',compact('slide','service','testimonial','information','faq','sponsor'));
+        return view('index', compact('slide', 'news', 'service', 'testimonial', 'information', 'faq', 'sponsor'));
     }
 
-    public function about(){
+    public function about()
+    {
         $title = "About us";
-        $service = service::where('status',1)->get();
-        $faq = faq::where('status',1)->get();
+        $service = service::where('status', 1)->get();
+        $faq = faq::where('status', 1)->get();
         $information = our_inmormation::all()->first();
-        $testimonial = testimonial::where('status',1)->get();
+        $testimonial = testimonial::where('status', 1)->get();
         $sponsor = sponsor::all();
-        return view('about_us',compact('title','service','testimonial','faq','information','sponsor'));
+        return view('about_us', compact('title', 'service', 'testimonial', 'faq', 'information', 'sponsor'));
     }
 
-    public function service(){
+    public function service()
+    {
         $title = "Service";
         $service = service::all();
-        $faq = faq::where('status',1)->get();
+        $faq = faq::where('status', 1)->get();
         $sponsor = sponsor::all();
-        return view('service',compact('title','service','faq','sponsor'));
+        return view('service', compact('title', 'service', 'faq', 'sponsor'));
     }
 
-    public function contact(){
+    public function SingleService($id)
+    {
+        $title = "Service Details";
+        $service = service::find($id);
+        $testimonial = testimonial::where('status', 1)->get();
+        $sponsor = sponsor::all();
+        return view('single_service', compact('title', 'service', 'testimonial', 'sponsor'));
+    }
+
+    public function contact()
+    {
         $title = "Contact";
         $contact = contact::all();
         $sponsor = sponsor::all();
-        return view('contact',compact('title','contact','sponsor'));
+        return view('contact', compact('title', 'contact', 'sponsor'));
     }
 
-    public function news(){
+    public function news()
+    {
         $title = "Latest News";
         $news = news::all();
         $sponsor = sponsor::all();
-        return view('news',compact('title','news','sponsor'));
+        return view('news', compact('title', 'news', 'sponsor'));
     }
 
-    public function login(){
+    public function SingleNews($id)
+    {
+        $title = "News Details";
+        $news = news::find($id);
+        $recent_news = news::limit(3)->get();
+        $testimonial = testimonial::where('status', 1)->orderBy('id', 'DESC')->get();
+        $sponsor = sponsor::all();
+        return view('single_news', compact('title', 'news', 'testimonial', 'sponsor', 'recent_news'));
+    }
+
+    public function login()
+    {
         $title = "Login";
-        return view('login',compact('title'));
+        return view('login', compact('title'));
     }
 
-    public function register(){
+    public function register()
+    {
         $title = "Register";
-        return view('register',compact('title'));
+        return view('register', compact('title'));
     }
 
-    public function RegisterSubmit(Request $request){
+    public function RegisterSubmit(Request $request)
+    {
         $register_user = new user();
         $register_user->first_name = $request->first_name;
         $register_user->last_name = $request->last_name;
@@ -95,7 +123,7 @@ class FrontendController extends Controller
             if ($admin && Hash::check($request->password, $admin->password)) {
                 Session::put('user-email', $request->email);
                 Session::put('user-id', $admin->id);
-                return redirect('/');
+                return redirect('/dashboard');
             } else {
                 $request->session()->flash('login_error', 'password not match');
                 return redirect('/login');

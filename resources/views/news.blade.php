@@ -20,8 +20,8 @@
 
                             <div class="blog_content">
                                 <div class="date">
-                                    <span>FEB</span>
-                                    <span class="num">10</span>
+                                    <span class="text-uppercase">{{$newss->updated_at->format('M')}}</span>
+                                    <span class="num">{{$newss->updated_at->format('d')}}</span>
                                 </div>
 
                                 <div class="blog_meta">
@@ -32,13 +32,13 @@
                                 </div>
 
                                 <div class="blog_title">
-                                    <a href="single_news.html"><h3>{{$newss->title}}</h3></a>
+                                    <a href="{{route('SingleNews',$newss->id)}}"><h3>{{$newss->title}}</h3></a>
                                 </div>
                                 <div class="blog_text">
                                     <p>{{str_limit($newss->description,120)}}</p>
                                 </div>
                                 <div class="read_more">
-                                    <a href="single_news.html">read more <span class="fa fa-long-arrow-right"></span></a>
+                                    <a href="{{route('SingleNews',$newss->id)}}">read more <span class="fa fa-long-arrow-right"></span></a>
                                 </div>
                             </div>
                         </div>

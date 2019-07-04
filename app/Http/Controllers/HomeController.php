@@ -50,13 +50,13 @@ class HomeController extends Controller
 
     public function SliderManage($id = false)
     {
-        if ($id){
+        if ($id) {
             $data = slider_manage::all();
             $oneData = slider_manage::find($id);
-            return view('admin.slider_manage',compact('data','oneData'));
-        }else{
+            return view('admin.slider_manage', compact('data', 'oneData'));
+        } else {
             $data = slider_manage::all();
-            return view('admin.slider_manage',compact('data'));
+            return view('admin.slider_manage', compact('data'));
         }
     }
 
@@ -84,12 +84,12 @@ class HomeController extends Controller
 
     public function SliderManageStatus(Request $request)
     {
-        if ($request->show){
+        if ($request->show) {
             $insert = slider_manage::find($request->show);
             $insert->status = 1;
             $insert->save();
             return redirect('slider-manage');
-        }else{
+        } else {
             $insert = slider_manage::find($request->hide);
             $insert->status = 0;
             $insert->save();
@@ -131,10 +131,16 @@ class HomeController extends Controller
         return redirect('slider-manage');
     }
 
-    public function AdminContact()
+    public function AdminContact($id = false)
     {
-        $contact = contact::all();
-        return view('admin.contact',compact('contact'));
+        if ($id) {
+            $oneData = contact::find($id);
+            $contact = contact::all();
+            return view('admin.contact', compact('contact','oneData'));
+        } else {
+            $contact = contact::all();
+            return view('admin.contact', compact('contact'));
+        }
     }
 
     public function AdminContactAdd(Request $request)
@@ -149,6 +155,21 @@ class HomeController extends Controller
         $insert->contact_information = $request->contact_information;
         $insert->save();
         Session::flash('message', 'Contact add successfully');
+        return redirect('admin-contact');
+    }
+
+    public function AdminContactUpdate(Request $request)
+    {
+        $request->validate([
+            'contact_title' => 'required|max:191',
+            'contact_information' => 'required',
+        ]);
+
+        $insert = contact::find($request->id);
+        $insert->contact_title = $request->contact_title;
+        $insert->contact_information = $request->contact_information;
+        $insert->save();
+        Session::flash('message', 'Contact update successfully');
         return redirect('admin-contact');
     }
 
@@ -167,7 +188,7 @@ class HomeController extends Controller
     public function AdminTestimonial()
     {
         $contact = testimonial::all();
-        return view('admin.testimonial',compact('contact'));
+        return view('admin.testimonial', compact('contact'));
     }
 
     public function AdminTestimonialAdd(Request $request)
@@ -196,12 +217,12 @@ class HomeController extends Controller
 
     public function AdminTestimonialStatus(Request $request)
     {
-        if ($request->show){
+        if ($request->show) {
             $insert = testimonial::find($request->show);
             $insert->status = 1;
             $insert->save();
             return redirect('admin-testimonial');
-        }else{
+        } else {
             $insert = testimonial::find($request->hide);
             $insert->status = 0;
             $insert->save();
@@ -223,13 +244,13 @@ class HomeController extends Controller
 
     public function AdminSponsor($id = false)
     {
-        if ($id){
+        if ($id) {
             $data = sponsor::all();
             $oneData = sponsor::find($id);
-            return view('admin.sponsor',compact('data','oneData'));
-        }else{
+            return view('admin.sponsor', compact('data', 'oneData'));
+        } else {
             $data = sponsor::all();
-            return view('admin.sponsor',compact('data'));
+            return view('admin.sponsor', compact('data'));
         }
     }
 

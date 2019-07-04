@@ -70,12 +70,9 @@
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-6 col-md-offset-3">
-                                        <button type="reset" class="btn btn-primary" data-toggle="collapse"
-                                                data-target=".multi-collapse"
-                                                aria-expanded="false"
-                                                aria-controls="multiCollapseExample1 multiCollapseExample2">
+                                        <a href="{{route('OurService')}}" type="reset" class="btn btn-primary">
                                             Cancel
-                                        </button>
+                                        </a>
                                         <button id="send" type="submit" class="btn btn-success">Update</button>
                                     </div>
                                 </div>

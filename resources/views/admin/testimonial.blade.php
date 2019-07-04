@@ -62,10 +62,6 @@
                                     <i class="fa fa-reorder"></i>
                                 </a>
                                 <ul id="menu6" class="dropdown-menu animated fadeInDown" role="menu">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                               href="https://twitter.com/fat"><i
-                                                    class="fa fa-edit"></i> Edit</a>
-                                    </li>
                                     <li role="presentation"><a role="menuitem" tabindex="-1" class="delete"
                                                                href="{{route('AdminTestimonialDelete','delete='.$contacts->id)}}"><i
                                                     class="fa fa-trash"></i> Delete</a>

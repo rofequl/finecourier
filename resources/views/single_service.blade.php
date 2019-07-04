@@ -20,26 +20,18 @@
 
                 <div class="single_service_detail">
                     <div class="post_image">
-                        <img src="images/single_detail.jpg" alt="single detail">
+                        <img src="{{asset('storage/service/'.$service->image)}}" alt="single detail">
                     </div>
 
                     <div class="post">
                         <div class="section_title">
-                            <div class="title"><h2>air shipping</h2></div>
+                            <div class="title"><h2>{{$service->title}}</h2></div>
                         </div>
 
                         <div class="post_content">
                             <p>
-                                Molestie consequat vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio
-                                dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
-                                Nam liber tempor cum sol nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer
-                                possim assum Typi none claritatem insitam est usus legentis in iis qui facit eorum claritatem Investigationes
-                                demonstraverunt.
+                                {{$service->description}}
                             </p>
-
-                            <p>Vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blanditthe
-                                luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend
-                                optio congue nihil imperdiet doming id quod mazim placerat facer possim assum. </p>
                         </div>
                     </div>
                 </div>
@@ -71,36 +63,26 @@
                             <h4>Clients testimonials</h4>
                         </div>
                         <div class="single_item_testimonial_slider">
-                            <div class="single_slider">
-                                <div class="testimonial">
-                                    <p>Placerat facer possim assum. Typi non habeclaritatem insitam est usulegentis in iis qui facit eoru
-                                        claritatem. Investigationes demonstraverunt lectores legere <span class="quote fa fa-quote-right"></span></p>
-                                </div>
-                                <div class="person_about">
-                                    <div class="image">
-                                        <img src="images/testimonial1.png" alt="testimonial-img">
+                            @foreach($testimonial as $testimonials)
+                                <div class="single_slider">
+                                    <div class="testimonial">
+                                        <p>
+                                            {{str_limit($testimonials->message,200)}}
+                                            <span class="quote fa fa-quote-right"></span>
+                                        </p>
                                     </div>
-                                    <div class="desig">
-                                        <p class="name">Md.Salam</p>
-                                        <span>Web Developer</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single_slider">
-                                <div class="testimonial">
-                                    <p>Placerat facer possim assum. Typi non habeclaritatem insitam est usulegentis in iis qui facit eoru
-                                        claritatem. Investigationes demonstraverunt lectores legere <span class="quote fa fa-quote-right"></span></p>
-                                </div>
-                                <div class="person_about">
-                                    <div class="image">
-                                        <img src="images/testimonial2.png" alt="testimonial-img">
-                                    </div>
-                                    <div class="desig">
-                                        <p class="name">Md.Salam</p>
-                                        <span>Web Developer</span>
+                                    <div class="person_about">
+                                        <div class="image">
+                                            <img src="{{asset('storage/testimonial/'.$testimonials->image)}}"
+                                                 alt="testimonial-img">
+                                        </div>
+                                        <div class="desig">
+                                            <p class="name">{{$testimonials->name}}</p>
+                                            <span>{{$testimonials->profession}}</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </aside>
@@ -123,18 +105,12 @@
             <div class="col-md-12">
                 <div class="partner_wrapper">
                     <div class="partner_slider">
-                        <div class="partner">
-                            <img src="images/partner1.png" alt="">
-                        </div>
-                        <div class="partner">
-                            <img src="images/partner2.png" alt="">
-                        </div>
-                        <div class="partner">
-                            <img src="images/partner1.png" alt="">
-                        </div>
-                        <div class="partner">
-                            <img src="images/partner2.png" alt="">
-                        </div>
+                        @foreach($sponsor as $sponsors)
+                            <div class="partner">
+                                <a href="{{$sponsors->url}}"><img
+                                            src="{{asset('storage/sponsor/'.$sponsors->image)}}" alt="" height="100%"></a>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
