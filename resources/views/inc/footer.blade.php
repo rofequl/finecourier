@@ -89,22 +89,16 @@
                         </div>
 
                         <div class="twitter_widget">
-                            <div class="single_tweets">
-                                <span class="twit_icon fa fa-twitter"></span>
-                                <div class="twit">
-                                    <p><span class="tag">@FINE</span> courier Completely synergize resource
-                                        sucking relationships theme is good</p>
-                                    <span class="time">3 minutes ago</span>
+                            @foreach(contact_us() as $contact)
+                                <div class="single_tweets">
+                                    <span class="twit_icon fa fa-location-arrow"></span>
+                                    <div class="twit">
+                                        <p><span class="tag">{{$contact->contact_title}}</span>
+                                        {!! $contact->contact_information !!}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="single_tweets">
-                                <span class="twit_icon fa fa-twitter"></span>
-                                <div class="twit">
-                                    <p><span class="tag">@FINE</span> courier Completely synergize resource
-                                        sucking relationships theme is good</p>
-                                    <span class="time">3 minutes ago</span>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\basic_information;
+use App\contact;
 use App\our_inmormation;
 use App\service;
 
@@ -22,6 +23,11 @@ function basic_information(){
 }
 
 function service(){
-    $data = service::all();
+    $data = service::where('status',1)->get();
+    return $data;
+}
+
+function contact_us(){
+    $data = contact::limit(1)->get();
     return $data;
 }

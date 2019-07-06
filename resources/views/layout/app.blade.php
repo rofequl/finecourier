@@ -8,7 +8,7 @@
     <!-- viewport meta -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <title>Fine -</title>
 
     <!-- owl carousel css -->
@@ -42,7 +42,22 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
 </head>
-<body class="home1 about_us_page">
+<body class="
+@if(Route::is('home'))
+        home1
+@elseif(Route::is('about_us'))
+        about_us_page
+@elseif(Route::is('service'))
+        service_page
+@elseif(Route::is('news'))
+        news_page
+@elseif(Route::is('contact'))
+        request_quote
+@elseif(Route::is('track_trace'))
+        track_trace
+@else
+        home1
+@endif">
 
 <!-- preloader -->
 <div class="preloader-bg">
@@ -97,6 +112,8 @@
 <script src="{{ asset('js/share.js') }}"></script>
 <!-- Main js -->
 <script src="{{asset('js/main.js')}}"></script>
+
+<script src="{{asset('js/finecourier.js')}}"></script>
 @stack('scripts')
 </body>
 </html>

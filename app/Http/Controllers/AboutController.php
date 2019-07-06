@@ -207,9 +207,9 @@ class AboutController extends Controller
     public function AdminNews($id = false)
     {
         if ($id) {
-            $data = service::all();
-            $oneData = service::find($id);
-            return view('admin.our_service', compact('data', 'oneData'));
+            $data = news::all();
+            $oneData = news::find($id);
+            return view('admin.news', compact('data', 'oneData'));
         } else {
             $data = news::all();
             return view('admin.news', compact('data'));
@@ -218,16 +218,18 @@ class AboutController extends Controller
 
     public function AdminNewsAdd(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         $request->validate([
             'name' => 'required|max:191',
             'title' => 'required|max:191',
+            'tag' => 'max:500',
             'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5000'
         ]);
         $insert = new news();
         $insert->name = $request->name;
         $insert->title = $request->title;
+        $insert->tag = $request->tag;
         $insert->description = $request->description;
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
@@ -258,10 +260,10 @@ class AboutController extends Controller
     public function AdminNewsDelete(Request $request)
     {
         if ($request->delete) {
-            $data = service::find($request->delete);
+            $data = news::find($request->delete);
             $data->delete();
-            Session::flash('message', 'Service Delete Successfully');
-            return redirect('our-service');
+            Session::flash('message', 'News Delete Successfully');
+            return redirect('admin-news');
         } else {
             echo "Something Wrong";
         }
@@ -270,21 +272,25 @@ class AboutController extends Controller
     public function AdminNewsUpdate(Request $request)
     {
         $request->validate([
+            'name' => 'required|max:191',
             'title' => 'required|max:191',
+            'tag' => 'max:500',
             'description' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000'
         ]);
-        $insert = service::find($request->id);
+        $insert = news::find($request->id);
+        $insert->name = $request->name;
         $insert->title = $request->title;
+        $insert->tag = $request->tag;
         $insert->description = $request->description;
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
             $fileStore3 = rand(10, 100) . time() . "." . $extension;
-            $request->file('image')->storeAs('public/service', $fileStore3);
+            $request->file('image')->storeAs('public/news', $fileStore3);
             $insert->image = $fileStore3;
         }
         $insert->save();
-        Session::flash('message', 'Service update successfully');
-        return redirect('our-service');
+        Session::flash('message', 'News update successfully');
+        return redirect('admin-news');
     }
 }

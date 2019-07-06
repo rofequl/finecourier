@@ -26,6 +26,10 @@ Route::get('/contact', 'FrontendController@contact')->name('contact');
 Route::get('/news', 'FrontendController@news')->name('news');
 Route::get('/single-news/{id}', 'FrontendController@SingleNews')->name('SingleNews');
 
+Route::get('love-react', 'FrontendController@LoveReact');
+Route::post('add-love-react', 'FrontendController@AddLoveReact');
+Route::post('remove-love-react', 'FrontendController@RemoveLoveReact');
+
 Route::get('/track_trace', function () { $title = 'Track & Trace'; return view('track_trace',compact('title'));})->name('track_trace');
 
 Route::get('/quote', function () { $title = 'Request Quote'; return view('quote',compact('title'));})->name('quote');

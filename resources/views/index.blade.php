@@ -439,7 +439,7 @@
             </div>
             <div class="col-md-5 xs_fullwidth col-xs-3 v_middle">
                 <div class="call_to_action_btn">
-                    <a class="trust_btn" href="contact.html">contact us</a>
+                    <a class="trust_btn" href="{{route('contact')}}">contact us</a>
                 </div>
             </div>
         </div>
@@ -455,6 +455,17 @@
     =================================-->
     <section class="partner_area section_padding reveal animated" data-delay="0.2s" data-anim="fadeInUpShort">
         <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- section_title starts -->
+                    <div class="section_title title_center">
+                        <div class="sub_title">
+                            <p>What Our Partner Was</p>
+                        </div>
+                        <div class="title"><h2>Sponsor</h2></div>
+                    </div><!-- section_title starts -->
+                </div>
+            </div><!-- /.row end -->
             <div class="row">
                 <div class="col-md-12">
                     <div class="partner_wrapper">

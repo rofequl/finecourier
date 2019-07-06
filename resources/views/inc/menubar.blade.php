@@ -1,13 +1,21 @@
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav magic_menu">
-        <li class="active">
+        <li class="{{ Route::is('home') ? 'active' : '' }}">
             <a href="{{route('home')}}">home</a>
         </li>
-        <li>
+        <li class="{{ Route::is('about_us') ? 'active' : '' }}">
             <a href="{{route('about_us')}}">About us</a>
         </li>
-        <li>
-            <a href="{{route('service')}}">services</a>
+        <li class="{{ Route::is('service') ? 'active' : '' }} has_dropdown">
+            <a href="{{route('service')}}">services <span class="fa fa-angle-down"></span></a>
+            <div class="dropdwon">
+                <ul>
+                    @foreach(service() as $services)
+                        <li><a href="{{route('SingleService',$services->id)}}">{{$services->title}}</a></li>
+                    @endforeach
+                </ul>
+            </div>
+
         </li>
         {{--        <li><a href="{{route('track_trace')}}">Track & Trace</a></li>--}}
         {{--        <li class="has_megamenu">--}}
@@ -37,7 +45,7 @@
         {{--                </ul>--}}
         {{--            </div>--}}
         {{--        </li>--}}
-        <li class="">
+        <li class="{{ Route::is('news') ? 'active' : '' }}">
             <a href="{{route('news')}}">News</a>
             {{--            <div class="dropdwon">--}}
             {{--                <ul>--}}
@@ -46,7 +54,8 @@
             {{--                </ul>--}}
             {{--            </div>--}}
         </li>
-        <li><a href="{{route('contact')}}">contact</a></li>
+        <li class="{{ Route::is('contact') ? 'active' : '' }}"><a href="{{route('contact')}}">contact</a></li>
+        <li class="active"></li>
     </ul>
     <div class="search_form">
         <div class="search_btn" data-toggle="modal" data-target="#search_modal">
@@ -86,7 +95,7 @@
             </li>
         @else
             <li>
-                <a href="{{route('login')}}">Log in</a>
+                <a href="{{route('login')}}" class="btn btn-default btn-sm" style="border-radius: 30px;margin-top: 13px;line-height: 39px">Log in</a>
             </li>
         @endif
 

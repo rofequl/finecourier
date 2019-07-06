@@ -27,7 +27,7 @@
                                 <div class="blog_meta">
                                     <ul>
                                         <li><a href="#"><span class="fa fa-user"></span>{{$newss->name}}</a></li>
-                                        <li><a href="#"><span class="fa fa-heart-o"></span>{{$newss->like}}</a></li>
+                                        <li><div class="love-react" id="{{$newss->id}}"><span class="fa love-react-icon fa-heart-o"></span> <span class="love-react-count"></span></div></li>
                                     </ul>
                                 </div>
 
@@ -69,7 +69,7 @@
             </div>
             <div class="col-md-5 xs_fullwidth col-xs-3 v_middle">
                 <div class="call_to_action_btn">
-                    <a class="trust_btn" href="contact.html">contact us</a>
+                    <a class="trust_btn" href="{{route('contact')}}">contact us</a>
                 </div>
             </div>
         </div>
@@ -85,6 +85,17 @@
     =================================-->
     <section class="partner_area section_padding reveal animated" data-delay="0.2s" data-anim="fadeInUpShort">
         <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- section_title starts -->
+                    <div class="section_title title_center">
+                        <div class="sub_title">
+                            <p>What Our Partner Was</p>
+                        </div>
+                        <div class="title"><h2>Sponsor</h2></div>
+                    </div><!-- section_title starts -->
+                </div>
+            </div><!-- /.row end -->
             <div class="row">
                 <div class="col-md-12">
                     <div class="partner_wrapper">

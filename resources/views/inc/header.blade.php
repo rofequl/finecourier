@@ -66,7 +66,7 @@
 
                 <div class="col-md-3 xs_fullwidth col-xs-3 col-lg-3">
                     <a href="{{route('quote')}}" class="trust_btn quote_btn">get a free quote</a>
-                    <a href="{{route('quote')}}" class="trust_btn quote_btn">track & trace</a>
+                    <a href="{{route('track_trace')}}" class="trust_btn quote_btn">track & trace</a>
                 </div>
             </div>
         </div><!-- /.row end -->

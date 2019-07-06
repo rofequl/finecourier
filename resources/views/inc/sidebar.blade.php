@@ -27,7 +27,7 @@
             <i class="fa fa-inbox"></i> My Shipment <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
         </a>
         <a href="#" class="list-group-item">
-            <i class="fa fa-address-book"></i> Address book <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+            <i class="fa fa-inbox"></i> Address book <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
         </a>
         <a href="#" class="list-group-item">
             <i class="fa fa-dollar"></i> Billing & Payment <i class="fa fa-long-arrow-right" aria-hidden="true"></i>

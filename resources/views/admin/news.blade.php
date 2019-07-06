@@ -47,38 +47,53 @@
                     <div class="x_panel">
                         <div class="x_content">
                             <form class="form-horizontal form-label-left" novalidate=""
-                                  action="{{ route('OurServiceUpdate') }}" method="post"
+                                  action="{{ route('AdminNewsUpdate') }}" method="post"
                                   enctype="multipart/form-data">
                                 {{csrf_field()}}
-                                <input type="hidden" value="{{$oneData->id}}" name="id">
-                                <span class="section">Add Our Service</span>
-
+                                <input type="hidden" name="id" value="{{$oneData->id}}">
+                                <span class="section">Add News</span>
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Service
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">News
+                                        Writer Name</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="name" class="form-control col-md-7 col-xs-12"
+                                               data-validate-length-range="6" data-validate-words="2"
+                                               name="name" value="{{$oneData->name}}"
+                                               placeholder="News Writer" type="text">
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">News
                                         Title</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input id="name" class="form-control col-md-7 col-xs-12"
                                                data-validate-length-range="6" data-validate-words="2"
-                                               name="title" value="{{$oneData->title}}"
-                                               placeholder="Service Title" type="text">
+                                               name="title"  value="{{$oneData->title}}"
+                                               placeholder="News Title" type="text">
                                     </div>
                                 </div>
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name2">Service
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name2">News
                                         Information</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <textarea id="textarea" name="description"
-                                                  class="form-control col-md-7 col-xs-12">{{$oneData->description}}</textarea>
+                                                <textarea id="textarea" name="description"
+                                                          class="form-control col-md-7 col-xs-12">value="{{$oneData->description}}"</textarea>
                                     </div>
                                 </div>
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Slider
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">News Tags</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="tags_1" type="text" class="tags form-control" name="tag" value="{{$oneData->tag}}"/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">News
                                         Image</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div onclick="chooseFile()" id="previewImage">
                                             <div class="mt-5">
                                                 <i class="fa fa-cloud-upload fa-3x"></i><br>
-                                                Add a Service Image
+                                                Add a News Image
                                             </div>
                                         </div>
                                         <input type="file" name="image" class="ImageUpload hidden">
@@ -87,13 +102,10 @@
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-6 col-md-offset-3">
-                                        <button type="reset" class="btn btn-primary" data-toggle="collapse"
-                                                data-target=".multi-collapse"
-                                                aria-expanded="false"
-                                                aria-controls="multiCollapseExample1 multiCollapseExample2">
+                                        <a href="{{route('AdminNews')}}" type="reset" class="btn btn-primary">
                                             Cancel
-                                        </button>
-                                        <button id="send" type="submit" class="btn btn-success">Update</button>
+                                        </a>
+                                        <button id="send" type="submit" class="btn btn-success">Submit</button>
                                     </div>
                                 </div>
                             </form>
@@ -142,7 +154,6 @@
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12">News Tags</label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input id="tags_1" type="text" class="tags form-control" value="" name="tag"/>
-                                                <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
                                             </div>
                                         </div>
                                         <div class="item form-group">
@@ -200,11 +211,11 @@
                                             </a>
                                             <ul id="menu6" class="dropdown-menu animated fadeInDown" role="menu">
                                                 <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                                           href="https://twitter.com/fat"><i
+                                                                           href="{{route('AdminNews',$datas->id)}}"><i
                                                                 class="fa fa-edit"></i> Edit</a>
                                                 </li>
                                                 <li role="presentation"><a role="menuitem" tabindex="-1" class="delete"
-                                                                           href="{{route('AdminTestimonialDelete','delete='.$datas->id)}}"><i
+                                                                           href="{{route('AdminNewsDelete','delete='.$datas->id)}}"><i
                                                                 class="fa fa-trash"></i> Delete</a>
                                                 </li>
                                             </ul>

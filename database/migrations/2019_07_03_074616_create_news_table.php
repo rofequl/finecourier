@@ -19,7 +19,8 @@ class CreateNewsTable extends Migration
             $table->text('description');
             $table->string('image');
             $table->string('name');
-            $table->string('like')->default(0);
+            $table->string('tag',500)->nullable();
+            $table->text('like')->nullable();
             $table->boolean('status')->default(0);
             $table->timestamps();
         });

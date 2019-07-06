@@ -136,6 +136,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
+                    <!-- section_title starts -->
+                    <div class="section_title title_center">
+                        <div class="sub_title">
+                            <p>What Our Partner Was</p>
+                        </div>
+                        <div class="title"><h2>Sponsor</h2></div>
+                    </div><!-- section_title starts -->
+                </div>
+            </div><!-- /.row end -->
+            <div class="row">
+                <div class="col-md-12">
                     <div class="partner_wrapper">
                         <div class="partner_slider">
                             @foreach($sponsor as $sponsors)

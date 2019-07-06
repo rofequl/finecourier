@@ -75,6 +75,32 @@ class FrontendController extends Controller
         return view('news', compact('title', 'news', 'sponsor'));
     }
 
+    public function LoveReact(Request $request)
+    {
+        $news = news::find($request->id);
+        return $news->like;
+    }
+
+    public function AddLoveReact(Request $request)
+    {
+        $news = news::find($request->id);
+        $list = explode(",", $news->like);
+        array_push($list, $request->ip);
+        $news->like = implode(",", $list);
+        $news->save();
+        return 1;
+    }
+
+    public function RemoveLoveReact(Request $request)
+    {
+        $news = news::find($request->id);
+        $list = explode(",", $news->like);
+        $list = array_diff($list, array($request->ip));
+        $news->like = implode(",", $list);
+        $news->save();
+        return 1;
+    }
+
     public function SingleNews($id)
     {
         $title = "News Details";
