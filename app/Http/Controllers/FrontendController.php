@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\comment;
 use App\contact;
 use App\news;
 use App\our_inmormation;
@@ -13,6 +14,7 @@ use App\faq;
 use App\testimonial;
 use App\user;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Null_;
 use Session;
 use Illuminate\Support\Facades\Hash;
 
@@ -91,6 +93,24 @@ class FrontendController extends Controller
         return 1;
     }
 
+    public function AddNewsComment(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:191',
+            'email' => 'required|max:191',
+            'message' => 'required',
+        ]);
+        $insert = new comment();
+        $insert->name = $request->name;
+        $insert->email = $request->email;
+        $insert->message = $request->message;
+        $insert->news_id = $request->news_id;
+        $insert->save();
+
+        Session::flash('message', 'Comment insert successfully');
+        return redirect()->back();
+    }
+
     public function RemoveLoveReact(Request $request)
     {
         $news = news::find($request->id);
@@ -105,10 +125,38 @@ class FrontendController extends Controller
     {
         $title = "News Details";
         $news = news::find($id);
+        $comment = comment::where('news_id',$id)->get();
         $recent_news = news::limit(3)->get();
         $testimonial = testimonial::where('status', 1)->orderBy('id', 'DESC')->get();
         $sponsor = sponsor::all();
-        return view('single_news', compact('title', 'news', 'testimonial', 'sponsor', 'recent_news'));
+        return view('single_news', compact('comment','title', 'news', 'testimonial', 'sponsor', 'recent_news'));
+    }
+
+    public function faq()
+    {
+        $title = "faq";
+        $faq = faq::where('description', '!=', Null)->get();
+        $sponsor = sponsor::all();
+        return view('faq', compact('title', 'faq', 'sponsor'));
+    }
+
+    public function AddFaq(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:191',
+            'phone' => 'required|max:191',
+            'email' => 'required|max:191',
+            'message' => 'required|max:191',
+        ]);
+        $insert = new faq();
+        $insert->name = $request->name;
+        $insert->phone = $request->phone;
+        $insert->email = $request->email;
+        $insert->message = $request->message;
+        $insert->save();
+
+        Session::flash('message', 'Faq add successfully');
+        return redirect('faq');
     }
 
     public function login()

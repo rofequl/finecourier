@@ -26,23 +26,23 @@
                     <div class="x_panel">
                         <div class="x_content">
                             <form class="form-horizontal form-label-left" novalidate=""
-                                  action="{{ route('faqUpdate') }}" method="post"
+                                  action="{{ route('AdminFaqUpdate') }}" method="post"
                                   enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <input type="hidden" value="{{$oneData->id}}" name="id">
                                 <span class="section">Add FAQ</span>
 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">FAQ Title</label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">FAQ Message</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input id="name" class="form-control col-md-6 col-sm-6 col-xs-12"
                                                data-validate-length-range="6" data-validate-words="2"
-                                               name="title" value="{{$oneData->title}}"
+                                               name="message" value="{{$oneData->message}}"
                                                placeholder="FAQ Title" type="text">
                                     </div>
                                 </div>
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description (Who We Are)</label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <textarea id="textarea" name="description" class="form-control col-md-7 col-xs-12"
                                           rows="3">{{$oneData->description}}</textarea>
@@ -62,62 +62,12 @@
                     </div>
                 @endif
                 <div class="col">
-                    <div class="collapse multi-collapse" id="multiCollapseExample1">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="x_panel">
-                                <div class="x_content">
-                                    <form class="form-horizontal form-label-left" novalidate=""
-                                          action="{{ route('faqAdd') }}" method="post"
-                                          enctype="multipart/form-data">
-                                        {{csrf_field()}}
-                                        <span class="section">Add FAQ</span>
-
-                                        <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">FAQ Title</label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <textarea class="form-control col-md-7 col-xs-12" name="title" id="" rows="2"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description (Who We Are)</label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <textarea id="textarea" name="description"
-                                                          class="form-control col-md-7 col-xs-12" rows="3"></textarea>
-                                            </div>
-                                        </div>
-
-                                        <div class="ln_solid"></div>
-                                        <div class="form-group">
-                                            <div class="col-md-6 col-md-offset-3">
-                                                <button type="reset" class="btn btn-primary" data-toggle="collapse"
-                                                        data-target=".multi-collapse"
-                                                        aria-expanded="false"
-                                                        aria-controls="multiCollapseExample1 multiCollapseExample2">
-                                                    Cancel
-                                                </button>
-                                                <button id="send" type="submit" class="btn btn-success">Submit</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
                     <div class="collapse multi-collapse show" id="multiCollapseExample2">
                         <div class="row">
                             <div class="col-12">
                                 <div class="x_panel">
                                     <div class="x_title">
                                         <h2>FAQ Manage</h2>
-                                        <ul class="nav navbar-right panel_toolbox">
-                                            <li><a data-toggle="collapse" data-target=".multi-collapse"
-                                                   aria-expanded="false"
-                                                   aria-controls="multiCollapseExample1 multiCollapseExample2"><i
-                                                            class="fa fa-plus"></i> Add New FAQ</a>
-                                            </li>
-                                        </ul>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="x_content">
@@ -126,7 +76,7 @@
                                             <thead>
                                             <tr class="bg-dark">
                                                 <th>#</th>
-                                                <th>FAQ Title</th>
+                                                <th>FAQ Question</th>
                                                 <th>FAQ Description </th>
                                                 <th>Status</th>
                                                 <th>Action</th>
@@ -136,7 +86,7 @@
                                             @foreach($data as $datas)
                                                     <tr>
                                                         <th scope="row">{{$datas->id}}</th>
-                                                        <td>{{$datas->title}}</td>
+                                                        <td>{{$datas->message}}</td>
                                                         <td>{{str_limit($datas->description,80)}}</td>
                                                         <td>
                                                             @if($datas->status==0)
@@ -153,7 +103,7 @@
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            <a href="{{route('faq',$datas->id)}}" style="margin:0 2px;" data-toggle="tooltip" data-placement="top"
+                                                            <a href="{{route('AdminFaq',$datas->id)}}" style="margin:0 2px;" data-toggle="tooltip" data-placement="top"
                                                             data-original-title="Edit"><i class="fa fa-edit fa-2x"></i></a>
                                                             <a href="{{route('faqDelete','delete='.$datas->id)}}" data-toggle="tooltip" data-placement="top" style="margin:0 2px;"
                                                                data-orginal-title="Delete" class="delete" > <i class="fa fa-trash fa-2x"></i></a>

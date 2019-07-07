@@ -41,7 +41,7 @@
                                         <p><span class="fa fa-user"></span>{{$news->name}}</p>
                                     </div>
                                     <div class="comments_count">
-                                        <p><span class="fa fa-comments-o"></span>(200)</p>
+                                        <p><span class="fa fa-comments-o"></span>({{$comment->count()}})</p>
                                     </div>
                                 </li>
                             </ul>
@@ -59,10 +59,9 @@
                             <div class="tags">
                                 <span>Tags</span>
                                 <ul>
-                                    <li><a href="#"> Transport</a></li>
-                                    <li><a href="#">Tracuking</a></li>
-                                    <li><a href="#">Shipping</a></li>
-                                    <li><a href="#">Delivery</a></li>
+                                    @foreach(explode(',',$news->tag) as $key => $value)
+                                        <li><a href="#"> {{$value}}</a></li>
+                                    @endforeach
                                 </ul>
                             </div><!-- Blog post tags ends -->
 
@@ -82,49 +81,38 @@
                     <!-- start blog comments area -->
                     <div class="blog_commnets">
                         <div class="section_title">
-                            <div class="title"><h2>comments <span>(3)</span></h2></div>
+                            <div class="title"><h2>comments <span>({{$comment->count()}})</span></h2></div>
                         </div>
 
                         <!-- start comments -->
                         <div class="comments">
-                            <div class="single_comment_wrapper">
-                                <div class="single_comment clearfix">
-                                    <p>Placerat facer possim assum. Typi non habent claritatem insitam est usulegentis
-                                        in iis qui
-                                        facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius
-                                        quod ii
-                                        legunt saepius. Claritas est etiam processus</p>
-                                    <div class="reply"> <span class="fa fa-user"></span></div>
+                            @foreach($comment as $comments)
+                                <div class="single_comment_wrapper">
+                                    <div class="single_comment clearfix">
+                                        <p>{{$comments->message}}</p>
+                                        <div class="reply"><span class="fa fa-user"></span> {{$comments->name}}</div>
+                                    </div>
                                 </div>
-                            </div><!-- end single comment wrapper -->
+                            @endforeach
 
-                            <!-- start single comment wrapper -->
-                            <div class="single_comment_wrapper">
-                                <div class="single_comment clearfix">
-                                    <p>Placerat facer possim assum. Typi non habent claritatem insitam est usulegentis
-                                        in iis qui
-                                        facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius
-                                        quod ii
-                                        legunt saepius. Claritas est etiam processus</p>
-                                    <div class="reply"> <span class="fa fa-user"></span></div>
-                                </div>
-                            </div><!-- end single comment wrapper -->
                         </div><!-- end comments -->
                         <!-- reply_form starts -->
                         <div class="reply_form">
                             <div class="section_title">
-                                <div class="title"><h2>write  a reply</h2></div>
+                                <div class="title"><h2>write a reply</h2></div>
                             </div>
 
                             <div class="reply_form_wrapper">
-                                <form action="#">
+                                <form action="{{route('AddNewsComment')}}" method="post">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="news_id" value="{{$news->id}}">
                                     <div class="form_half">
-                                        <input class="name" type="text" placeholder="Name">
+                                        <input class="name" type="text" placeholder="Name" name="name">
                                     </div>
                                     <div class="form_half">
-                                        <input class="email" type="text" placeholder="Email">
+                                        <input class="email" type="text" placeholder="Email" name="email">
                                     </div>
-                                    <textarea cols="30" rows="10" placeholder="Message"></textarea>
+                                    <textarea cols="30" rows="10" placeholder="Message" name="message"></textarea>
                                     <button type="submit" class="comment_btn" name="button">send message</button>
                                 </form>
                             </div>
@@ -143,7 +131,8 @@
                             <div class="category_widget">
                                 <ul>
                                     @foreach(service() as $services)
-                                        <li><a href="{{route('SingleService',$services->id)}}">{{$services->title}}</a></li>
+                                        <li><a href="{{route('SingleService',$services->id)}}">{{$services->title}}</a>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -156,13 +145,9 @@
                             </div>
 
                             <ul class="tags">
-                                <li><a href="#">Shipping</a></li>
-                                <li><a href="#">Transport</a></li>
-                                <li><a href="#">Air</a></li>
-                                <li><a href="#">Road Shipping</a></li>
-                                <li><a href="#">Sea</a></li>
-                                <li><a href="#">Delivery</a></li>
-                                <li><a href="#">Trucking</a></li>
+                                @foreach(explode(',',$news->tag) as $key => $value)
+                                    <li><a href="#"> {{$value}}</a></li>
+                                @endforeach
                             </ul>
                         </div><!-- tag area ends -->
 
@@ -176,14 +161,16 @@
                                     <li>
                                         <div class="recent_blog_img v_middle">
                                             <a href="{{route('SingleNews',$recent_newss->id)}}">
-                                                <img src="{{asset('storage/news/'.$recent_newss->image)}}" alt="Image" width="82" height="65">
+                                                <img src="{{asset('storage/news/'.$recent_newss->image)}}" alt="Image"
+                                                     width="82" height="65">
                                                 <span class="recent_post_link  fa fa-link"></span>
                                             </a>
                                         </div>
 
                                         <div class="single_recent_post v_middle">
                                             <span class="recent_post_meta">{{$recent_newss->updated_at->format('d M Y')}}</span>
-                                            <a href="{{route('SingleNews',$recent_newss->id)}}"><p>{{$recent_newss->title}}</p></a>
+                                            <a href="{{route('SingleNews',$recent_newss->id)}}">
+                                                <p>{{$recent_newss->title}}</p></a>
                                         </div>
                                     </li>
                                 @endforeach
@@ -228,7 +215,8 @@
         START PARTNER
     =================================-->
     <section class="partner_area section_padding reveal animated" data-delay="0.2s" data-anim="fadeInUpShort">
-        <div class="container"><div class="row">
+        <div class="container">
+            <div class="row">
                 <div class="col-md-12">
                     <!-- section_title starts -->
                     <div class="section_title title_center">

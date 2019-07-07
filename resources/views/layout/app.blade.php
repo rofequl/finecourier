@@ -47,7 +47,7 @@
         home1
 @elseif(Route::is('about_us'))
         about_us_page
-@elseif(Route::is('service'))
+@elseif(Route::is('service') || Route::is('faq'))
         service_page
 @elseif(Route::is('news'))
         news_page

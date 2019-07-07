@@ -13,8 +13,8 @@
                     <div class="tiny_header_wrapper">
                         <div class="header_info">
                             <ul>
-                                <li><a href="#">Faq</a></li>
-                                <li><a href="#">Help Desk</a></li>
+                                <li><a href="{{route('faq')}}">Faq</a></li>
+                                <li><a href="{{route('contact')}}">Help Desk</a></li>
                                 <li><a href="{{route('track_trace')}}">Track Shipment</a></li>
                             </ul>
                         </div>
@@ -41,7 +41,7 @@
             <div class="header_middle_wrapper clearfix">
                 <div class="col-md-3 xs_fullwidth col-xs-3">
                     <div class="logo_container">
-                        <a href="{{route('home')}}"><img src="{{asset('storage/logo/'.basic_information()->company_logo)}}" alt="logo Here"></a>
+                        <a href="{{route('home')}}"><img src="{{asset('storage/logo/'.basic_information()->company_logo)}}" alt="logo Here" width="100%" height="48px"></a>
                     </div>
                 </div>
 

@@ -133,7 +133,7 @@ class AboutController extends Controller
         return redirect('our-information');
     }
 
-    public function faq($id = false)
+    public function AdminFaq($id = false)
     {
         if ($id) {
             $data = faq::all();
@@ -146,50 +146,34 @@ class AboutController extends Controller
         return view('admin.faq');
     }
 
-    public function faqAdd(Request $request)
-    {
-        //dd($request->all());
-        $request->validate([
-            'title' => 'required| max:191',
-            'description' => 'required'
-        ]);
-
-        $insert = new faq;
-        $insert->title = $request->title;
-        $insert->description = $request->description;
-        $insert->save();
-        Session::flash('message', 'FAQ Added Successfully');
-        return redirect('faq');
-    }
-
     public function faqStatus(Request $request)
     {
         if ($request->show) {
             $insert = faq::find($request->show);
             $insert->status = 1;
             $insert->save();
-            return redirect('faq');
+            return redirect('admin-faq');
         } else {
             $insert = faq::find($request->hide);
             $insert->status = 0;
             $insert->save();
-            return redirect('faq');
+            return redirect('admin-faq');
         }
     }
 
-    public function faqUpdate(Request $request)
+    public function AdminFaqUpdate(Request $request)
     {
         $request->validate([
-            'title' => 'required| max:191',
+            'message' => 'required| max:191',
             'description' => 'required'
         ]);
 
         $insert = faq::find($request->id);
-        $insert->title = $request->title;
+        $insert->message = $request->message;
         $insert->description = $request->description;
         $insert->save();
         Session::flash('message', 'FAQ Updated Successfully');
-        return redirect('faq');
+        return redirect('admin-faq');
     }
 
     public function faqDelete(Request $request)
@@ -198,7 +182,7 @@ class AboutController extends Controller
             $data = faq::find($request->delete);
             $data->delete();
             Session::flash('message', 'FAQ Deleted Successfully');
-            return redirect('faq');
+            return redirect('admin-faq');
         } else {
             echo "Something is wrong";
         }

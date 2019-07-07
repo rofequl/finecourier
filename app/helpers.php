@@ -27,6 +27,11 @@ function service(){
     return $data;
 }
 
+function our_information(){
+    $data = our_inmormation::all()->first();
+    return $data;
+}
+
 function contact_us(){
     $data = contact::limit(1)->get();
     return $data;

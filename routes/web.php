@@ -10,10 +10,8 @@ Route::get('/', 'FrontendController@index')->name('home');
 
 Route::get('/login', 'FrontendController@login')->name('login');
 Route::post('/login-check', 'FrontendController@LoginCheck')->name('LoginCheck');
-
 Route::get('/register', 'FrontendController@register')->name('register');\
 Route::post('/register-submit', 'FrontendController@RegisterSubmit')->name('RegisterSubmit');
-
 Route::get('/logout', 'FrontendController@logout')->name('logout');
 
 Route::get('/about', 'FrontendController@about')->name('about_us');
@@ -25,10 +23,13 @@ Route::get('/contact', 'FrontendController@contact')->name('contact');
 
 Route::get('/news', 'FrontendController@news')->name('news');
 Route::get('/single-news/{id}', 'FrontendController@SingleNews')->name('SingleNews');
-
 Route::get('love-react', 'FrontendController@LoveReact');
 Route::post('add-love-react', 'FrontendController@AddLoveReact');
 Route::post('remove-love-react', 'FrontendController@RemoveLoveReact');
+Route::post('add-news-comment', 'FrontendController@AddNewsComment')->name('AddNewsComment');
+
+Route::get('faq', 'FrontendController@faq')->name('faq');
+Route::post('faq', 'FrontendController@AddFaq')->name('AddFaq');
 
 Route::get('/track_trace', function () { $title = 'Track & Trace'; return view('track_trace',compact('title'));})->name('track_trace');
 
@@ -72,10 +73,9 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::get('/our-information', 'AboutController@OurInformation')->name('OurInformation');
     Route::post('/our-information', 'AboutController@OurInformationAdd')->name('OurInformationAdd');
 
-    Route::get('/faq/{data?}','AboutController@faq')->name('faq');
-    Route::post('/faq','AboutController@faqAdd')->name('faqAdd');
+    Route::get('/admin-faq/{data?}','AboutController@AdminFaq')->name('AdminFaq');
     Route::get('/faqStatus','AboutController@faqStatus')->name('faqStatus');
-    Route::post('/faq-update','AboutController@faqUpdate')->name('faqUpdate');
+    Route::post('/admin-faq-update','AboutController@AdminFaqUpdate')->name('AdminFaqUpdate');
     Route::get('/faq-delete', 'AboutController@faqDelete')->name('faqDelete');
 
     Route::get('/admin-contact/{data?}', 'HomeController@AdminContact')->name('AdminContact');

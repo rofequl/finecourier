@@ -267,7 +267,7 @@
                                         <h4 class="panel-title">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#{{$faqs->id}}"
                                                aria-expanded="false" class="collapsed">
-                                                {{$faqs->title}}
+                                                {{$faqs->message}}
                                                 <span class="fa fa-plus"></span></a>
                                         </h4>
                                     </div>

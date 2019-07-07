@@ -14,8 +14,7 @@
                             </a>
                         </div>
                         <div class="footer_about_us">
-                            <p>Nam liber tempor cum soluta nobis eleend option congue nihil imperdiet doming id quod
-                                mazim placerat </p>
+                            <p>{{str_limit(our_information()->who_we_are,100)}}</p>
                         </div>
                         <div class="footer_social">
                             <h4>get connected</h4>
