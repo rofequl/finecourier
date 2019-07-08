@@ -97,7 +97,8 @@
 <script src="{{asset('js/waypoints.min.js')}}"></script>
 
 <!-- google map js -->
-<script src="http://maps.googleapis.com/maps/api/js"></script>
+
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCvNZ_WEl7PS-tIC1VuR_Rzs6x2GrxcQ_Q&callback=initMap"></script>
 
 <!-- smoothscroll js -->
 <script src="{{asset('js/jqury.smooth-scroll.min.js')}}"></script>

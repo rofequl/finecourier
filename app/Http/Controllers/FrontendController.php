@@ -9,12 +9,11 @@ use App\our_inmormation;
 use App\service;
 use App\slider_manage;
 use App\sponsor;
-use App\who_we_are;
 use App\faq;
 use App\testimonial;
 use App\user;
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\Null_;
+use Illuminate\Support\Facades\Mail;
 use Session;
 use Illuminate\Support\Facades\Hash;
 
@@ -67,6 +66,11 @@ class FrontendController extends Controller
         $contact = contact::all();
         $sponsor = sponsor::all();
         return view('contact', compact('title', 'contact', 'sponsor'));
+    }
+
+    public function SendUsMessage()
+    {
+
     }
 
     public function news()
