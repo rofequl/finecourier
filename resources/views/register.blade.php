@@ -20,7 +20,8 @@
                         </div>
 
                         <div class="quote_form">
-                            <form action="{{route('RegisterSubmit')}}" method="post" id="Signup-Form" autocomplete="off">
+                            <form action="{{route('RegisterSubmit')}}" method="post" id="Signup-Form"
+                                  autocomplete="off">
                                 {{csrf_field()}}
                                 <div class="form_half left" id="Sign-First-Name">
                                     <input type="text" placeholder="First Name" aria-describedby="helpBlock2"
@@ -43,27 +44,37 @@
                                 <div class="form_half right" id="Sign-Re-Pass">
                                     <input type="password" placeholder="Confirm Password" id="SignInputRePass">
                                 </div>
-                                <div class="form_half left" id="Sign-Post-Code">
-                                    <input type="text" placeholder="Post Code" id="SignInputPostCode" name="post_code">
-                                </div>
-                                <div class="form_half right" id="Sign-Country">
+                                <div class="form_half left" id="Sign-Country">
                                     <div class="select_wrapper">
-                                        <select name="country" id="SignInputCountry">
-                                            <option value="">Country</option>
-                                            <option value="bangladesh">Bangladesh</option>
-                                            <option value="thailand">Thailand</option>
-                                            <option value="uae">UAE</option>
+                                        <select name="country" class="countries" id="countryId">
+                                            <option value="">Select Country</option>
                                         </select>
                                         <span class="fa fa-caret-down"></span>
                                     </div>
                                 </div>
-                                <div class="form_half left" id="Sign-City">
-                                    <input type="text" placeholder="City" id="SignInputCity" name="city">
+                                <div class="form_half right" id="Sign-Post-Code">
+                                    <input type="number" placeholder="Post Code" id="SignInputPostCode"
+                                           name="post_code">
                                 </div>
-                                <div class="form_half right" id="Sign-State">
-                                    <input type="text" placeholder="State" id="SignInputState" name="state">
+                                <div class="form_half left" id="Sign-State">
+                                    <div class="select_wrapper">
+                                        <select name="state" class="states" id="stateId">
+                                            <option value="">Select Division</option>
+                                        </select>
+                                        <span class="fa fa-caret-down"></span>
+                                    </div>
                                 </div>
-
+                                <div class="form_half right" id="Sign-City">
+                                    <div class="select_wrapper">
+                                        <select name="city" class="cities" id="cityId">
+                                            <option value="">Select City</option>
+                                        </select>
+                                        <span class="fa fa-caret-down"></span>
+                                    </div>
+                                </div>
+                                <div class="form_half left" id="Sign-State">
+                                    <input type="text" placeholder="Place Name" id="placeName" name="placeName">
+                                </div>
                                 <div class="regi_btn_wrapper">
                                     <button class="trust_btn regi_btn" type="submit">register</button>
                                 </div>
@@ -232,16 +243,16 @@
             }
 
             function SignInputCountry() {
-                let name = $("#SignInputCountry").val(), error = $("#Sign-Country");
+                let name = $("#countryId").val(), error = $("#Sign-Country");
                 if (name === "") {
                     error.popover({content: "", placement: "top"});
                     error.data('bs.popover').options.content = "Select your country";
                     error.popover('show');
-                    $("#SignInputCountry").css({"border": "1px solid red"});
+                    $("#countryId").css({"border": "1px solid red"});
                     return false;
-                }else {
+                } else {
                     error.popover('destroy');
-                    $("#SignInputCountry").css({"border": "1px solid #ddd"});
+                    $("#countryId").css({"border": "1px solid #ddd"});
                     return true;
                 }
             }
@@ -254,7 +265,7 @@
                     error.popover('show');
                     $("#SignInputPostCode").css({"border": "1px solid red"});
                     return false;
-                }else {
+                } else {
                     error.popover('destroy');
                     $("#SignInputPostCode").css({"border": "1px solid #ddd"});
                     return true;
@@ -262,31 +273,31 @@
             }
 
             function SignInputCity() {
-                let name = $("#SignInputCity").val(), error = $("#Sign-City");
+                let name = $("#cityId").val(), error = $("#Sign-City");
                 if (name === "") {
                     error.popover({content: "", placement: "top"});
                     error.data('bs.popover').options.content = "Enter your City";
                     error.popover('show');
-                    $("#SignInputCity").css({"border": "1px solid red"});
+                    $("#cityId").css({"border": "1px solid red"});
                     return false;
                 } else {
                     error.popover('destroy');
-                    $("#SignInputCity").css({"border": "1px solid #ddd"});
+                    $("#cityId").css({"border": "1px solid #ddd"});
                     return true;
                 }
             }
 
             function SignInputState() {
-                let name = $("#SignInputState").val(), error = $("#Sign-State");
+                let name = $("#stateId").val(), error = $("#Sign-State");
                 if (name === "") {
                     error.popover({content: "", placement: "top"});
                     error.data('bs.popover').options.content = "Enter your state";
                     error.popover('show');
-                    $("#SignInputState").css({"border": "1px solid red"});
+                    $("#stateId").css({"border": "1px solid red"});
                     return false;
-                }else {
+                } else {
                     error.popover('destroy');
-                    $("#SignInputState").css({"border": "1px solid #ddd"});
+                    $("#stateId").css({"border": "1px solid #ddd"});
                     return true;
                 }
             }
@@ -317,7 +328,29 @@
                 }
                 event.preventDefault();
             });
+
+            $('#SignInputPostCode').focusout(function () {
+                let post = $(this).val();
+                let country = $('#countryId').children(":selected").attr('countryid');
+                if (post != "" && country != "") {
+                    var client = new XMLHttpRequest();
+                    var url = "http://api.zippopotam.us/" + country + "/" + post;
+                    client.open("GET", url, true);
+                    client.onreadystatechange = function () {
+                        if (client.readyState == 4) {
+                            let address = JSON.parse(client.responseText);
+                            address = address.places[0]['place name'];
+                            $('#placeName').val(address);
+                        }else {
+                            $('#placeName').val('');
+                        }
+                    };
+                    client.send();
+                }
+            });
+
         </script>
+        <script src="//geodata.solutions/includes/countrystatecity.js"></script>
     @endpush
 
 

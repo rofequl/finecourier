@@ -39,6 +39,7 @@ Route::get('/single_news', function () { $title = 'News Details'; return view('s
 
 Route::group(['middleware' => 'CheckUser'], function () {
     Route::get('/dashboard', 'UserController@dashboard')->name('dashboard');
+    Route::get('/profile', 'UserController@profile')->name('profile');
 });
 
 /*

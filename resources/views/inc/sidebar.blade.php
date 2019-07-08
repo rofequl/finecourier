@@ -14,10 +14,10 @@
 
 <div class="col-sm-4 col-md-3 sidebar">
     <div class="list-group">
-        <a href="#" class="list-group-item active">
+        <a href="{{route('dashboard')}}" class="list-group-item {{ Route::is('dashboard') ? 'active' : '' }}">
             <i class="fa fa-tachometer" aria-hidden="true"></i> My Dashboard <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
         </a>
-        <a href="#" class="list-group-item">
+        <a href="{{route('profile')}}" class="list-group-item {{ Route::is('profile') ? 'active' : '' }}">
             <i class="fa fa-user"></i> My Profile <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
         </a>
         <a href="#" class="list-group-item">

@@ -13,7 +13,7 @@
             <!-- row starts -->
             <div class="row">
                 @include('inc.sidebar')
-                <div class="col-sm-4 col-md-3">
+                <div class="col-sm-8 col-md-9">
                     @yield('content2')
                 </div>
 

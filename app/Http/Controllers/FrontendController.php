@@ -181,12 +181,13 @@ class FrontendController extends Controller
         $register_user->country = $request->country;
         $register_user->post_code = $request->post_code;
         $register_user->city = $request->city;
-        $register_user->state = $request->state;
+        $register_user->division = $request->state;
+        $register_user->placeName = $request->placeName;
         $register_user->password = Hash::make($request->password);
         $register_user->save();
         Session::put('user-email', $request->email);
         Session::put('user-id', $register_user->id);
-        return redirect('/');
+        return redirect('/dashboard');
     }
 
     public function LoginCheck(Request $request)
