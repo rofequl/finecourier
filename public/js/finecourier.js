@@ -37,6 +37,14 @@ $('.love-react').click(function () {
     }
 });
 
+$(document).ready(function() {
+    $('.js-example-basic-single').select2({
+        placeholder: "Start typing your country",
+        allowClear: true,
+        theme: "bootstrap"
+    });
+});
+
 $(document).ready(function () {
     $('.love-react').each(function () {
         let id = $(this).attr('id');

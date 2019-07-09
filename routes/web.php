@@ -20,6 +20,7 @@ Route::get('/service', 'FrontendController@service')->name('service');
 Route::get('/single-service/{id}', 'FrontendController@SingleService')->name('SingleService');
 
 Route::get('/contact', 'FrontendController@contact')->name('contact');
+Route::post('/send-us-message', 'FrontendController@SendUsMessage')->name('SendUsMessage');
 
 Route::get('/news', 'FrontendController@news')->name('news');
 Route::get('/single-news/{id}', 'FrontendController@SingleNews')->name('SingleNews');

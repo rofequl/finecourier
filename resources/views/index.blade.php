@@ -72,6 +72,108 @@
         END SLIDER AREA
     =================================-->
 
+
+    <!--================================
+        START Fine courier Option
+    =================================-->
+    <section class="partner_area section_padding reveal animated" data-delay="0.2s" data-anim="fadeInUpShort">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="partner col-md-4" style="margin-top: 10px;font-size: 17px;text-align: center">
+                            <div style="border: 1px solid #ddd;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- section_title starts -->
+                                        <div class="section_title">
+                                            <div class="sub_title"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4>Find Finecourier In</h4>
+                                <h5> Bangladesh </h5>
+                            </div>
+                        </div>
+                        <div class="partner col-md-4" style="margin-top: 10px;font-size: 17px;text-align: center">
+                            <div style="border: 1px solid #ddd; padding: 0 5px 5px">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- section_title starts -->
+                                        <div class="section_title">
+                                            <div class="sub_title"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4>Get A Quick Shipping Rate</h4>
+                                <p> Competitive shipping rates designed for your needs</p>
+                                <form action="#" style="margin: 20px">
+                                    <div class="form-group text-left">
+                                        <label for="usr">From:</label>
+                                        <select class="js-example-basic-single" name="from" style="margin-bottom: 0">
+                                           <option></option>
+                                            @foreach($earth as $earths)
+                                                <option value="AL">{{$earths['name']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group text-left">
+                                        <label for="usr2">To:</label>
+                                        <select class="js-example-basic-single form-control" name="to" style="margin-bottom: 0">
+                                            <option></option>
+                                            @foreach($earth as $earths)
+                                                <option value="AL">{{$earths['name']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group text-left">
+                                        <label for="usr3">Weight:</label>
+                                        <input type="text" id="usr3" placeholder="Weight" class="form-control" value="0.5"
+                                               style="margin-bottom: 0">
+                                    </div>
+
+                                    <div class="contact_btn_wrapper">
+                                        <button class="trust_btn qute_sbmt" type="submit" name="button">Check Rates
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="partner col-md-4" style="margin-top: 10px;font-size: 17px;text-align: center">
+                            <div style="border: 1px solid #ddd;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- section_title starts -->
+                                        <div class="section_title">
+                                            <div class="sub_title"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4>Type your tracking number</h4>
+                                <form action="#" style="margin: 20px">
+                                    <div class="form-group text-left">
+                                        <label for="usr3">Tracking Number:</label>
+                                        <input type="text" id="usr3" placeholder="Type your tracking number" style="margin-bottom: 0">
+                                    </div>
+
+                                    <div class="contact_btn_wrapper">
+                                        <button class="trust_btn qute_sbmt" type="submit" name="button">Track
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================================
+        END Fine courier Option
+    =================================-->
+
+
     <!--================================
         START SERVICE AREA
     =================================-->
@@ -323,7 +425,8 @@
                             @foreach($news as $newss)
                                 <div class="single_blog_wrapper">
                                     <div class="blog_img">
-                                        <img src="{{asset('storage/news/'.$newss->image)}}" alt="service-img" width="100%" height="163px">
+                                        <img src="{{asset('storage/news/'.$newss->image)}}" alt="service-img"
+                                             width="100%" height="163px">
                                     </div>
 
                                     <div class="blog_content">
@@ -334,9 +437,11 @@
 
                                         <div class="blog_meta">
                                             <ul>
-                                                <li><a href="#"><span class="fa fa-user"></span>{{$newss->name}}</a></li>
+                                                <li><a href="#"><span class="fa fa-user"></span>{{$newss->name}}</a>
+                                                </li>
                                                 <li><a href="#"><span class="fa fa-commenting-o"></span>250</a></li>
-                                                <li><a href="#"><span class="fa fa-heart-o"></span>{{$newss->like}}</a></li>
+                                                <li><a href="#"><span class="fa fa-heart-o"></span>{{$newss->like}}</a>
+                                                </li>
                                             </ul>
                                         </div>
 

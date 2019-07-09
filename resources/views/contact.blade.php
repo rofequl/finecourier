@@ -43,17 +43,30 @@
                         <div class="section_title title_center">
                             <div class="title"><h2>SEND US A MESSAGE</h2></div>
                         </div>
-
+                        @if ($errors->any())
+                            <ul class="alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{$error}}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                        @if(session()->has('message'))
+                            <div class="alert alert-danger alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                {{ session()->get('message') }}
+                            </div>
+                        @endif
                         <div class="contact_form">
-                            <form action="#">
+                            <form action="{{route('SendUsMessage')}}" method="post">
+                                {{csrf_field()}}
                                 <div class="form_half left">
-                                    <input type="text" placeholder="Name">
+                                    <input type="text" placeholder="Name" name="name">
                                 </div>
                                 <div class="form_half right">
-                                    <input type="text" placeholder="Phone">
+                                    <input type="number" placeholder="Phone" name="phone">
                                 </div>
 
-                                <input type="email" placeholder="Email">
+                                <input type="email" placeholder="Email" name="email">
 
                                 <textarea name="message" placeholder="Message" cols="30" rows="10"></textarea>
 
@@ -103,7 +116,8 @@
                             @foreach($sponsor as $sponsors)
                                 <div class="partner">
                                     <a href="{{$sponsors->url}}"><img
-                                                src="{{asset('storage/sponsor/'.$sponsors->image)}}" alt="" height="100%"></a>
+                                                src="{{asset('storage/sponsor/'.$sponsors->image)}}" alt=""
+                                                height="100%"></a>
                                 </div>
                             @endforeach
                         </div>
@@ -120,90 +134,14 @@
 
     <script>
 
-        var markers = [
-            ['Afghanistan', 36.779030, 69.949081],
-            ['Egypt', 30.028706, 31.249592],
-            ['Thailand', 13.736717, 100.523186],
-            ['Bangladesh', 23.728783, 90.393791]
-        ];
-        var myCenter = new google.maps.LatLng(32.294445, 72.349724);
-
-        function initialize() {
-            var mapProp = {
-                center: myCenter,
-                zoom: 4,
-                scrollwheel: false,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                styles: [{
-                    "featureType": "water",
-                    "elementType": "geometry",
-                    "stylers": [{"color": "#edf0f5"}, {"lightness": 17}]
-                }, {
-                    "featureType": "landscape",
-                    "elementType": "geometry",
-                    "stylers": [{"color": "#ffffff"}, {"lightness": 20}]
-                }, {
-                    "featureType": "road.highway",
-                    "elementType": "geometry.fill",
-                    "stylers": [{"color": "#ffffff"}, {"lightness": 17}]
-                }, {
-                    "featureType": "road.highway",
-                    "elementType": "geometry.stroke",
-                    "stylers": [{"color": "#ffffff"}, {"lightness": 29}, {"weight": 0.2}]
-                }, {
-                    "featureType": "road.arterial",
-                    "elementType": "geometry",
-                    "stylers": [{"color": "#ffffff"}, {"lightness": 18}]
-                }, {
-                    "featureType": "road.local",
-                    "elementType": "geometry",
-                    "stylers": [{"color": "#ffffff"}, {"lightness": 16}]
-                }, {
-                    "featureType": "poi",
-                    "elementType": "geometry",
-                    "stylers": [{"color": "#f5f5f5"}, {"lightness": 21}]
-                }, {
-                    "featureType": "poi.park",
-                    "elementType": "geometry",
-                    "stylers": [{"color": "#dedede"}, {"lightness": 21}]
-                }, {
-                    "elementType": "labels.text.stroke",
-                    "stylers": [{"visibility": "on"}, {"color": "#ffffff"}, {"lightness": 16}]
-                }, {
-                    "elementType": "labels.text.fill",
-                    "stylers": [{"saturation": 36}, {"color": "#333333"}, {"lightness": 40}]
-                }, {"elementType": "labels.icon", "stylers": [{"visibility": "off"}]}, {
-                    "featureType": "transit",
-                    "elementType": "geometry",
-                    "stylers": [{"color": "#f2f2f2"}, {"lightness": 19}]
-                }, {
-                    "featureType": "administrative",
-                    "elementType": "geometry.fill",
-                    "stylers": [{"color": "#fefefe"}, {"lightness": 20}]
-                }, {
-                    "featureType": "administrative",
-                    "elementType": "geometry.stroke",
-                    "stylers": [{"color": "#fefefe"}, {"lightness": 17}, {"weight": 1.2}]
-                }]
-            };
-
-            var map = new google.maps.Map(document.getElementById("google_map"), mapProp);
-
-            for (var i = 0; i < markers.length; i++) {
-                var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(markers[i][1], markers[i][2]),
-                    map: map,
-                    icon: 'images/map-marker' + i + '.png'
-                });
-            }
-
-
-            var infowindow = new google.maps.InfoWindow({
-                content: "united-states"
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('google_map'), {
+                center: {
+                    lat: 23.777, lng: 90.399
+                },
+                zoom: 6.5
             });
         }
-
-        google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 
 @endsection
