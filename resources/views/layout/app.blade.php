@@ -24,6 +24,10 @@
     <!-- bootstrap -->
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}"/>
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
+
+
     <!-- animte css -->
     <link rel="stylesheet" href="{{asset('css/animate.css')}}"/>
 
@@ -99,7 +103,7 @@
 <!-- google map js -->
 
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCvNZ_WEl7PS-tIC1VuR_Rzs6x2GrxcQ_Q&callback=initMap"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <!-- smoothscroll js -->
 <script src="{{asset('js/jqury.smooth-scroll.min.js')}}"></script>
 

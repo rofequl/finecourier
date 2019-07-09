@@ -34,6 +34,13 @@
                             <li><a href="{{route('AdminNews')}}">News</a></li>
                         </ul>
                     </li>
+                    <li><a><i class="fa fa-home"></i> Shipping Rates <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{route('OurService')}}">World Name</a></li>
+                            <li><a href="{{route('AdminFaq')}}">World Name Country</a></li>
+                            <li><a href="{{route('OurInformation')}}">World Name Rate</a></li>
+                        </ul>
+                    </li>
                </ul>
             </div>
 

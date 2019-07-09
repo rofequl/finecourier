@@ -43,17 +43,30 @@
                         <div class="section_title title_center">
                             <div class="title"><h2>SEND US A MESSAGE</h2></div>
                         </div>
-
+                        @if ($errors->any())
+                            <ul class="alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{$error}}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                        @if(session()->has('message'))
+                            <div class="alert alert-danger alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                {{ session()->get('message') }}
+                            </div>
+                        @endif
                         <div class="contact_form">
-                            <form action="#">
+                            <form action="{{route('SendUsMessage')}}" method="post">
+                                {{csrf_field()}}
                                 <div class="form_half left">
-                                    <input type="text" placeholder="Name">
+                                    <input type="text" placeholder="Name" name="name">
                                 </div>
                                 <div class="form_half right">
-                                    <input type="text" placeholder="Phone">
+                                    <input type="number" placeholder="Phone" name="phone">
                                 </div>
 
-                                <input type="email" placeholder="Email">
+                                <input type="email" placeholder="Email" name="email">
 
                                 <textarea name="message" placeholder="Message" cols="30" rows="10"></textarea>
 
@@ -103,7 +116,8 @@
                             @foreach($sponsor as $sponsors)
                                 <div class="partner">
                                     <a href="{{$sponsors->url}}"><img
-                                                src="{{asset('storage/sponsor/'.$sponsors->image)}}" alt="" height="100%"></a>
+                                                src="{{asset('storage/sponsor/'.$sponsors->image)}}" alt=""
+                                                height="100%"></a>
                                 </div>
                             @endforeach
                         </div>

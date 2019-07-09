@@ -13,14 +13,18 @@ use App\faq;
 use App\testimonial;
 use App\user;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+use Mail;
 use Session;
 use Illuminate\Support\Facades\Hash;
+use MenaraSolutions\Geographer\Earth;
+use MenaraSolutions\Geographer\Country;
 
 class FrontendController extends Controller
 {
     public function index()
     {
+        $earth = new Earth();
+        $earth = $earth->getCountries()->toArray();
         $slide = slider_manage::where('status', 1)->get();
         $service = service::where('status', 1)->get();
         $news = news::where('status', 1)->get();
@@ -28,7 +32,7 @@ class FrontendController extends Controller
         $faq = faq::where('status', 1)->get();
         $testimonial = testimonial::where('status', 1)->get();
         $sponsor = sponsor::all();
-        return view('index', compact('slide', 'news', 'service', 'testimonial', 'information', 'faq', 'sponsor'));
+        return view('index', compact('slide','earth', 'news', 'service', 'testimonial', 'information', 'faq', 'sponsor'));
     }
 
     public function about()
@@ -68,9 +72,21 @@ class FrontendController extends Controller
         return view('contact', compact('title', 'contact', 'sponsor'));
     }
 
-    public function SendUsMessage()
+    public function SendUsMessage(Request $request)
     {
-
+        $request->validate([
+            'name' => 'required|max:191',
+            'email' => 'required|max:191',
+            'phone' => 'required|max:191',
+            'message' => 'required',
+        ]);
+        //return view('mail.contact')->with(['data'=>$request]);
+        Mail::send('mail.contact',['data'=>$request],function ($message) use ($request){
+            $message->to('finecourier@gmail.com')->subject('A Message From Contact Page');
+            $message->from($request->email,$request->name);
+        });
+        Session::flash('message', 'Message sent successfully');
+        return redirect()->back();
     }
 
     public function news()
