@@ -101,4 +101,16 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::get('/admin-news-delete', 'AboutController@AdminNewsDelete')->name('AdminNewsDelete');
     Route::post('/admin-news-update', 'AboutController@AdminNewsUpdate')->name('AdminNewsUpdate');
 
+    Route::get('admin-world-zone/{data?}', 'QuotationController@AdminWorldZone')->name('AdminWorldZone');
+    Route::post('admin-world-zone', 'QuotationController@AdminWorldZoneAdd')->name('AdminWorldZoneAdd');
+    Route::post('admin-world-zone-update', 'QuotationController@AdminWorldZoneUpdate')->name('AdminWorldZoneUpdate');
+    Route::get('admin-world-zone-delete', 'QuotationController@AdminWorldZoneDelete')->name('AdminWorldZoneDelete');
+
+    Route::get('admin-country-manage/{data?}', 'QuotationController@AdminCountryManage')->name('AdminCountryManage');
+    Route::post('admin-country-manage', 'QuotationController@AdminCountryManageAdd')->name('AdminCountryManageAdd');
+    Route::get('admin-country-manage-delete', 'QuotationController@AdminCountryManageDelete')->name('AdminCountryManageDelete');
+    Route::post('admin-country-manage-update', 'QuotationController@AdminCountryManageUpdate')->name('AdminCountryManageUpdate');
+
+    Route::get('admin-shipping-rate/{data?}', 'QuotationController@AdminShippingRate')->name('AdminShippingRate');
+
 });
