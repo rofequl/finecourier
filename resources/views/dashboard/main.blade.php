@@ -7,7 +7,7 @@
     <!--================================
     START LOGIN AREA
 =================================-->
-    <section class="login_area reveal animated" data-delay="0.2s" data-anim="fadeInUpShort">
+    <section class="login_area reveal animated" data-delay="0.2s" data-anim="fadeInUpShort" style="margin: 30px 0">
         <!-- container starts -->
         <div class="container">
             <!-- row starts -->

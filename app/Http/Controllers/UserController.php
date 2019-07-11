@@ -8,8 +8,7 @@ class UserController extends Controller
 {
     public function dashboard()
     {
-        $title = "Dashboard";
-        return view('dashboard.bashboard',compact('title'));
+        return view('dashboard.index');
     }
 
     public function profile()

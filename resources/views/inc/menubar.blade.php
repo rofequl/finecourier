@@ -54,7 +54,7 @@
             {{--                </ul>--}}
             {{--            </div>--}}
         </li>
-        <li class="{{ Route::is('contact') ? 'active' : '' }}"><a href="{{route('contact')}}">contact</a></li>
+        <li class="{{ Route::is('contact') ? 'active' : '' }}"><a href="{{route('news')}}">contact</a></li>
         <li class="active"></li>
     </ul>
     <div class="search_form">

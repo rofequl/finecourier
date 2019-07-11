@@ -3,7 +3,7 @@
     <!--================================
         START SLIDER AREA
     =================================-->
-    <section class="slider_area">
+    <section class="slider_area" style="height: 500px">
 
         <!-- slider starts  -->
         <div class="sliders">
@@ -93,6 +93,7 @@
                                 </div>
                                 <h4>Find Finecourier In</h4>
                                 <h5> Bangladesh </h5>
+                                <p>Nothing Found</p>
                             </div>
                         </div>
                         <div class="partner col-md-4" style="margin-top: 10px;font-size: 17px;text-align: center">
@@ -107,13 +108,14 @@
                                 </div>
                                 <h4>Get A Quick Shipping Rate</h4>
                                 <p> Competitive shipping rates designed for your needs</p>
-                                <form action="#" style="margin: 20px">
+                                <form action="{{route('ShippingRateSearch')}}" method="post" style="margin: 20px">
+                                   {{csrf_field()}}
                                     <div class="form-group text-left">
                                         <label for="usr">From:</label>
                                         <select class="js-example-basic-single" name="from" style="margin-bottom: 0">
                                            <option></option>
                                             @foreach($earth as $earths)
-                                                <option value="AL">{{$earths['name']}}</option>
+                                                <option value="{{$earths['code']}}">{{$earths['name']}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -122,13 +124,13 @@
                                         <select class="js-example-basic-single form-control" name="to" style="margin-bottom: 0">
                                             <option></option>
                                             @foreach($earth as $earths)
-                                                <option value="AL">{{$earths['name']}}</option>
+                                                <option value="{{$earths['code']}}">{{$earths['name']}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group text-left">
                                         <label for="usr3">Weight:</label>
-                                        <input type="text" id="usr3" placeholder="Weight" class="form-control" value="0.5"
+                                        <input type="text" id="usr3" name="weight" placeholder="Weight" class="form-control" value="0.5"
                                                style="margin-bottom: 0">
                                     </div>
 

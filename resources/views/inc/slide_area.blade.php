@@ -1,9 +1,9 @@
 <!--================================
     START SLIDER AREA
 =================================-->
-<section class="breadcrumb reveal animated" data-delay="0.2s" data-anim="fadeInUpShort">
+<section class="breadcrumb reveal animated" data-delay="0.2s" data-anim="fadeInUpShort" style="height: 157px">
 
-    <div class="breadcrumb_content">
+    <div class="breadcrumb_content" style="padding-top: 87px">
         <!-- container starts -->
         <div class="container">
             <!-- row starts -->
@@ -12,7 +12,7 @@
                 <div class="col-md-12">
                     <div class="breadcrumb_title_wrapper">
                         <div class="page_title">
-                            <h1>{{$title}}</h1>
+                            <h1 style="font-size: 20px">{{$title}}</h1>
                         </div>
                         <ul class="bread_crumb">
                             <li><a href="{{route('home')}}">Home</a></li>

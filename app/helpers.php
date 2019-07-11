@@ -4,8 +4,10 @@ use App\basic_information;
 use App\contact;
 use App\our_inmormation;
 use App\service;
+use App\user;
 use App\world_zone;
 use App\zone_country_manage;
+use App\zone_shipping_rate;
 use MenaraSolutions\Geographer\Earth;
 use MenaraSolutions\Geographer\Country;
 
@@ -77,4 +79,22 @@ function get_country_name_by_code($data){
     $earth = new Earth();
     $thailand = $earth->findOneByCode($data);
     return $thailand;
+}
+
+function get_zone_shipping_price($data){
+    $data = zone_shipping_rate::where('world_zone_id',$data)->first();
+    if ($data){
+        return $data;
+    }else{
+        return false;
+    }
+}
+
+function get_user_by_id($data){
+    $data = user::find($data);
+    if ($data){
+        return $data;
+    }else{
+        return false;
+    }
 }

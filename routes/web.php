@@ -29,6 +29,9 @@ Route::post('add-love-react', 'FrontendController@AddLoveReact');
 Route::post('remove-love-react', 'FrontendController@RemoveLoveReact');
 Route::post('add-news-comment', 'FrontendController@AddNewsComment')->name('AddNewsComment');
 
+Route::get('/shipping-rate', 'QuotationController@ShippingRate')->name('ShippingRate');
+Route::post('/search-shipping-rate', 'QuotationController@ShippingRateSearch')->name('ShippingRateSearch');
+
 Route::get('faq', 'FrontendController@faq')->name('faq');
 Route::post('faq', 'FrontendController@AddFaq')->name('AddFaq');
 
@@ -112,5 +115,9 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::post('admin-country-manage-update', 'QuotationController@AdminCountryManageUpdate')->name('AdminCountryManageUpdate');
 
     Route::get('admin-shipping-rate/{data?}', 'QuotationController@AdminShippingRate')->name('AdminShippingRate');
+    Route::post('admin-shipping-rate', 'QuotationController@AdminShippingRateAdd')->name('AdminShippingRateAdd');
+    Route::post('admin-shipping-rate-update', 'QuotationController@AdminShippingRateUpdate')->name('AdminShippingRateUpdate');
+    Route::get('admin-shipping-rate-delete', 'QuotationController@AdminShippingRateDelete')->name('AdminShippingRateDelete');
+
 
 });

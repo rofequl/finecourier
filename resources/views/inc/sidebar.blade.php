@@ -4,7 +4,7 @@
         font-size: 15px;
     }
     .sidebar a{
-        padding: 23px 15px;
+        padding: 15px 15px;
     }
     .sidebar a .fa-long-arrow-right{
         float: right;
@@ -31,6 +31,12 @@
         </a>
         <a href="#" class="list-group-item">
             <i class="fa fa-dollar"></i> Billing & Payment <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+        </a>
+        <a href="#" class="list-group-item">
+            <i class="fa fa-dollar"></i> Support Request <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+        </a>
+        <a href="#" class="list-group-item">
+            <i class="fa fa-dollar"></i> Order Supplies <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
         </a>
     </div>
 </div>
