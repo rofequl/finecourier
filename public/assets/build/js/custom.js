@@ -1321,9 +1321,10 @@ function init_select2() {
     console.log('init_toolbox');
 
     $(".select2_single").select2({
-        placeholder: "Start typing your country",
+        placeholder: "Select option",
         allowClear: true,
-        theme: "bootstrap"
+        theme: "bootstrap",
+        width: '100%'
     });
     $(".select2_group").select2({
         placeholder: "Start typing your country",

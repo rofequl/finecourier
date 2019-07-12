@@ -17,24 +17,25 @@
                 <ul class="nav side-menu">
                     <li><a href="{{route('admin')}}"><i class="fa fa-dashboard"></i> Dashboard</a>
                     </li>
-                    <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-home"></i> Shipping Price <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{route('AdminCountry')}}">Country Management</a></li>
+                            <li><a href="{{route('AdminInternational')}}">International</a></li>
+                            <li><a href="{{route('AdminDomestic')}}">Domestic</a></li>
+                        </ul>
+                    </li>
+                    <li><a><i class="fa fa-home"></i> Website Management <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{route('BasicInformation')}}">Basic Information</a></li>
                             <li><a href="{{route('SliderManage')}}">Slider Manage</a></li>
                             <li><a href="{{route('AdminContact')}}">Contact us</a></li>
                             <li><a href="{{route('AdminTestimonial')}}">Testimonials</a></li>
                             <li><a href="{{route('AdminSponsor')}}">Sponsor</a></li>
-                        </ul>
-                    </li>
-                    <li><a><i class="fa"><span class="glyphicon glyphicon-wrench"></span></i> About us <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
                             <li><a href="{{route('OurService')}}">Our Service</a></li>
                             <li><a href="{{route('AdminFaq')}}">Faq</a></li>
                             <li><a href="{{route('OurInformation')}}">Our Information</a></li>
                             <li><a href="{{route('AdminNews')}}">News</a></li>
                         </ul>
-                    </li>
-                    <li><a href="{{route('AdminShippingRate')}}"><i class="fa"><span class="glyphicon glyphicon-folder-close"></span></i> Shipping Price </a>
                     </li>
                </ul>
             </div>

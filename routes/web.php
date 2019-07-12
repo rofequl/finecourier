@@ -52,12 +52,17 @@ Route::group(['middleware' => 'CheckUser'], function () {
 |--------------------------------------------------------------------------
 */
 
+Route::post('select-state', 'ShippingpriceController@SelectState')->name('SelectState');
+Route::post('select-city', 'ShippingpriceController@SelectCity')->name('SelectCity');
+Route::post('select-country-code', 'ShippingpriceController@SelectCountryCode')->name('SelectCountryCode');
+
 Route::get('admin-login', function () {return view('admin.login');});
 Route::post('/admin-login-check', 'AdminController@LoginCheck')->name('AdminLoginCheck');
 Route::get('/AdminLogout', 'AdminController@Logout')->name('AdminLogout');
 Route::post('/admin-user-register', 'AdminController@AdminRegister')->name('AdminUserRegister');
 
 Route::group(['middleware' => 'CheckAdmin'], function () {
+
 
     Route::get('/admin', 'AdminController@index')->name('admin');
     Route::get('/basic-information', 'HomeController@BasicInformation')->name('BasicInformation');
@@ -104,20 +109,17 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::get('/admin-news-delete', 'AboutController@AdminNewsDelete')->name('AdminNewsDelete');
     Route::post('/admin-news-update', 'AboutController@AdminNewsUpdate')->name('AdminNewsUpdate');
 
-    Route::get('admin-world-zone/{data?}', 'QuotationController@AdminWorldZone')->name('AdminWorldZone');
-    Route::post('admin-world-zone', 'QuotationController@AdminWorldZoneAdd')->name('AdminWorldZoneAdd');
-    Route::post('admin-world-zone-update', 'QuotationController@AdminWorldZoneUpdate')->name('AdminWorldZoneUpdate');
-    Route::get('admin-world-zone-delete', 'QuotationController@AdminWorldZoneDelete')->name('AdminWorldZoneDelete');
+    Route::get('/admin-Country', 'ShippingpriceController@AdminCountry')->name('AdminCountry');
+    Route::post('/admin-Country-change', 'ShippingpriceController@AdminCountryChange')->name('AdminCountryChange');
 
-    Route::get('admin-country-manage/{data?}', 'QuotationController@AdminCountryManage')->name('AdminCountryManage');
-    Route::post('admin-country-manage', 'QuotationController@AdminCountryManageAdd')->name('AdminCountryManageAdd');
-    Route::get('admin-country-manage-delete', 'QuotationController@AdminCountryManageDelete')->name('AdminCountryManageDelete');
-    Route::post('admin-country-manage-update', 'QuotationController@AdminCountryManageUpdate')->name('AdminCountryManageUpdate');
 
-    Route::get('admin-shipping-rate/{data?}', 'QuotationController@AdminShippingRate')->name('AdminShippingRate');
-    Route::post('admin-shipping-rate', 'QuotationController@AdminShippingRateAdd')->name('AdminShippingRateAdd');
-    Route::post('admin-shipping-rate-update', 'QuotationController@AdminShippingRateUpdate')->name('AdminShippingRateUpdate');
-    Route::get('admin-shipping-rate-delete', 'QuotationController@AdminShippingRateDelete')->name('AdminShippingRateDelete');
+    Route::get('/admin-international/{data?}', 'ShippingpriceController@AdminInternational')->name('AdminInternational');
+    Route::post('/admin-international', 'ShippingpriceController@AdminInternationalAdd')->name('AdminInternationalAdd');
+    Route::get('/admin-international-delete', 'ShippingpriceController@AdminInternationalDelete')->name('AdminInternationalDelete');
+
+    Route::get('/admin-domestic/{data?}', 'ShippingpriceController@AdminDomestic')->name('AdminDomestic');
+    Route::post('/admin-domestic', 'ShippingpriceController@AdminDomesticAdd')->name('AdminDomesticAdd');
+    Route::get('/admin-domestic-delete', 'ShippingpriceController@AdminDomesticDelete')->name('AdminDomesticDelete');
 
 
 });
