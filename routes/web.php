@@ -29,6 +29,9 @@ Route::post('add-love-react', 'FrontendController@AddLoveReact');
 Route::post('remove-love-react', 'FrontendController@RemoveLoveReact');
 Route::post('add-news-comment', 'FrontendController@AddNewsComment')->name('AddNewsComment');
 
+Route::get('/shipping-rate', 'QuotationController@ShippingRate')->name('ShippingRate');
+Route::post('/search-shipping-rate', 'QuotationController@ShippingRateSearch')->name('ShippingRateSearch');
+
 Route::get('faq', 'FrontendController@faq')->name('faq');
 Route::post('faq', 'FrontendController@AddFaq')->name('AddFaq');
 
@@ -100,5 +103,21 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::get('/admin-news-status', 'AboutController@AdminNewsStatus')->name('AdminNewsStatus');
     Route::get('/admin-news-delete', 'AboutController@AdminNewsDelete')->name('AdminNewsDelete');
     Route::post('/admin-news-update', 'AboutController@AdminNewsUpdate')->name('AdminNewsUpdate');
+
+    Route::get('admin-world-zone/{data?}', 'QuotationController@AdminWorldZone')->name('AdminWorldZone');
+    Route::post('admin-world-zone', 'QuotationController@AdminWorldZoneAdd')->name('AdminWorldZoneAdd');
+    Route::post('admin-world-zone-update', 'QuotationController@AdminWorldZoneUpdate')->name('AdminWorldZoneUpdate');
+    Route::get('admin-world-zone-delete', 'QuotationController@AdminWorldZoneDelete')->name('AdminWorldZoneDelete');
+
+    Route::get('admin-country-manage/{data?}', 'QuotationController@AdminCountryManage')->name('AdminCountryManage');
+    Route::post('admin-country-manage', 'QuotationController@AdminCountryManageAdd')->name('AdminCountryManageAdd');
+    Route::get('admin-country-manage-delete', 'QuotationController@AdminCountryManageDelete')->name('AdminCountryManageDelete');
+    Route::post('admin-country-manage-update', 'QuotationController@AdminCountryManageUpdate')->name('AdminCountryManageUpdate');
+
+    Route::get('admin-shipping-rate/{data?}', 'QuotationController@AdminShippingRate')->name('AdminShippingRate');
+    Route::post('admin-shipping-rate', 'QuotationController@AdminShippingRateAdd')->name('AdminShippingRateAdd');
+    Route::post('admin-shipping-rate-update', 'QuotationController@AdminShippingRateUpdate')->name('AdminShippingRateUpdate');
+    Route::get('admin-shipping-rate-delete', 'QuotationController@AdminShippingRateDelete')->name('AdminShippingRateDelete');
+
 
 });

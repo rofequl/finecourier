@@ -16,13 +16,17 @@
     <!-- NProgress -->
     <link href="{{asset('assets/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
     @stack('style')
-
+<!-- bootstrap-progressbar -->
+    <link href="{{asset('assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="{{asset('assets/vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet"/>
     <!-- iCheck -->
     <link href="{{asset('assets/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
     <!-- bootstrap-wysiwyg -->
     <link href="{{asset('assets/vendors/google-code-prettify/bin/prettify.min.css')}}" rel="stylesheet">
     <!-- Select2 -->
     <link href="{{asset('assets/vendors/select2/dist/css/select2.min.css')}}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
     <!-- Switchery -->
     <link href="{{asset('assets/vendors/switchery/dist/switchery.min.css')}}" rel="stylesheet">
     <!-- starrr -->
@@ -57,6 +61,7 @@
 <!-- bootstrap-progressbar -->
 <script src="{{asset('assets/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
 <!-- iCheck -->
+<script src="{{asset('assets/vendors/Chart.js/dist/Chart.min.js')}}"></script>
 <script src="{{asset('assets/vendors/iCheck/icheck.min.js')}}"></script>
 <!-- bootstrap-daterangepicker -->
 <script src="{{asset('assets/vendors/moment/min/moment.min.js')}}"></script>
@@ -75,13 +80,17 @@
 <script src="{{asset('assets/vendors/parsleyjs/dist/parsley.min.js')}}"></script>
 <!-- Autosize -->
 <script src="{{asset('assets/vendors/autosize/dist/autosize.min.js')}}"></script>
+<!-- JQVMap -->
+<script src="{{asset('assets/vendors/jqvmap/dist/jquery.vmap.js')}}"></script>
+<script src="{{asset('assets/vendors/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
+<script src="{{asset('assets/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js')}}"></script>
 <!-- jQuery autocomplete -->
 <script src="{{asset('assets/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js')}}"></script>
 <!-- starrr -->
 <script src="{{asset('assets/vendors/starrr/dist/starrr.js')}}"></script>
 @stack('scripts')
 <!-- Custom Theme Scripts -->
-<script src="{{asset('assets/build/js/custom.min.js')}}"></script>
+<script src="{{asset('assets/build/js/custom.js')}}"></script>
 
 </body>
 </html>

@@ -26,7 +26,7 @@
                             <li><a href="{{route('AdminSponsor')}}">Sponsor</a></li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-home"></i> About us <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa"><span class="glyphicon glyphicon-wrench"></span></i> About us <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{route('OurService')}}">Our Service</a></li>
                             <li><a href="{{route('AdminFaq')}}">Faq</a></li>
@@ -34,12 +34,7 @@
                             <li><a href="{{route('AdminNews')}}">News</a></li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-home"></i> Shipping Rates <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{route('OurService')}}">World Name</a></li>
-                            <li><a href="{{route('AdminFaq')}}">World Name Country</a></li>
-                            <li><a href="{{route('OurInformation')}}">World Name Rate</a></li>
-                        </ul>
+                    <li><a href="{{route('AdminShippingRate')}}"><i class="fa"><span class="glyphicon glyphicon-folder-close"></span></i> Shipping Price </a>
                     </li>
                </ul>
             </div>
