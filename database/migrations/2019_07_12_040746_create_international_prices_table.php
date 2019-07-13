@@ -19,7 +19,7 @@ class CreateInternationalPricesTable extends Migration
             $table->string('to_country');
             $table->string('shipping_type');
             $table->string('weight_type');
-            $table->string('payment_option');
+            $table->string('delivery_type');
             $table->string('max_weight');
             $table->string('max_price');
             $table->string('per_weight');

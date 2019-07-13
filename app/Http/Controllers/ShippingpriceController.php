@@ -66,7 +66,7 @@ class ShippingpriceController extends Controller
             'to_country' => 'required',
             'shipping_type' => 'required',
             'weight_type' => 'required',
-            'payment_option' => 'required',
+            'delivery_type' => 'required',
             'max_weight' => 'required',
             'max_price' => 'required',
             'per_weight' => 'required',
@@ -78,7 +78,7 @@ class ShippingpriceController extends Controller
         $insert->to_country = $request->to_country;
         $insert->shipping_type = $request->shipping_type;
         $insert->weight_type = $request->weight_type;
-        $insert->payment_option = $request->payment_option;
+        $insert->delivery_type = $request->delivery_type;
         $insert->max_weight = $request->max_weight;
         $insert->max_price = $request->max_price;
         $insert->per_weight = $request->per_weight;

@@ -113,7 +113,7 @@
                                         <th scope="row">{{get_country_name_by_code($datas->to_country)->name}}</th>
                                         <td>{{$datas->shipping_type}}</td>
                                         <td>{{$datas->weight_type}}</td>
-                                        <td>{{$datas->payment_option}}</td>
+                                        <td>{{$datas->delivery_type}}</td>
                                         <td>
                                             0 to {{$datas->max_weight}} gram price {{$datas->max_price}} {{$datas->currency}},<br>
                                             Next per {{$datas->per_weight}} gram price {{$datas->price}} {{$datas->currency}}
@@ -252,31 +252,31 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Payment option</label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Delivery Type</label>
                                     <div class="col-md-7 col-sm-7 col-xs-12">
                                         <div class="row">
                                             <div class="radio col-sm-6">
                                                 <label class="">
                                                     <div class="iradio_flat-green" style="position: relative;"><input
                                                                 type="radio" class="flat" checked=""
-                                                                name="payment_option" value="Upon Shipping"
+                                                                name="delivery_type" value="Regular"
                                                                 style="position: absolute; opacity: 0;">
                                                         <ins class="iCheck-helper"
                                                              style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
                                                     </div>
-                                                    Upon Shipping
+                                                    Regular
                                                 </label>
                                             </div>
                                             <div class="radio col-sm-6">
                                                 <label class="">
                                                     <div class="iradio_flat-green" style="position: relative;"><input
-                                                                type="radio" class="flat" name="payment_option"
-                                                                value="Upon Receiving"
+                                                                type="radio" class="flat" name="delivery_type"
+                                                                value="Express"
                                                                 style="position: absolute; opacity: 0;">
                                                         <ins class="iCheck-helper"
                                                              style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
                                                     </div>
-                                                    Upon Receiving
+                                                    Express
                                                 </label>
                                             </div>
                                         </div>

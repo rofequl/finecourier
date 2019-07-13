@@ -30,7 +30,7 @@ Route::post('remove-love-react', 'FrontendController@RemoveLoveReact');
 Route::post('add-news-comment', 'FrontendController@AddNewsComment')->name('AddNewsComment');
 
 Route::get('/shipping-rate', 'QuotationController@ShippingRate')->name('ShippingRate');
-Route::post('/search-shipping-rate', 'QuotationController@ShippingRateSearch')->name('ShippingRateSearch');
+Route::get('/search-shipping-rate', 'QuotationController@ShippingRateSearch')->name('ShippingRateSearch');
 
 Route::get('faq', 'FrontendController@faq')->name('faq');
 Route::post('faq', 'FrontendController@AddFaq')->name('AddFaq');
