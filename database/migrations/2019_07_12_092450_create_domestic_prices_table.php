@@ -22,6 +22,7 @@ class CreateDomesticPricesTable extends Migration
             $table->string('to_state');
             $table->string('shipping_type');
             $table->string('weight_type');
+            $table->string('delivery_type');
             $table->string('max_weight');
             $table->string('max_price');
             $table->string('per_weight');

@@ -39,9 +39,10 @@ $('.love-react').click(function () {
 
 $(document).ready(function() {
     $('.js-example-basic-single').select2({
-        placeholder: "Start typing your country",
+        placeholder: "Start select option",
         allowClear: true,
-        theme: "bootstrap"
+        theme: "bootstrap",
+        width:'100%'
     });
 });
 

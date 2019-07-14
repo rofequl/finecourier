@@ -93,7 +93,7 @@
                         <div class="x_content">
 
                             <table id="datatable-buttons"
-                                   class="table table-striped table-bordered dataTable no-footer dtr-inline collapsed">
+                                   class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed">
                                 <thead>
                                 <tr class="bg-dark">
                                     <th>Country</th>
@@ -276,26 +276,57 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Delivery Type</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="row">
+                                            <div class="radio col-sm-6">
+                                                <label class="">
+                                                    <div class="iradio_flat-green" style="position: relative;"><input
+                                                                type="radio" class="flat" checked=""
+                                                                name="delivery_type" value="Regular"
+                                                                style="position: absolute; opacity: 0;">
+                                                        <ins class="iCheck-helper"
+                                                             style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                                    </div>
+                                                    Regular
+                                                </label>
+                                            </div>
+                                            <div class="radio col-sm-6">
+                                                <label class="">
+                                                    <div class="iradio_flat-green" style="position: relative;"><input
+                                                                type="radio" class="flat" name="delivery_type"
+                                                                value="Express"
+                                                                style="position: absolute; opacity: 0;">
+                                                        <ins class="iCheck-helper"
+                                                             style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                                    </div>
+                                                    Express
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="input-group">
                                     <input type="number" class="form-control" value="0" readonly>
                                     <span class="input-group-addon" id="priceLabel">to</span>
                                     <input type="number" name="max_weight" placeholder="Insert Gram"
-                                           required="required" class="form-control">
+                                            class="form-control">
                                     <span class="input-group-addon" id="priceLabel">gram price</span>
                                     <input type="number"  name="max_price"
-                                           required="required" class="form-control" placeholder="Insert Price">
+                                            class="form-control" placeholder="Insert Price">
                                 </div>
                                 <span class="help-block">Example: 0 to 500 gram price 20</span>
                                 <div class="input-group">
                                     <span class="input-group-addon" title="* Price" id="priceLabel">Next per</span>
                                     <input type="number"  placeholder="Insert Gram"
-                                           name="per_weight" required="required" class="form-control">
+                                           name="per_weight" class="form-control">
                                     <span class="input-group-addon" id="priceLabel">gram price</span>
                                     <input type="number"  name="price"
                                            class="form-control" placeholder="Insert Price">
                                     <span class="input-group-addon"
                                           style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
-                                    <select id="searchbygenerals_currency" name="currency"
+                                    <select name="currency" id="currency" style="width: 80px"
                                             class="form-control">
                                         @foreach($earth as $earths)
                                             <option value="{{$earths['currency']}}">{{$earths['currency']}}</option>

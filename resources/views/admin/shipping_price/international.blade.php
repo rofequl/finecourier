@@ -92,8 +92,8 @@
                     <div class="x_panel">
                         <div class="x_content">
 
-                            <table id="datatable-buttons"
-                                   class="table table-striped table-bordered dataTable no-footer dtr-inline collapsed">
+                            <table id="datatable-responsive"
+                                   class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed">
                                 <thead>
                                 <tr class="bg-dark">
                                     <th>From Country</th>
@@ -301,8 +301,8 @@
                                            class="form-control" placeholder="Insert Price">
                                     <span class="input-group-addon"
                                           style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
-                                    <select id="searchbygenerals_currency" name="currency"
-                                            class="form-control">
+                                    <select id="currency" name="currency"
+                                            class="form-control" style="width: 80px">
                                         @foreach($earth as $earths)
                                             <option value="{{$earths['currency']}}">{{$earths['currency']}}</option>
                                         @endforeach
@@ -365,6 +365,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <script>
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $('#shipping_type1').click(function (e) {
             if (!$(this).hasClass("btn-primary")) {
                 $(this).toggleClass('btn-default btn-primary');
@@ -401,5 +402,18 @@
             });
         }
 
+
+        $('#from_country').change(function () {
+            let id = $(this).val();
+            $.ajax({
+                url: "{{ route('SelectCountryCode') }}",
+                type: 'post',
+                data: {_token: CSRF_TOKEN, id: id},
+                dataType: 'json',
+                success: function (data) {
+                    $('#currency').val(data.currency);
+                }
+            });
+        });
     </script>
 @endpush

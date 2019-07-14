@@ -140,6 +140,7 @@ class ShippingpriceController extends Controller
         $insert->to_state = $request->to_state;
         $insert->shipping_type = $request->shipping_type;
         $insert->weight_type = $request->weight_type;
+        $insert->delivery_type = $request->delivery_type;
         $insert->max_weight = $request->max_weight;
         $insert->max_price = $request->max_price;
         $insert->per_weight = $request->per_weight;
