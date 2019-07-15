@@ -102,7 +102,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="" class="mt-2 btn btn-primary float-right">Cancel</a>
+                        <a href="" class="mt-2 btn btn-primary float-right mx-3">Cancel</a>
                         <button class="mt-2 btn btn-primary float-right">Save</button>
                     </form>
                 </div>
