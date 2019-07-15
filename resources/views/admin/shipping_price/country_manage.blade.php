@@ -29,7 +29,7 @@
                         <div class="x_content">
 
                             <table id="datatable-buttons"
-                                   class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed">
+                                   class="table table-striped table-bordered dataTable no-footer dtr-inline">
                                 <thead>
                                 <tr class="bg-dark">
                                     <th>NumericCode</th>

@@ -46,8 +46,10 @@
                                 </div>
                                 <div class="form_half left" id="Sign-Country">
                                     <div class="select_wrapper">
-                                        <select name="country" class="countries" id="countryId">
-                                            <option value="">Select Country</option>
+                                        <select name="country" class="countries" id="CountryId">
+                                            @foreach($earth as $earths)
+                                                    <option value="{{$earths['code']}}">{{$earths['name']}}</option>
+                                            @endforeach
                                         </select>
                                         <span class="fa fa-caret-down"></span>
                                     </div>
@@ -331,7 +333,7 @@
 
             $('#SignInputPostCode').focusout(function () {
                 let post = $(this).val();
-                let country = $('#countryId').children(":selected").attr('countryid');
+                let country = $('#CountryId').val();
                 if (post != "" && country != "") {
                     var client = new XMLHttpRequest();
                     var url = "http://api.zippopotam.us/" + country + "/" + post;
@@ -349,8 +351,41 @@
                 }
             });
 
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $('#CountryId').change(function () {
+                let id = $(this).val();
+                $.ajax({
+                    url: "{{ route('SelectState') }}",
+                    type: 'post',
+                    data: {_token: CSRF_TOKEN, id: id},
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#stateId').html('');
+                        data.forEach(function (element) {
+                            $('#stateId').append($('<option>', {value: element.code, text: element.name}));
+                        });
+                    }
+                });
+            });
+
+            $('#stateId').change(function () {
+                let country = $('#CountryId').val();
+                let id = $(this).val();
+                $.ajax({
+                    url: "{{ route('SelectCity') }}",
+                    type: 'post',
+                    data: {_token: CSRF_TOKEN, id: id, country: country},
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#cityId').html('');
+                        data.forEach(function (element) {
+                            $('#cityId').append($('<option>', {value: element.code, text: element.name}));
+                        });
+                    }
+                });
+            });
         </script>
-        <script src="//geodata.solutions/includes/countrystatecity.js"></script>
+{{--        <script src="//geodata.solutions/includes/countrystatecity.js"></script>--}}
     @endpush
 
 

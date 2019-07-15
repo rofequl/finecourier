@@ -43,8 +43,12 @@ Route::get('/quote', function () { $title = 'Request Quote'; return view('quote'
 Route::get('/single_news', function () { $title = 'News Details'; return view('single_news',compact('title'));})->name('single_news');
 
 Route::group(['middleware' => 'CheckUser'], function () {
+
     Route::get('/dashboard', 'UserController@dashboard')->name('dashboard');
+
     Route::get('/profile', 'UserController@profile')->name('profile');
+    Route::post('/profile-update', 'UserController@ProfileUpdate')->name('ProfileUpdate');
+
 });
 
 /*

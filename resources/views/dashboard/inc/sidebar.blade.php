@@ -41,25 +41,10 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{route('profile')}}">
                         <i class="metismenu-icon fa fa-user"></i>
                         My Profile
-                        <i class="metismenu-state-icon fa fa-long-arrow-right caret-left"></i>
                     </a>
-                    <ul>
-                        <li>
-                            <a href="elements-buttons-standard.html">
-                                <i class="metismenu-icon"></i>
-                                Buttons
-                            </a>
-                        </li>
-                        <li>
-                            <a href="elements-dropdowns.html">
-                                <i class="metismenu-icon">
-                                </i>Dropdowns
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li>
                     <a href="#">

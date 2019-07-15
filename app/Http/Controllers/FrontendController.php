@@ -187,8 +187,10 @@ class FrontendController extends Controller
 
     public function register()
     {
+        $earth = new Earth();
+        $earth = $earth->getCountries()->toArray();
         $title = "Register";
-        return view('register', compact('title'));
+        return view('register', compact('title','earth'));
     }
 
     public function RegisterSubmit(Request $request)
