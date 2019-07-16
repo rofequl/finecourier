@@ -64,24 +64,6 @@
                         Prepare Shipment
                     </a>
                 </li>
-                <li>
-                    <a href="#">
-                        <i class="metismenu-icon fa fa-cog"></i>
-                        Billing & Payment
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="metismenu-icon fa fa-cog"></i>
-                        Support Request
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="metismenu-icon fa fa-cog"></i>
-                        Order Supplies
-                    </a>
-                </li>
             </ul>
         </div>
     </div>

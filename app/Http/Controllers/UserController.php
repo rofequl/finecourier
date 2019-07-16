@@ -55,13 +55,10 @@ class UserController extends Controller
     {
         $earth = new Earth();
         $earth = $earth->getCountries()->toArray();
-        return view('dashboard.address',compact('earth'));
+        $address = address::all();
+        return view('dashboard.address',compact('earth','address'));
     }
 
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
     public function AddressAdd(Request $request)
     {
 

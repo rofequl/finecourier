@@ -61,20 +61,21 @@
                             {{csrf_field()}}
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">
-                                            Name</label><input name="name" id="exampleEmail11"
-                                                               type="text" class="form-control"></div>
+                                    <div class="position-relative form-group">
+                                        <label for="name" class="">Name*</label>
+                                        <input name="name" id="name"
+                                                                type="text" class="form-control"></div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="position-relative form-group"><label for="examplePassword11" class="">Company
-                                        </label><input name="company" id="examplePassword11"
+                                    <div class="position-relative form-group"><label for="company" class="">Company*
+                                        </label><input name="company" id="company"
                                                        type="text" class="form-control"></div>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="position-relative form-group">
-                                        <label for="examplePassword11" class="">Country</label>
+                                        <label for="CountryId" class="">Country*</label>
                                         <select class="form-control" id="CountryId" name="country">
                                             <option value="">Select Country</option>
                                             @foreach($earth as $earths)
@@ -84,39 +85,39 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="position-relative form-group"><label for="exampleEmail11"
-                                                                                     class="">Post code</label><input
-                                                name="post_code" id="exampleEmail11" type="text"
+                                    <div class="position-relative form-group"><label for="post_code"
+                                                                                     class="">Post code*</label><input
+                                                name="post_code" id="post_code" type="text"
                                                 class="form-control"></div>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="position-relative form-group">
-                                        <label for="exampleCity" class="">City</label>
-                                        <select class="form-control" id="FromState" name="city">
-                                            <option value="">Select Country</option>
+                                        <label for="FromState" class="">City*</label>
+                                        <select class="form-control" id="FromState" name="state">
+                                            <option value="">Select State</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="position-relative form-group">
-                                        <label for="exampleState" class="">State</label>
-                                        <select class="form-control" id="FromCity" name="state">
-                                            <option value="">Select Country</option>
+                                        <label for="FromCity" class="">State*</label>
+                                        <select class="form-control" id="FromCity" name="city">
+                                            <option value="">Select City</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <div class="position-relative form-group phonediv"><label for="exampleEmail11"
+                                    <div class="position-relative form-group phonediv"><label for="phone"
                                                                                               class="">
-                                            Phone</label><input name="phone_one" id="phone"
-                                                                type="tel" class="form-control"></div>
+                                            Phone*</label><input name="phone_one" id="phone"
+                                                                 type="tel" class="form-control"></div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="position-relative form-group phonediv"><label for="examplePassword11"
+                                    <div class="position-relative form-group phonediv"><label for="phone2"
                                                                                               class="">
                                             Phone
                                         </label><input name="phone_two" id="phone2"
@@ -125,21 +126,21 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">
-                                            Address line 1*</label><input name="address_one" id="exampleEmail11"
+                                    <div class="position-relative form-group"><label for="address_one" class="">
+                                            Address line 1*</label><input name="address_one" id="address_one"
                                                                           type="text" class="form-control"></div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="position-relative form-group"><label for="examplePassword11" class="">
+                                    <div class="position-relative form-group"><label for="address_two" class="">
                                             Address line 2
-                                        </label><input name="address_two" id="examplePassword11"
+                                        </label><input name="address_two" id="address_two"
                                                        type="text" class="form-control"></div>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <div class="position-relative form-group"><label for="exampleEmail11" class="">
-                                            Email*</label><input name="email" id="exampleEmail11"
+                                    <div class="position-relative form-group"><label for="email" class="">
+                                            Email*</label><input name="email" id="email"
                                                                  type="email" class="form-control"></div>
                                 </div>
                             </div>
@@ -156,21 +157,38 @@
             <div class="main-card mb-3 card">
                 <div class="card-body">
                     <div id="accordion" class="accordion-wrapper mb-3">
-                        <div class="card">
-                            <div id="headingOne" class="card-header">
-                                <button type="button" data-toggle="collapse" data-target="#collapseOne1"
-                                        aria-expanded="false" aria-controls="collapseOne"
-                                        class="text-left m-0 p-0 btn btn-link btn-block collapsed">
-                                    <h5 class="m-0 p-0">Collapsible Group Item #1</h5>
-                                </button>
-                            </div>
-                            <div data-parent="#accordion" id="collapseOne1" aria-labelledby="headingOne"
-                                 class="collapse" style="">
-                                <div class="card-body">
-                                    
+                        @foreach($address as $addresses)
+                            <div class="card">
+                                <div id="headingOne" class="card-header">
+                                    <div class="w-100 row">
+                                        <div class="col">
+                                            <h5>{{$addresses->name}}</h5>
+                                            <p style="color: #48505791;font-size: 13px" class="mb-0">
+                                                ({{$addresses->post_code}}) -
+                                                {{$addresses->address_one}}
+                                            </p>
+                                        </div>
+                                        <div class="col-2 d-inline-block">
+                                            <button type="button" data-toggle="collapse" data-target="#collapseOne1"
+                                                    aria-expanded="false" aria-controls="collapseOne"
+                                                    class="btn btn-sm btn-primary collapsed mb-3 w-75">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Edit
+                                            </button>
+                                            <a href="" class="btn btn-sm btn-danger w-75">
+                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                Delete</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div data-parent="#accordion" id="collapseOne1" aria-labelledby="headingOne"
+                                     class="collapse" style="">
+                                    <div class="card-body">
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
