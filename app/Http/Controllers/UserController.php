@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\address;
 use App\user;
 use Illuminate\Http\Request;
 use MenaraSolutions\Geographer\Earth;
@@ -48,5 +49,52 @@ class UserController extends Controller
         $request->session()->flash('message', 'Profile update successfully');
         return redirect('/profile');
 
+    }
+
+    public function address()
+    {
+        $earth = new Earth();
+        $earth = $earth->getCountries()->toArray();
+        return view('dashboard.address',compact('earth'));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function AddressAdd(Request $request)
+    {
+
+        $request->validate([
+            'name' => 'required|max:191',
+            'company' => 'required|max:191',
+            'country' => 'required|max:191',
+            'post_code' => 'required|max:191',
+            'city' => 'required|max:191',
+            'state' => 'required|max:191',
+            'phone_two' => 'required|max:191',
+            'phone_one' => 'required|max:191',
+            'address_one' => 'required|max:191',
+            'address_two' => 'required|max:191',
+            'email' => 'required|max:191',
+
+        ]);
+
+        $insert = new address();
+        $insert->name = $request->name;
+        $insert->company = $request->company;
+        $insert->country = $request->country;
+        $insert->post_code = $request->post_code;
+        $insert->city = $request->city;
+        $insert->state = $request->state;
+        $insert->phone_one = $request->phone_one;
+        $insert->address_one = $request->address_one;
+        $insert->address_two = $request->address_two;
+        $insert->email = $request->email;
+        $insert->user_id = session('user-id');
+        $insert->save();
+
+        $request->session()->flash('message', 'Address ad successfully');
+        return redirect('/address');
     }
 }

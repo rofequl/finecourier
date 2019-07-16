@@ -49,6 +49,9 @@ Route::group(['middleware' => 'CheckUser'], function () {
     Route::get('/profile', 'UserController@profile')->name('profile');
     Route::post('/profile-update', 'UserController@ProfileUpdate')->name('ProfileUpdate');
 
+    Route::get('/address', 'UserController@address')->name('address');
+    Route::post('/address-add', 'UserController@AddressAdd')->name('AddressAdd');
+
 });
 
 /*

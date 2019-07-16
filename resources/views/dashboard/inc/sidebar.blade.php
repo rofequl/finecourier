@@ -53,15 +53,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="metismenu-icon fa fa-cog"></i>
-                        My Shipment
+                    <a href="{{route('address')}}">
+                        <i class="metismenu-icon fa fa-globe" aria-hidden="true"></i>
+                        Address book
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         <i class="metismenu-icon fa fa-cog"></i>
-                        Address book
+                        Prepare Shipment
                     </a>
                 </li>
                 <li>
