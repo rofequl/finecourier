@@ -55,13 +55,10 @@ class UserController extends Controller
     {
         $earth = new Earth();
         $earth = $earth->getCountries()->toArray();
-        return view('dashboard.address',compact('earth'));
+        $address = address::all();
+        return view('dashboard.address',compact('earth','address'));
     }
 
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
     public function AddressAdd(Request $request)
     {
 
@@ -72,10 +69,8 @@ class UserController extends Controller
             'post_code' => 'required|max:191',
             'city' => 'required|max:191',
             'state' => 'required|max:191',
-            'phone_two' => 'required|max:191',
             'phone_one' => 'required|max:191',
             'address_one' => 'required|max:191',
-            'address_two' => 'required|max:191',
             'email' => 'required|max:191',
 
         ]);
@@ -97,4 +92,24 @@ class UserController extends Controller
         $request->session()->flash('message', 'Address ad successfully');
         return redirect('/address');
     }
+
+    public function SelectAddress(Request $request)
+    {
+        $address = address::find($request->id);
+        return $address;
+    }
+
+    public function PrepareShipment()
+    {
+        $earth = new Earth();
+        $earth = $earth->getCountries()->toArray();
+        $address = address::where('user_id',session('user-id'))->get();
+        return view('dashboard.shipment',compact('address','earth'));
+    }
+
+    public function PrepareShipmentAdd(Request $request)
+    {
+        dd($request->all());
+    }
+
 }

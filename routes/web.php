@@ -52,6 +52,10 @@ Route::group(['middleware' => 'CheckUser'], function () {
     Route::get('/address', 'UserController@address')->name('address');
     Route::post('/address-add', 'UserController@AddressAdd')->name('AddressAdd');
 
+    Route::get('/prepare-shipment', 'UserController@PrepareShipment')->name('PrepareShipment');
+    Route::post('/select-address', 'UserController@SelectAddress')->name('SelectAddress');
+    Route::post('prepare-shipment-add', 'UserController@PrepareShipmentAdd')->name('PrepareShipmentAdd');
+
 });
 
 /*
