@@ -167,7 +167,7 @@
                             <div data-parent="#accordion" id="collapseOne1" aria-labelledby="headingOne"
                                  class="collapse" style="">
                                 <div class="card-body">
-                                    
+
                                 </div>
                             </div>
                         </div>
