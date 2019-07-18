@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\address;
+use App\shipment;
 use App\user;
 use Illuminate\Http\Request;
 use MenaraSolutions\Geographer\Earth;
@@ -12,7 +13,8 @@ class UserController extends Controller
 {
     public function dashboard()
     {
-        return view('dashboard.index');
+        $shipment = shipment::where('user_id',session('user-id'))->get();
+        return view('dashboard.index',compact('shipment'));
     }
 
     public function profile()
@@ -107,9 +109,5 @@ class UserController extends Controller
         return view('dashboard.shipment',compact('address','earth'));
     }
 
-    public function PrepareShipmentAdd(Request $request)
-    {
-        dd($request->all());
-    }
 
 }
