@@ -37,9 +37,10 @@
         @endif
         <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
             <div class="main-card mb-3 card card-body">
-                <form id="upload_form" method="post" action="#">
+                <form id="upload_form2" method="post" action="">
                     {{csrf_field()}}
                     <h5 class="card-title">Shipper Details: <span class="shipper_address_name"></span></h5>
+
                     <div class="form-row">
                         <div class="col-md-12">
                             <div class="position-relative form-group">
@@ -56,7 +57,9 @@
                             </div>
                         </div>
                     </div>
+
                     <h5 class="card-title">Receiver Details: <span class="receiver_address_name"></span></h5>
+
                     <div class="form-row">
                         <div class="col-md-12">
                             <div class="position-relative form-group">
@@ -73,7 +76,9 @@
                             </div>
                         </div>
                     </div>
+
                     <h5 class="card-title mt-4">Shipment Details:</h5>
+
                     <div class="form-row">
                         <div class="col-md-6 form-group text-left">
                             <label for="usr3">What are you planning to ship?</label>
@@ -122,6 +127,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="form-row my-4">
                         <div class="col text-left" id="parcel_content" style="display: none">
                             <label class="">Content of parcel*</label>
@@ -317,7 +323,7 @@
         });
 
         $('#delivery_type23').click(function () {
-            if ($('#delivery_type22').val() === 'Express' || $('#delivery_type11').val() === '') {
+            if ($('#delivery_type22').val() === 'Express' || $('#delivery_type22').val() === '') {
                 $("#delivery_type22").val('Regular');
                 $('#delivery_type23').css({'border': '1px solid red'});
                 $('#delivery_type24').css({'border': '1px solid #ddd'});
@@ -325,32 +331,23 @@
         });
 
         $('#delivery_type24').click(function () {
-            if ($('#delivery_type22').val() === 'Regular' || $('#delivery_type11').val() === '') {
+            if ($('#delivery_type22').val() === 'Regular' || $('#delivery_type22').val() === '') {
                 $("#delivery_type22").val('Express');
                 $('#delivery_type24').css({'border': '1px solid red'});
                 $('#delivery_type23').css({'border': '1px solid #ddd'});
             }
         });
 
-        $('#upload_form').on('submit', function () {
-            event.preventDefault();
-            warnBeforeRedirect();
-        });
-
-        function warnBeforeRedirect() {
-            swal({
-                title: "Please check",
-                text: "If you click 'OK' you can't edit.",
-                type: "warning",
-                showCancelButton: true
-            }, function () {
+        $(document).ready(function () {
+            $('#upload_form2').on('submit', function () {
+                event.preventDefault();
                 $.ajax({
                     url: "{{ route('PrepareShipmentAdd') }}",
                     method: "POST",
                     cache: false,
                     contentType: false,
                     processData: false,
-                    data: new FormData($('#upload_form')[0]),
+                    data: new FormData(this),
                     dataType: 'json',
                     error: function (data) {
                         if (data.status === 422) {
@@ -374,11 +371,11 @@
                         }
                     },
                     success: function (data) {
-                       alert(data);
+                        alert(data);
                     }
                 })
             });
-        }
+        });
     </script>
 
 @endpush
