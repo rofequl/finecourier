@@ -6,6 +6,7 @@ use App\country_manage;
 use App\our_inmormation;
 use App\service;
 use App\user;
+use App\address;
 use MenaraSolutions\Geographer\Earth;
 use MenaraSolutions\Geographer\Country;
 
@@ -82,4 +83,8 @@ function get_user_by_id($data)
     } else {
         return false;
     }
+}
+
+function get_address_by_id($data){
+    return address::find($data);
 }

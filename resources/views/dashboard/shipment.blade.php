@@ -37,10 +37,9 @@
         @endif
         <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
             <div class="main-card mb-3 card card-body">
-                <form id="upload_form2" method="post" action="">
+                <form id="upload_form" method="post" action="">
                     {{csrf_field()}}
                     <h5 class="card-title">Shipper Details: <span class="shipper_address_name"></span></h5>
-
                     <div class="form-row">
                         <div class="col-md-12">
                             <div class="position-relative form-group">
@@ -57,9 +56,7 @@
                             </div>
                         </div>
                     </div>
-
                     <h5 class="card-title">Receiver Details: <span class="receiver_address_name"></span></h5>
-
                     <div class="form-row">
                         <div class="col-md-12">
                             <div class="position-relative form-group">
@@ -76,9 +73,7 @@
                             </div>
                         </div>
                     </div>
-
                     <h5 class="card-title mt-4">Shipment Details:</h5>
-
                     <div class="form-row">
                         <div class="col-md-6 form-group text-left">
                             <label for="usr3">What are you planning to ship?</label>
@@ -127,7 +122,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="form-row my-4">
                         <div class="col text-left" id="parcel_content" style="display: none">
                             <label class="">Content of parcel*</label>
@@ -178,13 +172,15 @@
                             <label for="usr3">How do you want to arrange for payment?</label>
                             <div class="row justify-content-center">
                                 <div class="card card-body col-md-4 m-1 p-3"
-                                     style="border: 1px solid #ddd;font-size:15px;cursor: pointer;" id="delivery_type12">
+                                     style="border: 1px solid #ddd;font-size:15px;cursor: pointer;"
+                                     id="delivery_type12">
                                     <h4 class="card-title">Regular</h4>
                                     <p class="mb-0" style="font-size: 12px;">I am exporting and I will pay when I
                                         ship</p>
                                 </div>
                                 <div class="card card-body col-md-4 m-1 p-3"
-                                     style="border: 1px solid #ddd;font-size:15px;cursor: pointer;" id="delivery_type13">
+                                     style="border: 1px solid #ddd;font-size:15px;cursor: pointer;"
+                                     id="delivery_type13">
                                     <h4 class="card-title">Express</h4>
                                     <p class="mb-0" style="font-size: 12px;">I am importing and I will pay when I</p>
                                 </div>
@@ -197,20 +193,46 @@
                             <label for="usr3">How do you want to payment?</label>
                             <div class="row justify-content-center">
                                 <div class="card card-body col-md-4 m-1 p-3"
-                                     style="border: 1px solid #ddd;font-size:15px;cursor: pointer;" id="delivery_type23">
+                                     style="border: 1px solid #ddd;font-size:15px;cursor: pointer;"
+                                     id="delivery_type23">
                                     <p class="mb-0" style="font-size: 14px;">In cash by the shipper</p>
                                 </div>
                                 <div class="card card-body col-md-4 m-1 p-3"
-                                     style="border: 1px solid #ddd;font-size:15px;cursor: pointer;" id="delivery_type24">
+                                     style="border: 1px solid #ddd;font-size:15px;cursor: pointer;"
+                                     id="delivery_type24">
                                     <p class="mb-0" style="font-size: 14px;">By credit card by the shipper</p>
                                 </div>
                                 <input type="hidden"
                                        value=""
-                                       name="delivery_type" id="delivery_type22">
+                                       name="payment_type" id="delivery_type22">
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="mt-2 btn btn-primary float-right">Save</button>
+                    <button type="submit" class="mt-2 px-4 btn btn-success float-right">Shipping Rate</button>
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 col-sm-7">
+
+                            <div class="card card-body d-none" id="FoundPrice"
+                                 style="text-align:center;margin-top:80px;border: 1px solid #ddd;font-size:15px;cursor: pointer;">
+                                <div style="font-size: 20px;height: 100px;width: 107px;margin: 20px 0;border: 1px dotted blueviolet;border-radius: 50%;padding-top: 35px;display: inline-block;margin-left: auto;
+                            margin-right: auto;" id="PriceShowing">
+                                </div>
+                                <h4>
+                                    <span id="NotFoundState1"></span>
+                                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                    <span id="NotFoundState21"></span>
+                                </h4>
+                                <button type="button" id="submit_button" class="btn btn-success rounded my-4">
+                                    Shipping Submit
+                                </button>
+                            </div>
+                            <div class="card card-body d-none" id="NotFound"
+                                 style="text-align:center;margin-top:80px;border: 1px solid #ddd;font-size:18px;cursor: pointer;">
+                                <p>Cash Rates Are Not Yet Available</p>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
 
@@ -223,8 +245,8 @@
 @push('style')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css"
-    rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+          rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet"/>
 
 @endpush
 
@@ -235,7 +257,6 @@
 
     <script>
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
         $('#shipper_address').change(function () {
             let id = $(this).val();
             $.ajax({
@@ -249,7 +270,6 @@
                 }
             });
         });
-
         $('#receiver_address').change(function () {
             let id = $(this).val();
             $.ajax({
@@ -263,7 +283,6 @@
                 }
             });
         });
-
         $('#shipping_type1').click(function () {
             if ($('#shipping_type').val() === 'Parcel' || $('#shipping_type').val() === '') {
                 $("#shipping_type").val('Document');
@@ -272,7 +291,6 @@
                 $('#parcel_content').hide('1000');
             }
         });
-
         $('#shipping_type2').click(function () {
             if ($('#shipping_type').val() === 'Document' || $('#shipping_type').val() === '') {
                 $("#shipping_type").val('Parcel');
@@ -281,18 +299,16 @@
                 $('#parcel_content').show('1000');
             }
         });
-
         $('#weight').keyup(function () {
             let id = parseFloat($(this).val());
             $('.weight_info').text(id.toFixed(2) + ' ' + $('#weight_type').val());
         });
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.select2').select2({
                 theme: "bootstrap",
                 width: '100%'
             });
         });
-
         $('#origin_country').change(function () {
             let id = $(this).val();
             $.ajax({
@@ -305,7 +321,6 @@
                 }
             });
         });
-
         $('#delivery_type12').click(function () {
             if ($('#delivery_type11').val() === 'Express' || $('#delivery_type11').val() === '') {
                 $("#delivery_type11").val('Regular');
@@ -313,7 +328,6 @@
                 $('#delivery_type13').css({'border': '1px solid #ddd'});
             }
         });
-
         $('#delivery_type13').click(function () {
             if ($('#delivery_type11').val() === 'Regular' || $('#delivery_type11').val() === '') {
                 $("#delivery_type11").val('Express');
@@ -321,38 +335,35 @@
                 $('#delivery_type12').css({'border': '1px solid #ddd'});
             }
         });
-
         $('#delivery_type23').click(function () {
-            if ($('#delivery_type22').val() === 'Express' || $('#delivery_type22').val() === '') {
-                $("#delivery_type22").val('Regular');
+            if ($('#delivery_type22').val() == 1 || $('#delivery_type22').val() === '') {
+                $("#delivery_type22").val(0);
                 $('#delivery_type23').css({'border': '1px solid red'});
                 $('#delivery_type24').css({'border': '1px solid #ddd'});
             }
         });
-
         $('#delivery_type24').click(function () {
-            if ($('#delivery_type22').val() === 'Regular' || $('#delivery_type22').val() === '') {
-                $("#delivery_type22").val('Express');
+            if ($('#delivery_type22').val() == 0 || $('#delivery_type22').val() === '') {
+                $("#delivery_type22").val(1);
                 $('#delivery_type24').css({'border': '1px solid red'});
                 $('#delivery_type23').css({'border': '1px solid #ddd'});
             }
         });
-
         $(document).ready(function () {
-            $('#upload_form2').on('submit', function () {
+            $('#upload_form').on('submit', function () {
+                var form = new FormData(this);
                 event.preventDefault();
                 $.ajax({
                     url: "{{ route('PrepareShipmentAdd') }}",
-                    method: "POST",
-                    cache: false,
-                    contentType: false,
+                    type: 'post',
                     processData: false,
-                    data: new FormData(this),
+                    contentType: false,
+                    data: form,
                     dataType: 'json',
                     error: function (data) {
                         if (data.status === 422) {
                             var errors = $.parseJSON(data.responseText);
-                            let allData='',mainData='';
+                            let allData = '', mainData = '';
                             $.each(errors, function (key, value) {
                                 if ($.isPlainObject(value)) {
                                     $.each(value, function (key, value) {
@@ -362,19 +373,64 @@
                                     mainData += value + "<br/>";
                                 }
                             });
-                            Swal.fire({
+                            swal({
                                 title: mainData,
-                                html: allData,
+                                text: allData,
                                 type: 'error',
+                                html: true,
                                 confirmButtonText: 'Ok'
                             })
                         }
                     },
                     success: function (data) {
-                        alert(data);
+                        if (data.error == 'error') {
+                            if (!$('#FoundPrice').hasClass('d-none')) {
+                                $('#FoundPrice').addClass('d-none');
+                            }
+                            $('#NotFound').removeClass('d-none');
+                            $('html, body').animate({
+                                scrollTop: $("#NotFound").offset().top - 350
+                            }, 2000);
+                        } else {
+                            if (!$('#NotFound').hasClass('d-none')) {
+                                $('#NotFound').addClass('d-none');
+                            }
+                            $('#FoundPrice').removeClass('d-none');
+                            $('#NotFoundState1').html(data.shipper_address);
+                            $('#NotFoundState21').html(data.receiver_address);
+                            $('#PriceShowing').html(data.price + ' ' + data.currency);
+                            $('html, body').animate({
+                                scrollTop: $("#FoundPrice").offset().top - 350
+                            }, 2000);
+                        }
                     }
-                })
+                });
             });
+            $('#submit_button').click(function () {
+                var form = new FormData($('#upload_form')[0]);
+                warnBeforeRedirect(form);
+            });
+            function warnBeforeRedirect(form) {
+                swal({
+                        title: "Sure want to save?",
+                        text: "If you click 'OK' you cant edit data.",
+                        type: "warning",
+                        showCancelButton: true
+                    }, function () {
+                        $.ajax({
+                            url: "{{ route('PrepareShipmentSubmit') }}",
+                            type: 'post',
+                            processData: false,
+                            contentType: false,
+                            data: form,
+                            dataType: 'json',
+                            success: function (data) {
+                                console.log(data);
+                            }
+                        });
+                    }
+                );
+            }
         });
     </script>
 

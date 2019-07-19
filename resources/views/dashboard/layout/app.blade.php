@@ -9,6 +9,7 @@
     <title>Analytics Dashboard - This is an example dashboard created using build-in elements and components.</title>
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -16,7 +17,7 @@
     <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}"/>
     @stack('style')
 </head>
-<body>
+<body style="font-family: 'Lato', serif;">
 
 
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
