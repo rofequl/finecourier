@@ -50,7 +50,10 @@ Route::group(['middleware' => 'CheckUser'], function () {
     Route::post('/profile-update', 'UserController@ProfileUpdate')->name('ProfileUpdate');
 
     Route::get('/address', 'UserController@address')->name('address');
+    Route::post('select-address-id', 'UserController@SelectAddressId')->name('SelectAddressId');
     Route::post('/address-add', 'UserController@AddressAdd')->name('AddressAdd');
+    Route::post('/address-update', 'UserController@AddressUpdate')->name('AddressUpdate');
+    Route::get('/address-delete', 'UserController@AddressDelete')->name('AddressDelete');
 
     Route::get('/prepare-shipment', 'UserController@PrepareShipment')->name('PrepareShipment');
     Route::post('/select-address', 'UserController@SelectAddress')->name('SelectAddress');

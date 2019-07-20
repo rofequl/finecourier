@@ -37,7 +37,7 @@
                 <li>
                     <a href="{{route('dashboard')}}">
                         <i class="metismenu-icon fa fa-tachometer"></i>
-                        My Dashboard
+                        Dashboard
                     </a>
                 </li>
                 <li>

@@ -425,7 +425,20 @@
                             data: form,
                             dataType: 'json',
                             success: function (data) {
-                                console.log(data);
+                                if (data.error == 'error') {
+                                    swal({
+                                        title: "Something wrong",
+                                        text: 'Please check the shipping rate again.',
+                                        type: 'error',
+                                        confirmButtonText: 'Ok'
+                                    })
+                                } else {
+                                    var url = '{{ route("PrepareShipmentEdit", ":slug") }}';
+
+                                    url = url.replace(':slug', data.id);
+
+                                    window.location.href=url;
+                                }
                             }
                         });
                     }

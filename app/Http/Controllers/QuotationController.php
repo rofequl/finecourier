@@ -125,15 +125,40 @@ class QuotationController extends Controller
             ]);
         }
 
-        if ($request->submit == 'done'){
-            dd('okfgdjjkf');
-        }
-        //dd($request->all());
         $shipper_address = address::find($request->shipper_address);
         $receiver_address = address::find($request->receiver_address);
 
         if ($shipper_address->country == $receiver_address->country){
-            dd("same");
+            $data = domestic_price::where('country', $shipper_address->country)
+                ->where('from_state', $shipper_address->state)
+                ->where('from_city', $shipper_address->city)->where('to_state', $receiver_address->state)
+                ->where('to_city', $receiver_address->city)->where('shipping_type', $request->shipping_type)
+                ->where('weight_type', $request->weight_type)->where('delivery_type', $request->delivery_type)->first();
+            if ($data) {
+                $weight = number_format((float)$request->weight, 2, '.', '') * 1000;
+                if ($weight > $data->max_weight) {
+                    $ExtraWeight2 = ($weight - $data->max_weight) / $data->per_weight;
+                    if ((int)$ExtraWeight2 < $ExtraWeight2) {
+                        $ExtraWeight2 = (int)$ExtraWeight2 + 1;
+                    }
+                    $price = ($ExtraWeight2 * $data->price) + $data->max_price;
+                } else {
+                    $price = (int)$data->max_price;
+                }
+                $output = array(
+                    'price' => $price,
+                    'currency'=>$data->currency,
+                    'shipper_address'=>get_city_name_by_code($shipper_address->country,$shipper_address->state,$shipper_address->city)->name,
+                    'receiver_address'=>get_city_name_by_code($receiver_address->country,$receiver_address->state,$receiver_address->city)->name
+
+                );
+                return json_encode($output);
+            } else {
+                $output = array(
+                    'error' => 'error'
+                );
+                return json_encode($output);
+            }
         }else{
              $data = international_price::where('from_country', $shipper_address->country)
                 ->where('to_country', $receiver_address->country)->where('shipping_type', $request->shipping_type)
@@ -152,8 +177,8 @@ class QuotationController extends Controller
                 $output = array(
                     'price' => $price,
                     'currency'=>$data->currency,
-                    'shipper_address'=>$shipper_address->country,
-                    'receiver_address'=>$receiver_address->country
+                    'shipper_address'=>get_country_name_by_code($shipper_address->country)->name,
+                    'receiver_address'=>get_country_name_by_code($receiver_address->country)->name
 
                 );
                 return json_encode($output);
@@ -197,7 +222,54 @@ class QuotationController extends Controller
         $receiver_address = address::find($request->receiver_address);
 
         if ($shipper_address->country == $receiver_address->country){
-            dd("same");
+            $data = domestic_price::where('country', $shipper_address->country)
+                ->where('from_state', $shipper_address->state)
+                ->where('from_city', $shipper_address->city)->where('to_state', $receiver_address->state)
+                ->where('to_city', $receiver_address->city)->where('shipping_type', $request->shipping_type)
+                ->where('weight_type', $request->weight_type)->where('delivery_type', $request->delivery_type)->first();
+            if ($data) {
+                $weight = number_format((float)$request->weight, 2, '.', '') * 1000;
+                if ($weight > $data->max_weight) {
+                    $ExtraWeight2 = ($weight - $data->max_weight) / $data->per_weight;
+                    if ((int)$ExtraWeight2 < $ExtraWeight2) {
+                        $ExtraWeight2 = (int)$ExtraWeight2 + 1;
+                    }
+                    $price = ($ExtraWeight2 * $data->price) + $data->max_price;
+                } else {
+                    $price = (int)$data->max_price;
+                }
+                //dd($data->from_country);
+                $insert = new shipment();
+                $insert->shipper_address = $request->shipper_address;
+                $insert->receiver_address = $request->receiver_address;
+                $insert->shipping_type = $request->shipping_type;
+                $insert->peace = $request->peace;
+                $insert->weight = $request->weight;
+                $insert->weight_type = $request->weight_type;
+                $insert->parcel_content = $request->parcel_content;
+                $insert->origin_country = $request->origin_country;
+                $insert->good_value = $request->good_value;
+                $insert->origin_currency = $request->origin_currency;
+                $insert->payment_type = $request->payment_type;
+                $insert->delivery_type = $request->delivery_type;
+                $insert->user_id = session('user-id');
+                $insert->price = $price;
+                $insert->currency = $data->currency;
+                $insert->address_one = get_city_name_by_code($shipper_address->country,$shipper_address->state,$shipper_address->city)->name;
+                $insert->address_two = get_city_name_by_code($receiver_address->country,$receiver_address->state,$receiver_address->city)->name;
+                $insert->save();
+                $output = array(
+                    'done' => 'done',
+                    'id'=>$insert->id
+                );
+
+                return json_encode($output);
+            } else {
+                $output = array(
+                    'error' => 'error'
+                );
+                return json_encode($output);
+            }
         }else{
             $data = international_price::where('from_country', $shipper_address->country)
                 ->where('to_country', $receiver_address->country)->where('shipping_type', $request->shipping_type)
@@ -235,7 +307,8 @@ class QuotationController extends Controller
                 $insert->save();
 
                 $output = array(
-                    'done' => 'done'
+                    'done' => 'done',
+                    'id'=>$insert->id
                 );
 
                 return json_encode($output);

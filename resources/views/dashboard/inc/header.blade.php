@@ -75,7 +75,7 @@
                         <div class="widget-content-left">
                             <div class="btn-group">
                                 <a class="p-0 btn">
-                                    <img width="42" class="rounded-circle" src="{{asset('images/user.png')}}"
+                                    <img width="42" height="42" class="rounded-circle" src="{{get_user_by_id(session('user-id'))->image==null? asset('images/user.png'):asset('storage/user/'.get_user_by_id(session('user-id'))->image)}}"
                                          alt="">
                                     {{get_user_by_id(session('user-id'))->first_name}}
                                 </a>

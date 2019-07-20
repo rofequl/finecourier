@@ -33,14 +33,15 @@
         <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
             <div class="main-card mb-3 card">
                 <div class="card-body">
-                    <form method="post" action="{{route('ProfileUpdate')}}">
+                    <form method="post" action="{{route('ProfileUpdate')}}"  enctype="multipart/form-data">
                         {{csrf_field()}}
                         <input type="hidden" name="id" value="{{$user->id}}">
                         <div class="row justify-content-center mb-4">
-                            <div class="col-md-3 col-12">
-                                <img src="{{asset('images/user.png')}}" width="100%" class="border p-1">
+                            <div class="col-md-3 col-12" onclick="chooseFile()" style="cursor: pointer">
+                                <img src="{{$user->image==null? asset('images/user.png'):asset('storage/user/'.$user->image)}}" id="previewLogo" width="100%" class="border p-1">
                             </div>
                         </div>
+                        <input type="file" name="image" class="ImageUpload d-none">
                         <div class="form-row">
                             <div class="col-md-6">
                                 <div class="position-relative form-group"><label for="exampleEmail11" class="">First
@@ -182,6 +183,33 @@
                 }
             });
         });
+
+        function chooseFile() {
+            $(".ImageUpload").click();
+        }
+
+        $(function () {
+            $(".ImageUpload").change(function () {
+                let file = this.files[0];
+                let imagefile = file.type;
+                let match = ["image/jpeg", "image/png", "image/jpg"];
+                if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2]))) {
+                    alert("only jpeg, jpg and png Images type allowed");
+                    return false;
+                } else {
+                    $('#previewImage').html('<img src="" class="img-thumbnail h-100 mx-auto" id="previewLogo">');
+                    let reader = new FileReader();
+                    reader.onload = imageIsLoaded;
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        });
+
+        function imageIsLoaded(e) {
+            $('#previewLogo').attr('src', e.target.result);
+        }
+
+
 
     </script>
     

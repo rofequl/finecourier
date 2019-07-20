@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('city');
             $table->string('division');
             $table->string('placeName');
+            $table->string('image')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

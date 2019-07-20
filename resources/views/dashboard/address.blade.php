@@ -39,7 +39,7 @@
             <div class="main-card mb-3 card card-body">
                 <div class="input-group"><input type="text" class="form-control">
                     <div class="input-group-append">
-                        <button class="btn btn-secondary">
+                        <button class="btn btn-success">
                             <i class="fa fa-search" aria-hidden="true"></i>
                             Search
                         </button>
@@ -169,26 +169,124 @@
                                             </p>
                                         </div>
                                         <div class="col-2 d-inline-block">
-                                            <button type="button" data-toggle="collapse" data-target="#collapseOne1"
+                                            <button type="button" data-toggle="collapse" data-target="#collapse{{$addresses->id}}"
                                                     aria-expanded="false" aria-controls="collapseOne"
-                                                    class="btn btn-sm btn-primary collapsed mb-3 w-75">
+                                                    class="btn btn-sm btn-primary collapsed mb-3 w-100">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Edit
                                             </button>
-                                            <a href="" class="btn btn-sm btn-danger w-75">
+                                            <a href="{{route('AddressDelete','delete='.$addresses->id)}}" class="btn btn-sm btn-danger w-100 delete text-capitalize">
                                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                 Delete</a>
                                         </div>
                                     </div>
 
                                 </div>
-                                <div data-parent="#accordion" id="collapseOne1" aria-labelledby="headingOne"
+                                <div data-parent="#accordion" id="collapse{{$addresses->id}}" aria-labelledby="headingOne"
                                      class="collapse" style="">
-                                    <div class="card-body">
-
+                                    <div class="card-body py-4">
+                                        <form method="post" action="{{route('AddressUpdate')}}">
+                                            {{csrf_field()}}
+                                            <input type="hidden" name="id" value="{{$addresses->id}}">
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="position-relative form-group">
+                                                        <label for="name" class="">Name*</label>
+                                                        <input name="name" id="name" value="{{$addresses->name}}"
+                                                               type="text" class="form-control"></div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="position-relative form-group"><label for="company" class="">Company*
+                                                        </label><input name="company" id="company" value="{{$addresses->company}}"
+                                                                       type="text" class="form-control"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="position-relative form-group">
+                                                        <label for="CountryId" class="">Country*</label>
+                                                        <select class="form-control country" id="{{$addresses->id}}" name="country">
+                                                            <option value="">Select Country</option>
+                                                            @foreach($earth as $earths)
+                                                                <option value="{{$earths['code']}}">{{$earths['name']}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="position-relative form-group"><label for="post_code"
+                                                                                                     class="">Post code*</label><input
+                                                                name="post_code" id="post_code" type="text" value="{{$addresses->post_code}}"
+                                                                class="form-control"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="position-relative form-group">
+                                                        <label for="FromState{{$addresses->id}}" class="">City*</label>
+                                                        <select class="form-control" id="FromState{{$addresses->id}}" name="state">
+                                                            <option value="">Select State</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="position-relative form-group">
+                                                        <label for="FromCity{{$addresses->id}}" class="">State*</label>
+                                                        <select class="form-control" id="FromCity{{$addresses->id}}" name="city">
+                                                            <option value="">Select City</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="position-relative form-group phonediv"><label for="phone"
+                                                                                                              class="">
+                                                            Phone*</label><input name="phone_one" id="phone" value="{{$addresses->phone_one}}"
+                                                                                 type="tel" class="form-control"></div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="position-relative form-group phonediv"><label for="phone2"
+                                                                                                              class="">
+                                                            Phone
+                                                        </label><input name="phone_two" id="phone2" value="{{$addresses->phone_two}}"
+                                                                       type="text" class="form-control"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="position-relative form-group"><label for="address_one" class="">
+                                                            Address line 1*</label><input name="address_one" id="address_one"
+                                                                                          value="{{$addresses->address_one}}"                        type="text" class="form-control"></div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="position-relative form-group"><label for="address_two" class="">
+                                                            Address line 2
+                                                        </label><input name="address_two" id="address_two"  value="{{$addresses->address_two}}"
+                                                                       type="text" class="form-control"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="position-relative form-group"><label for="email" class="">
+                                                            Email*</label><input name="email" id="email" value="{{$addresses->email}}"
+                                                                                 type="email" class="form-control"></div>
+                                                </div>
+                                            </div>
+                                            <button class="mt-2 mb-5 btn btn-success float-right" type="submit">Update</button>
+                                            <button class="mt-2 mb-5 btn btn-secondary float-right mx-3 collapsed" type="button"
+                                                    data-toggle="collapse" data-target="#collapse{{$addresses->id}}"
+                                                    aria-expanded="false" aria-controls="collapseOne">Cancel
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
+                    </div>
+                    <div class="w-100">
+                        <div class="d-table mx-auto">
+                            {{ $address->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -201,13 +299,32 @@
 
 @push('style')
     <link rel="stylesheet" href="{{asset('assets/vendors/phone/css/intlTelInput.min.css')}}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet"/>
 @endpush
 
 @push('scripts')
     <script src="{{asset('assets/vendors/phone/js/prism.js')}}"></script>
     <script src="{{asset('assets/vendors/phone/js/intlTelInput-jquery.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <script>
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+        $('.delete').click(function (e) {
+            e.preventDefault(); // Prevent the href from redirecting directly
+            var linkURL = $(this).attr("href");
+            warnBeforeRedirect(linkURL);
+        });
+
+        function warnBeforeRedirect(linkURL) {
+            swal({
+                title: "Sure want to remove?",
+                text: "If you click 'OK' address will be remove",
+                type: "warning",
+                showCancelButton: true
+            }, function () { // Redirect the user | linkURL is href url
+                window.location.href = linkURL;
+            });
+        }
 
         $("#phone").intlTelInput({
             separateDialCode: true,
@@ -267,6 +384,48 @@
                     });
                 }
             });
+        });
+
+        $('.country').each(function() {
+            let id = $(this).attr('id');
+            let country = $(this);
+            $.ajax({
+                url: "{{ route('SelectAddressId') }}",
+                type: 'post',
+                data: {_token: CSRF_TOKEN, id: id},
+                dataType: 'json',
+                success: function (data) {
+                   $(country).val(data.country);
+                    $.ajax({
+                        url: "{{ route('SelectState') }}",
+                        type: 'post',
+                        data: {_token: CSRF_TOKEN, id: data.country},
+                        dataType: 'json',
+                        success: function (data2) {
+                            $('#FromState'+id).html('');
+                            data2.forEach(function (element) {
+                                $('#FromState'+id).append($('<option>', {value: element.code, text: element.name}));
+                            });
+                            $('#FromState'+id).val(data.state);
+                        }
+                    });
+
+                    $.ajax({
+                        url: "{{ route('SelectCity') }}",
+                        type: 'post',
+                        data: {_token: CSRF_TOKEN, id: data.state, country: data.country},
+                        dataType: 'json',
+                        success: function (data2) {
+                            $('#FromCity'+id).html('');
+                            data2.forEach(function (element) {
+                                $('#FromCity'+id).append($('<option>', {value: element.code, text: element.name}));
+                            });
+                            ('#FromCity'+id).val(data.city);
+                        }
+                    });
+                }
+            });
+
         });
 
     </script>
