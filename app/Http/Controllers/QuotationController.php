@@ -128,7 +128,7 @@ class QuotationController extends Controller
         if ($request->submit == 'done'){
             dd('okfgdjjkf');
         }
-//dd($request->all());
+        //dd($request->all());
         $shipper_address = address::find($request->shipper_address);
         $receiver_address = address::find($request->receiver_address);
 
@@ -221,6 +221,7 @@ class QuotationController extends Controller
                 $insert->peace = $request->peace;
                 $insert->weight = $request->weight;
                 $insert->weight_type = $request->weight_type;
+                $insert->parcel_content = $request->parcel_content;
                 $insert->origin_country = $request->origin_country;
                 $insert->good_value = $request->good_value;
                 $insert->origin_currency = $request->origin_currency;
@@ -228,6 +229,9 @@ class QuotationController extends Controller
                 $insert->delivery_type = $request->delivery_type;
                 $insert->user_id = session('user-id');
                 $insert->price = $price;
+                $insert->currency = $data->currency;
+                $insert->address_one = get_country_name_by_code($data->from_country)->name;
+                $insert->address_two = get_country_name_by_code($data->to_country)->name;
                 $insert->save();
 
                 $output = array(
@@ -260,5 +264,15 @@ class QuotationController extends Controller
     {
         $shipment = shipment::where('user_id',session('user-id'))->where('id',$id)->first();
         return view('dashboard.shipment_edit',compact('shipment'));
+    }
+
+    public function PrepareShipmentDone($id)
+    {
+        $shipment = shipment::where('user_id',session('user-id'))->where('id',$id)->first();
+        $shipment->tracking_code = rand(1000,9999).str_pad($id, 3, "0", STR_PAD_LEFT).str_pad(session('user-id'), 3, "0", STR_PAD_LEFT);
+        $shipment->status = 1;
+        $shipment->save();
+
+        return redirect('dashboard');
     }
 }

@@ -257,7 +257,6 @@
 
     <script>
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
         $('#shipper_address').change(function () {
             let id = $(this).val();
             $.ajax({
@@ -271,7 +270,6 @@
                 }
             });
         });
-
         $('#receiver_address').change(function () {
             let id = $(this).val();
             $.ajax({
@@ -285,7 +283,6 @@
                 }
             });
         });
-
         $('#shipping_type1').click(function () {
             if ($('#shipping_type').val() === 'Parcel' || $('#shipping_type').val() === '') {
                 $("#shipping_type").val('Document');
@@ -294,7 +291,6 @@
                 $('#parcel_content').hide('1000');
             }
         });
-
         $('#shipping_type2').click(function () {
             if ($('#shipping_type').val() === 'Document' || $('#shipping_type').val() === '') {
                 $("#shipping_type").val('Parcel');
@@ -303,7 +299,6 @@
                 $('#parcel_content').show('1000');
             }
         });
-
         $('#weight').keyup(function () {
             let id = parseFloat($(this).val());
             $('.weight_info').text(id.toFixed(2) + ' ' + $('#weight_type').val());
@@ -314,7 +309,6 @@
                 width: '100%'
             });
         });
-
         $('#origin_country').change(function () {
             let id = $(this).val();
             $.ajax({
@@ -327,7 +321,6 @@
                 }
             });
         });
-
         $('#delivery_type12').click(function () {
             if ($('#delivery_type11').val() === 'Express' || $('#delivery_type11').val() === '') {
                 $("#delivery_type11").val('Regular');
@@ -335,7 +328,6 @@
                 $('#delivery_type13').css({'border': '1px solid #ddd'});
             }
         });
-
         $('#delivery_type13').click(function () {
             if ($('#delivery_type11').val() === 'Regular' || $('#delivery_type11').val() === '') {
                 $("#delivery_type11").val('Express');
@@ -343,23 +335,20 @@
                 $('#delivery_type12').css({'border': '1px solid #ddd'});
             }
         });
-
         $('#delivery_type23').click(function () {
-            if ($('#delivery_type22').val() === 'Express' || $('#delivery_type22').val() === '') {
-                $("#delivery_type22").val('Regular');
+            if ($('#delivery_type22').val() == 1 || $('#delivery_type22').val() === '') {
+                $("#delivery_type22").val(0);
                 $('#delivery_type23').css({'border': '1px solid red'});
                 $('#delivery_type24').css({'border': '1px solid #ddd'});
             }
         });
-
         $('#delivery_type24').click(function () {
-            if ($('#delivery_type22').val() === 'Regular' || $('#delivery_type22').val() === '') {
-                $("#delivery_type22").val('Express');
+            if ($('#delivery_type22').val() == 0 || $('#delivery_type22').val() === '') {
+                $("#delivery_type22").val(1);
                 $('#delivery_type24').css({'border': '1px solid red'});
                 $('#delivery_type23').css({'border': '1px solid #ddd'});
             }
         });
-
         $(document).ready(function () {
             $('#upload_form').on('submit', function () {
                 var form = new FormData(this);
@@ -417,12 +406,10 @@
                     }
                 });
             });
-
             $('#submit_button').click(function () {
                 var form = new FormData($('#upload_form')[0]);
                 warnBeforeRedirect(form);
             });
-
             function warnBeforeRedirect(form) {
                 swal({
                         title: "Sure want to save?",
@@ -445,7 +432,6 @@
                 );
             }
         });
-
     </script>
 
 @endpush

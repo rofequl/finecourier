@@ -30,6 +30,9 @@ class CreateShipmentsTable extends Migration
             $table->string('delivery_type');
             $table->string('parcel_content')->nullable();
             $table->string('price');
+            $table->string('currency');
+            $table->string('address_one');
+            $table->string('address_two');
             $table->string('tracking_code')->nullable();
             $table->string('user_id');
             $table->string('status')->default(0);

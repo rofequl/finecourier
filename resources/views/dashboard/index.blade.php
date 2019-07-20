@@ -84,16 +84,27 @@
                                         <div class="badge badge-info text-capitalize">Ready for a pickup</div>
                                     @endif
                                 </td>
-                                <td></td>
+                                <td>{{$shipments->tracking_code}}</td>
                                 <td class="text-center">
-                                    <p style="color: black;font-size: 19px" class="mb-0">{{$shipments->updated_at->format('d M')}}</p>
+                                    <p style="color: black;font-size: 19px"
+                                       class="mb-0">{{$shipments->updated_at->format('d M')}}</p>
                                     {{$shipments->updated_at->format('Y')}}
                                 </td>
                                 <td style="font-size: 15px">{{get_address_by_id($shipments->receiver_address)->name}}</td>
                                 <td></td>
                                 <td>
-                                    <a href="{{route('PrepareShipmentEdit',$shipments->id)}}" class="text-success"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a><br>
-                                    <a href="{{route('PrepareShipmentDelete','delete='.$shipments->id)}}" class="delete text-success"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>
+                                    @if($shipments->status == 0)
+                                        <a href="{{route('PrepareShipmentEdit',$shipments->id)}}" class="text-success"><i
+                                                    class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a><br>
+                                        <a href="{{route('PrepareShipmentDelete','delete='.$shipments->id)}}"
+                                           class="delete text-success"><i class="fa fa-trash-o fa-2x"
+                                                                          aria-hidden="true"></i></a>
+                                    @else
+                                        <a href="{{route('PrepareShipmentEdit',$shipments->id)}}" class="w-100 btn btn-sm btn-success">
+                                            VIEW
+                                        </a><br>
+                                        <a href="" class="btn btn-sm btn-success mt-2 w-100">LABEL</a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -110,7 +121,7 @@
 @endsection
 
 @push('style')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet"/>
 @endpush
 
 @push('scripts')

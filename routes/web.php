@@ -59,6 +59,7 @@ Route::group(['middleware' => 'CheckUser'], function () {
     Route::get('prepare-shipment-delete', 'QuotationController@PrepareShipmentDelete')->name('PrepareShipmentDelete');
 
     Route::get('prepare-shipment-edit/{id}', 'QuotationController@PrepareShipmentEdit')->name('PrepareShipmentEdit');
+    Route::get('prepare-shipment-done/{id}', 'QuotationController@PrepareShipmentDone')->name('PrepareShipmentDone');
 });
 
 /*
