@@ -69,7 +69,6 @@ class UserController extends Controller
 
     public function SelectAddressId(Request $request)
     {
-
         $address = address::find($request->id);
         return json_encode($address);
     }
@@ -77,23 +76,27 @@ class UserController extends Controller
     public function AddressAdd(Request $request)
     {
 
+
+
         $request->validate([
             'name' => 'required|max:191',
-            'company' => 'required|max:191',
+            'company' => 'max:191',
             'country' => 'required|max:191',
+            'address_type' => 'required|max:191',
             'post_code' => 'required|max:191',
             'city' => 'required|max:191',
             'state' => 'required|max:191',
             'phone_one' => 'required|max:191',
             'address_one' => 'required|max:191',
             'email' => 'required|max:191',
-
         ]);
+
 
         $insert = new address();
         $insert->name = $request->name;
         $insert->company = $request->company;
         $insert->country = $request->country;
+        $insert->address_type = $request->address_type;
         $insert->post_code = $request->post_code;
         $insert->city = $request->city;
         $insert->state = $request->state;
@@ -104,8 +107,8 @@ class UserController extends Controller
         $insert->user_id = session('user-id');
         $insert->save();
 
-        $request->session()->flash('message', 'Address ad successfully');
-        return redirect('/address');
+        $request->session()->flash('message', 'Address add successfully');
+        return '1';
     }
 
     public function AddressUpdate(Request $request)
@@ -113,8 +116,9 @@ class UserController extends Controller
 
         $request->validate([
             'name' => 'required|max:191',
-            'company' => 'required|max:191',
+            'company' => 'max:191',
             'country' => 'required|max:191',
+            'address_type' => 'required|max:191',
             'post_code' => 'required|max:191',
             'city' => 'required|max:191',
             'state' => 'required|max:191',
@@ -131,6 +135,7 @@ class UserController extends Controller
         $insert->post_code = $request->post_code;
         $insert->city = $request->city;
         $insert->state = $request->state;
+        $insert->address_type = $request->address_type;
         $insert->phone_one = $request->phone_one;
         $insert->address_one = $request->address_one;
         $insert->address_two = $request->address_two;

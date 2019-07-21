@@ -111,19 +111,22 @@ class ShippingpriceController extends Controller
 
     public function SelectState(Request $request)
     {
-        $earth = Country::build($request->id);
+        $earth = new Earth();
+        $earth = $earth->findOneByCode($request->id);
         return json_encode($earth->getStates()->toArray());
     }
 
     public function SelectCity(Request $request)
     {
-        $earth = Country::build($request->country);
+        $earth = new Earth();
+        $earth = $earth->findOneByCode($request->country);
         return json_encode($earth->getStates()->find(['code' => $request->id])->first()->getCities()->toArray());
     }
 
     public function SelectCountryCode(Request $request)
     {
-        $earth = Country::build($request->id);
+        $earth = new Earth();
+        $earth = $earth->findOneByCode($request->id);
         return json_encode($earth->toArray());
     }
 
