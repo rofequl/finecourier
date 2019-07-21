@@ -63,7 +63,7 @@ class UserController extends Controller
     {
         $earth = new Earth();
         $earth = $earth->getCountries()->toArray();
-        $address = address::paginate(3);
+        $address = address::where('user_id',session('user-id'))->paginate(3);
         return view('dashboard.address',compact('earth','address'));
     }
 

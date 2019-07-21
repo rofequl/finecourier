@@ -46,13 +46,14 @@
                     </div>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-primary my-4 collapsed"
-                            data-toggle="collapse" href="#collapseExample123" aria-expanded="false">
+                    <button type="button" class="btn btn-primary my-4"
+                            data-toggle="modal" data-target="#exampleModal">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         New Contact
                     </button>
                 </div>
             </div>
+
 
             <div class="collapse" id="collapseExample123" style="">
                 <div class="main-card mb-3 card">
@@ -142,6 +143,17 @@
                                     <div class="position-relative form-group"><label for="email" class="">
                                             Email*</label><input name="email" id="email"
                                                                  type="email" class="form-control"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="position-relative form-group"><label for="email" class="">
+                                            Address type*</label>
+                                        <select class="form-control" id="" name="state">
+                                            <option value="">Select Type</option>
+                                            <option value="">Shipping Address</option>
+                                            <option value="">Receiver Address</option>
+                                            <option value="">Billing Address</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <button class="mt-2 btn btn-primary float-right" type="submit">Save</button>
@@ -291,9 +303,9 @@
                 </div>
             </div>
 
-
         </div>
     </div>
+
 
 @endsection
 
@@ -430,4 +442,26 @@
 
     </script>
 
+    <!-- Large modal -->
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endpush

@@ -2,31 +2,99 @@
 
 namespace App\Http\Controllers;
 
+use App\citie;
 use App\domestic_price;
 use App\country_manage;
 use App\international_price;
+use App\state;
 use Illuminate\Http\Request;
+use MenaraSolutions\Geographer\City;
 use Session;
 use MenaraSolutions\Geographer\Earth;
-use MenaraSolutions\Geographer\Country;
+use App\Country;
 
 class ShippingpriceController extends Controller
 {
+
+//    public function __construct()
+//    {
+//        set_time_limit(8000000);
+//    }
 
     public function AdminCountry()
     {
         $earth = new Earth();
         $earth = $earth->getCountries()->toArray();
-        //dd($earth);
+
+
+
+//        foreach ($earth as $earths) {
+//            $insert = new country();
+//            $insert->code = $earths['code'];
+//            $insert->code3 = $earths['code3'];
+//            $insert->isoCode = $earths['isoCode'];
+//            $insert->numericCode = $earths['numericCode'];
+//            $insert->geonamesCode = $earths['geonamesCode'];
+//            $insert->fipsCode = $earths['fipsCode'];
+//            $insert->area = $earths['area'];
+//            $insert->currency = $earths['currency'];
+//            $insert->phonePrefix = $earths['phonePrefix'];
+//            $insert->mobileFormat = $earths['mobileFormat'];
+//            $insert->landlineFormat = $earths['landlineFormat'];
+//            $insert->trunkPrefix = $earths['trunkPrefix'];
+//            $insert->population = $earths['population'];
+//            $insert->continent = $earths['continent'];
+//            $insert->language = $earths['language'];
+//            $insert->name = $earths['name'];
+//            $insert->save();
+//        }
+
+
+//        foreach ($glove as $gloves) {
+//            $state = $earth->findOneByCode($gloves['code']);
+//            $state = $state->getStates()->toArray();
+//            foreach ($state as $states) {
+//                $insert = new state();
+//                $insert->code = $states['code'];
+//                $insert->fipsCode = $states['fipsCode'];
+//                $insert->isoCode = $states['isoCode'];
+//                $insert->geonamesCode = $states['geonamesCode'];
+//                $insert->name = $states['name'];
+//                $insert->country_code = $gloves['code'];
+//                $insert->save();
+//            }
+//        }
+
+//        foreach ($glove as $gloves) {
+//            $statet = $earth->findOneByCode($gloves['code']);
+//            $state = $statet->getStates()->toArray();
+//            foreach ($state as $states) {
+//                $city = $statet->getStates()->find(['code' => $states['code']])->first()->getCities()->toArray();
+//                foreach ($city as $citys) {
+//                    $insert = new citie();
+//                    $insert->code = $citys['code'];
+//                    $insert->geonamesCode = $citys['geonamesCode'];
+//                    $insert->latitude = $citys['latitude'];
+//                    $insert->longitude = $citys['longitude'];
+//                    $insert->population = $citys['population'];
+//                    $insert->state_code = $states['code'];
+//                    $insert->country_code = $gloves['code'];
+//                    $insert->save();
+//                }
+//            }
+//        }
+        //dd(' ');
+
+
         return view('admin.shipping_price.country_manage', compact( 'earth'));
     }
 
     public function AdminCountryChange(Request $request)
     {
-        if ($request->action == 'inactive'){
-            $insert = country_manage::where('country_code',$request->id)->first();
+        if ($request->action == 'inactive') {
+            $insert = country_manage::where('country_code', $request->id)->first();
             $insert->delete();
-        }else{
+        } else {
             $insert = new country_manage();
             $insert->country_code = $request->id;
             $insert->save();

@@ -19,7 +19,8 @@
                         <div class="sub_content">
                             <div class="btn-group btn-group-justified">
                                 <div class="btn-group">
-                                    <button type="button" id="international" class="btn btn-primary">International</button>
+                                    <button type="button" id="international" class="btn btn-primary">International
+                                    </button>
                                 </div>
                                 <div class="btn-group">
                                     <button type="button" id="domestic" class="btn btn-default">Domestic</button>
@@ -44,7 +45,8 @@
                                     </div>
                                     <div class="col-md-6 form-group text-left">
                                         <label for="usr2">To:</label>
-                                        <select class="js-example-basic-single form-control" name="to_country" id="to_country"
+                                        <select class="js-example-basic-single form-control" name="to_country"
+                                                id="to_country"
                                                 style="margin-bottom: 0">
                                             <option></option>
                                             @foreach($earth as $earths)
@@ -113,6 +115,28 @@
                                                    name="delivery_type" id="delivery_type">
                                         </div>
                                     </div>
+                                    <div class="col-md-6 form-group text-left">
+                                        <div class="panel panel-body hidden" id="FoundPrice"
+                                             style="text-align:center;border: 1px solid #ddd;font-size:15px;cursor: pointer;">
+                                            <div style="font-size: 20px;height: 100px;width: 107px;margin: 20px 0;border: 1px dotted blueviolet;border-radius: 50%;padding-top: 35px;display: inline-block;"
+                                                 id="PriceShowing">
+                                            </div>
+                                            <h4>
+                                                <span id="NotFoundState1"></span>
+                                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                                <span id="NotFoundState21"></span>
+                                            </h4>
+                                        </div>
+                                        <div class="panel panel-body hidden" id="NotFound"
+                                             style="text-align:center;border: 1px solid #ddd;font-size:15px;cursor: pointer;">
+                                            <p>Cash Rates Are Not Yet Available For</p>
+                                            <h4>
+                                                <span id="NotFoundState"></span>
+                                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                                <span id="NotFoundState2"></span>
+                                            </h4>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="quote_btn_wrapper">
                                     <button class="trust_btn qute_sbmt" type="submit"
@@ -164,11 +188,28 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 form-group text-left">
-                                        <label for="usr2">To City:</label>
-                                        <select class="js-example-basic-single form-control" name="ToCity"
-                                                style="margin-bottom: 0" id="ToCity">
+                                        <div class="col-md-12" style="padding-left: 0;">
+                                            <label for="usr2">To City:</label>
+                                            <select class="js-example-basic-single form-control" name="ToCity"
+                                                    style="margin-bottom: 0" id="ToCity">
 
-                                        </select>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12 form-group text-left" style="padding-left: 0;">
+                                            <label for="usr3">Weight:</label>
+                                            <div class="input-group">
+                                                <input type="text" name="weight"
+                                                       class="form-control"
+                                                       value="{{isset($request)? $request->weight:0.5}}" required>
+                                                <span class="input-group-addon"
+                                                      style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
+                                                <select id="searchbygenerals_currency" name="weight_type"
+                                                        class="form-control">
+                                                    <option value="KG">KG</option>
+                                                    <option value="LB">LB</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-md-6 form-group text-left">
                                         <label for="usr3">What are you planning to ship?</label>
@@ -193,18 +234,25 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 form-group text-left">
-                                        <label for="usr3">Weight:</label>
-                                        <div class="input-group">
-                                            <input type="text" name="weight"
-                                                   class="form-control"
-                                                   value="{{isset($request)? $request->weight:0.5}}" required>
-                                            <span class="input-group-addon"
-                                                  style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
-                                            <select id="searchbygenerals_currency" name="weight_type"
-                                                    class="form-control">
-                                                <option value="KG">KG</option>
-                                                <option value="LB">LB</option>
-                                            </select>
+                                        <div class="panel panel-body hidden" id="FoundPricez"
+                                             style="text-align:center;border: 1px solid #ddd;font-size:15px;cursor: pointer;">
+                                            <div style="font-size: 20px;height: 100px;width: 107px;margin: 20px 0;border: 1px dotted blueviolet;border-radius: 50%;padding-top: 35px;display: inline-block;"
+                                                 id="PriceShowingz">
+                                            </div>
+                                            <h4>
+                                                <span id="NotFoundState1z"></span>
+                                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                                <span id="NotFoundState21z"></span>
+                                            </h4>
+                                        </div>
+                                        <div class="panel panel-body hidden" id="NotFoundz"
+                                             style="text-align:center;border: 1px solid #ddd;font-size:15px;cursor: pointer;">
+                                            <p>Cash Rates Are Not Yet Available For</p>
+                                            <h4>
+                                                <span id="NotFoundStatez"></span>
+                                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                                <span id="NotFoundState2z"></span>
+                                            </h4>
                                         </div>
                                     </div>
                                     <div class="col-md-6 form-group text-left">
@@ -235,29 +283,6 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-5 col-md-offset-4">
-
-                    <div class="panel panel-body hidden" id="FoundPrice"
-                         style="text-align:center;margin-top:80px;border: 1px solid #ddd;font-size:15px;cursor: pointer;">
-                        <div style="font-size: 20px;height: 100px;width: 107px;margin: 20px 0;border: 1px dotted blueviolet;border-radius: 50%;padding-top: 35px;display: inline-block;"
-                             id="PriceShowing">
-                        </div>
-                        <h4>
-                            <span id="NotFoundState1"></span>
-                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                            <span id="NotFoundState21"></span>
-                        </h4>
-                    </div>
-                    <div class="panel panel-body hidden" id="NotFound"
-                         style="text-align:center;margin-top:80px;border: 1px solid #ddd;font-size:15px;cursor: pointer;">
-                        <p>Cash Rates Are Not Yet Available For</p>
-                        <h4>
-                            <span id="NotFoundState"></span>
-                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                            <span id="NotFoundState2"></span>
-                        </h4>
                     </div>
                 </div>
             </div>
@@ -453,7 +478,7 @@
                     error: function (data) {
                         if (data.status === 422) {
                             var errors = $.parseJSON(data.responseText);
-                            let allData='',mainData='';
+                            let allData = '', mainData = '';
                             $.each(errors, function (key, value) {
                                 if ($.isPlainObject(value)) {
                                     $.each(value, function (key, value) {
@@ -473,26 +498,20 @@
                     },
                     success: function (data) {
                         if (data.error == 'error') {
-                            if (!$('#FoundPrice').hasClass('hidden')) {
-                                $('#FoundPrice').addClass('hidden');
+                            if (!$('#FoundPricez').hasClass('hidden')) {
+                                $('#FoundPricez').addClass('hidden');
                             }
-                            $('#NotFound').removeClass('hidden');
-                            $('#NotFoundState').html($("#FromState option:selected").text());
-                            $('#NotFoundState2').html($("#ToState option:selected").text());
-                            $('html, body').animate({
-                                scrollTop: $("#NotFound").offset().top - 350
-                            }, 2000);
+                            $('#NotFoundz').removeClass('hidden');
+                            $('#NotFoundStatez').html($("#FromState option:selected").text());
+                            $('#NotFoundState2z').html($("#ToState option:selected").text());
                         } else {
                             if (!$('#NotFound').hasClass('hidden')) {
                                 $('#NotFound').addClass('hidden');
                             }
-                            $('#FoundPrice').removeClass('hidden');
-                            $('#NotFoundState1').html($("#FromState option:selected").text());
-                            $('#NotFoundState21').html($("#ToState option:selected").text());
-                            $('#PriceShowing').html(data.price + ' ' + data.currency);
-                            $('html, body').animate({
-                                scrollTop: $("#FoundPrice").offset().top - 350
-                            }, 2000);
+                            $('#FoundPricez').removeClass('hidden');
+                            $('#NotFoundState1z').html($("#FromState option:selected").text());
+                            $('#NotFoundState21z').html($("#ToState option:selected").text());
+                            $('#PriceShowingz').html(data.price + ' ' + data.currency);
                         }
                     }
                 })
@@ -549,7 +568,7 @@
                     error: function (data) {
                         if (data.status === 422) {
                             var errors = $.parseJSON(data.responseText);
-                            let allData='',mainData='';
+                            let allData = '', mainData = '';
                             $.each(errors, function (key, value) {
                                 if ($.isPlainObject(value)) {
                                     $.each(value, function (key, value) {
@@ -575,9 +594,6 @@
                             $('#NotFound').removeClass('hidden');
                             $('#NotFoundState').html($("#from_country option:selected").text());
                             $('#NotFoundState2').html($("#to_country option:selected").text());
-                            $('html, body').animate({
-                                scrollTop: $("#NotFound").offset().top - 350
-                            }, 2000);
                         } else {
                             if (!$('#NotFound').hasClass('hidden')) {
                                 $('#NotFound').addClass('hidden');
@@ -586,9 +602,6 @@
                             $('#NotFoundState1').html($("#from_country option:selected").text());
                             $('#NotFoundState21').html($("#to_country option:selected").text());
                             $('#PriceShowing').html(data.price + ' ' + data.currency);
-                            $('html, body').animate({
-                                scrollTop: $("#FoundPrice").offset().top- 350
-                            }, 2000);
                         }
                     }
                 })

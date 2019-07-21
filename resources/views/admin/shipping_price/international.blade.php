@@ -282,6 +282,17 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="">Currency</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="currency" name="currency col-md-7 col-xs-12 select2_single"
+                                                class="form-control">
+                                            @foreach($earth as $earths)
+                                                <option value="{{$earths['currency']}}">{{$earths['currency']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="input-group">
                                     <input type="number" class="form-control" value="0" readonly>
                                     <span class="input-group-addon" id="priceLabel">to</span>
@@ -299,14 +310,6 @@
                                     <span class="input-group-addon" id="priceLabel">gram price</span>
                                     <input type="number"  name="price"
                                            class="form-control" placeholder="Insert Price">
-                                    <span class="input-group-addon"
-                                          style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
-                                    <select id="currency" name="currency"
-                                            class="form-control" style="width: 80px">
-                                        @foreach($earth as $earths)
-                                            <option value="{{$earths['currency']}}">{{$earths['currency']}}</option>
-                                        @endforeach
-                                    </select>
                                 </div>
                                 <span class="help-block">Example: Next per 300 gram price 20 USD</span>
 
