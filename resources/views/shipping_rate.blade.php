@@ -118,7 +118,7 @@
                                     <div class="col-md-6 form-group text-left">
                                         <div class="panel panel-body hidden" id="FoundPrice"
                                              style="text-align:center;border: 1px solid #ddd;font-size:15px;cursor: pointer;">
-                                            <div style="font-size: 20px;height: 100px;width: 107px;margin: 20px 0;border: 1px dotted blueviolet;border-radius: 50%;padding-top: 35px;display: inline-block;"
+                                            <div style="font-size: 20px;height: 100px;width: 107px;margin: 0 0 14px;border: 1px dotted blueviolet;border-radius: 50%;padding-top: 35px;display: inline-block;"
                                                  id="PriceShowing">
                                             </div>
                                             <h4>
@@ -126,6 +126,7 @@
                                                 <i class="fa fa-arrow-right" aria-hidden="true"></i>
                                                 <span id="NotFoundState21"></span>
                                             </h4>
+                                            <a href="{{route('PrepareShipment')}}" class="btn btn-sm btn-success" style="margin-top: 10px">Prepare Shipping</a>
                                         </div>
                                         <div class="panel panel-body hidden" id="NotFound"
                                              style="text-align:center;border: 1px solid #ddd;font-size:15px;cursor: pointer;">

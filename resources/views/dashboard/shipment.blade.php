@@ -39,37 +39,49 @@
             <div class="main-card mb-3 card card-body">
                 <form id="upload_form" method="post" action="">
                     {{csrf_field()}}
-                    <h5 class="card-title">Shipper Details: <span class="shipper_address_name"></span></h5>
+                    <h5 class="card-title">Shipper Details:<span class="shipper_address_name"></span></h5>
                     <div class="form-row">
                         <div class="col-md-12">
                             <div class="position-relative form-group">
                                 <label for="shipper_address" class="shipper_address_info"></label>
-                                <select name="shipper_address" id="shipper_address" class="form-control my-select"
-                                        data-live-search="true">
-                                    <option value="" selected disabled>Select address</option>
-                                    @foreach($address as $addresses)
-                                        <option value="{{$addresses->id}}">{{$addresses->name}}
-                                            ({{$addresses->post_code}})
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <div class="input-group">
+                                    <select name="shipper_address" id="shipper_address" class="form-control my-select"
+                                            data-live-search="true">
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-success AddShipperAddress">
+                                            <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add new shipper
+                                            address
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                     <h5 class="card-title">Receiver Details: <span class="receiver_address_name"></span></h5>
                     <div class="form-row">
                         <div class="col-md-12">
                             <div class="position-relative form-group">
                                 <label for="receiver_address" class="receiver_address_info"></label>
-                                <select name="receiver_address" id="receiver_address" class="form-control my-select"
-                                        data-live-search="true">
-                                    <option value="" selected disabled>Select address</option>
-                                    @foreach($address as $addresses)
-                                        <option value="{{$addresses->id}}">{{$addresses->name}}
-                                            ({{$addresses->post_code}})
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <div class="input-group">
+                                    <select name="receiver_address" id="receiver_address" class="form-control my-select"
+                                            data-live-search="true">
+                                        <option value="" selected disabled>Select address</option>
+                                        @foreach($address as $addresses)
+                                            @if($addresses->address_type==2)
+                                                <option value="{{$addresses->id}}">{{$addresses->name}}
+                                                    ({{$addresses->post_code}})
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-success AddReceiverAddress">
+                                            <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add new receiver address
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -189,32 +201,10 @@
                                        name="delivery_type" id="delivery_type11">
                             </div>
                         </div>
-                        <div class="col-md-6 form-group text-left">
-                            <label for="usr3">How do you want to payment?</label>
-                            <div class="row justify-content-center">
-                                <div class="card card-body col-md-4 m-1 p-3"
-                                     style="border: 1px solid #ddd;font-size:15px;cursor: pointer;"
-                                     id="delivery_type23">
-                                    <p class="mb-0" style="font-size: 14px;">In cash by the shipper</p>
-                                </div>
-                                <div class="card card-body col-md-4 m-1 p-3"
-                                     style="border: 1px solid #ddd;font-size:15px;cursor: pointer;"
-                                     id="delivery_type24">
-                                    <p class="mb-0" style="font-size: 14px;">By credit card by the shipper</p>
-                                </div>
-                                <input type="hidden"
-                                       value=""
-                                       name="payment_type" id="delivery_type22">
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="mt-2 px-4 btn btn-success float-right">Shipping Rate</button>
-
-                    <div class="row justify-content-center">
                         <div class="col-md-6 col-sm-7">
 
                             <div class="card card-body d-none" id="FoundPrice"
-                                 style="text-align:center;margin-top:80px;border: 1px solid #ddd;font-size:15px;cursor: pointer;">
+                                 style="text-align:center;border: 1px solid #ddd;font-size:15px;cursor: pointer;">
                                 <div style="font-size: 20px;height: 100px;width: 107px;margin: 20px 0;border: 1px dotted blueviolet;border-radius: 50%;padding-top: 35px;display: inline-block;margin-left: auto;
                             margin-right: auto;" id="PriceShowing">
                                 </div>
@@ -233,6 +223,8 @@
                             </div>
                         </div>
                     </div>
+                    <button type="submit" class="mt-2 px-4 btn btn-success float-left">Shipping Rate</button>
+
                 </form>
             </div>
 
@@ -243,20 +235,286 @@
 @endsection
 
 @push('style')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css"
-          rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet"/>
-
+    <link rel="stylesheet" href="{{asset('assets/vendors/phone/css/intlTelInput.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendors/select2/dist/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/scripts/bootstrap4-select2.css')}}">
+    <link href="{{asset('assets/vendors/sweetalert/sweetalert.css')}}" rel="stylesheet"/>
 @endpush
 
 @push('scripts')
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <!-- Large modal -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" id="address_upload" action="">
+                    <div class="modal-body">
+                        {{csrf_field()}}
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    <label for="name" class="">Name*</label>
+                                    <input name="name" id="name"
+                                           type="text" class="form-control"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="position-relative form-group"><label for="company" class="">Company
+                                    </label><input name="company" id="company"
+                                                   type="text" class="form-control"></div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="position-relative form-group"><label for="email" class="">
+                                        Email*</label><input name="email" id="email"
+                                                             type="email" class="form-control"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="position-relative form-group"><label for="email" class="">
+                                        Address type*</label>
+                                    <select class="form-control" id="address_type" name="address_type">
+                                        <option value="">Select Type</option>
+                                        <option value="1">Shipping Address</option>
+                                        <option value="2">Receiver Address</option>
+                                        <option value="3">Billing Address</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    <label for="CountryId" class="">Country*</label>
+                                    <select class="form-control select2" id="CountryId" name="country">
+                                        <option value="">Select Country</option>
+                                        @foreach($earth as $earths)
+                                            @if(check_active_country($earths['code']))
+                                                <option value="{{$earths['code']}}">{{$earths['name']}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="position-relative form-group"><label for="post_code"
+                                                                                 class="">Post code*</label><input
+                                            name="post_code" id="post_code" type="text"
+                                            class="form-control"></div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    <label for="FromState" class="">City*</label>
+                                    <select class="form-control select2" id="FromState" name="state">
+                                        <option value="">Select State</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    <label for="FromCity" class="">State*</label>
+                                    <select class="form-control select2" id="FromCity" name="city">
+                                        <option value="">Select City</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="position-relative form-group phonediv"><label for="phone"
+                                                                                          class="">
+                                        Phone*</label><input name="phone_one"
+                                                             type="tel" class="form-control phone"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="position-relative form-group phonediv"><label for="phone2"
+                                                                                          class="">
+                                        Phone
+                                    </label><input name="phone_two"
+                                                   type="tel" class="form-control phone"></div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="position-relative form-group"><label for="address_one" class="">
+                                        Address line 1*</label><input name="address_one" id="address_one"
+                                                                      type="text" class="form-control"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="position-relative form-group"><label for="address_two" class="">
+                                        Address line 2
+                                    </label><input name="address_two" id="address_two"
+                                                   type="text" class="form-control"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save Address</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{asset('assets/vendors/phone/js/prism.js')}}"></script>
+    <script src="{{asset('assets/vendors/select2/dist/js/select2.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/phone/js/intlTelInput-jquery.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/sweetalert/sweetalert.js')}}"></script>
 
     <script>
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+        onload_shipper();
+        onload_receiver();
+
+        $('.AddShipperAddress').click(function () {
+            $('#exampleModalLongTitle').html('Add New Shipper Address');
+            $('#address_type').val(1).prop("disabled", true);
+            $('.bd-example-modal-lg').modal('show');
+        });
+
+        $('.AddReceiverAddress').click(function () {
+            $('#exampleModalLongTitle').html('Add New Receiver Address');
+            $('#address_type').val(2).prop("disabled", true);
+            $('.bd-example-modal-lg').modal('show');
+        });
+
+        function onload_shipper() {
+            $.ajax({
+                url: "{{ route('SelectAddressAll') }}",
+                type: 'post',
+                data: {_token: CSRF_TOKEN, id: 1},
+                dataType: 'json',
+                success: function (data) {
+                    $('#shipper_address').html('');
+                    $('#shipper_address').append($('<option>', {value: '', text: 'Select Shipper Address'}));
+                    data.forEach(function (element) {
+                        $('#shipper_address').append($('<option>', {
+                            value: element.id,
+                            text: element.name + ' (' + element.post_code + ')'
+                        }));
+                    });
+                }
+            });
+        }
+
+        function onload_receiver() {
+            $.ajax({
+                url: "{{ route('SelectAddressAll') }}",
+                type: 'post',
+                data: {_token: CSRF_TOKEN, id: 2},
+                dataType: 'json',
+                success: function (data) {
+                    $('#receiver_address').html('');
+                    $('#receiver_address').append($('<option>', {value: '', text: 'Select Receiver Address'}));
+                    data.forEach(function (element) {
+                        $('#receiver_address').append($('<option>', {
+                            value: element.id,
+                            text: element.name + ' (' + element.post_code + ')'
+                        }));
+                    });
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('#address_upload').on('submit', function () {
+                $(this).find(':input').prop('disabled', false);
+                var form = new FormData(this);
+                event.preventDefault();
+                $.ajax({
+                    url: "{{ route('AddressAdd') }}",
+                    type: 'post',
+                    processData: false,
+                    contentType: false,
+                    data: form,
+                    dataType: 'json',
+                    error: function (data) {
+                        if (data.status === 422) {
+                            var errors = $.parseJSON(data.responseText);
+                            let allData = '', mainData = '';
+                            $.each(errors, function (key, value) {
+                                if ($.isPlainObject(value)) {
+                                    $.each(value, function (key, value) {
+                                        allData += value + "<br/>";
+                                    });
+                                } else {
+                                    mainData += value + "<br/>";
+                                }
+                            });
+                            swal({
+                                title: mainData,
+                                text: allData,
+                                type: 'error',
+                                html: true,
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    },
+                    success: function (data) {
+                        if (data == 1) {
+                            $('#address_type').prop("disabled", true);
+                            $('.bd-example-modal-lg').modal('hide');
+                            onload_shipper();
+                        } else if (data == 2) {
+                            $('#address_type').prop("disabled", true);
+                            $('.bd-example-modal-lg').modal('hide');
+                            onload_receiver();
+                        } else {
+                            swal({
+                                title: "Something wrong",
+                                text: 'Please try again later',
+                                type: 'error',
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    }
+                });
+            });
+        });
+
+        $('#CountryId').change(function () {
+            let id = $(this).val();
+            $.ajax({
+                url: "{{ route('SelectState') }}",
+                type: 'post',
+                data: {_token: CSRF_TOKEN, id: id},
+                dataType: 'json',
+                success: function (data) {
+                    $('#FromState').html('');
+                    data.forEach(function (element) {
+                        $('#FromState').append($('<option>', {value: element.code, text: element.name}));
+                    });
+                }
+            });
+        });
+
+        $('#FromState').change(function () {
+            let country = $('#CountryId').val();
+            let id = $(this).val();
+            $.ajax({
+                url: "{{ route('SelectCity') }}",
+                type: 'post',
+                data: {_token: CSRF_TOKEN, id: id, country: country},
+                dataType: 'json',
+                success: function (data) {
+                    $('#FromCity').html('');
+                    data.forEach(function (element) {
+                        $('#FromCity').append($('<option>', {value: element.code, text: element.name}));
+                    });
+                }
+            });
+        });
+
         $('#shipper_address').change(function () {
             let id = $(this).val();
             $.ajax({
@@ -410,6 +668,7 @@
                 var form = new FormData($('#upload_form')[0]);
                 warnBeforeRedirect(form);
             });
+
             function warnBeforeRedirect(form) {
                 swal({
                         title: "Sure want to save?",
@@ -424,6 +683,28 @@
                             contentType: false,
                             data: form,
                             dataType: 'json',
+                            error: function (data) {
+                                if (data.status === 422) {
+                                    var errors = $.parseJSON(data.responseText);
+                                    let allData = '', mainData = '';
+                                    $.each(errors, function (key, value) {
+                                        if ($.isPlainObject(value)) {
+                                            $.each(value, function (key, value) {
+                                                allData += value + "<br/>";
+                                            });
+                                        } else {
+                                            mainData += value + "<br/>";
+                                        }
+                                    });
+                                    swal({
+                                        title: mainData,
+                                        text: allData,
+                                        type: 'error',
+                                        html: true,
+                                        confirmButtonText: 'Ok'
+                                    })
+                                }
+                            },
                             success: function (data) {
                                 if (data.error == 'error') {
                                     swal({
@@ -434,10 +715,8 @@
                                     })
                                 } else {
                                     var url = '{{ route("PrepareShipmentEdit", ":slug") }}';
-
                                     url = url.replace(':slug', data.id);
-
-                                    window.location.href=url;
+                                    window.location.href = url;
                                 }
                             }
                         });

@@ -26,7 +26,7 @@ class CreateShipmentsTable extends Migration
             $table->string('origin_currency');
             $table->string('shipment_reference')->nullable();
             $table->text('remarks')->nullable();
-            $table->string('payment_type');
+            $table->string('payment_type')->nullable();
             $table->string('delivery_type');
             $table->string('parcel_content')->nullable();
             $table->string('price');
@@ -34,6 +34,7 @@ class CreateShipmentsTable extends Migration
             $table->string('address_one');
             $table->string('address_two');
             $table->string('tracking_code')->nullable();
+            $table->string('biller_address')->nullable();
             $table->string('user_id');
             $table->string('status')->default(0);
             $table->timestamps();

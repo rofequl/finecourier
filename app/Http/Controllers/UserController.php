@@ -13,8 +13,8 @@ class UserController extends Controller
 {
     public function dashboard()
     {
-        $shipment = shipment::where('user_id',session('user-id'))->get();
-        return view('dashboard.index',compact('shipment'));
+        $shipment = shipment::where('user_id', session('user-id'))->get();
+        return view('dashboard.index', compact('shipment'));
     }
 
     public function profile()
@@ -22,7 +22,7 @@ class UserController extends Controller
         $earth = new Earth();
         $earth = $earth->getCountries()->toArray();
         $user = user::find(session('user-id'));
-        return view('dashboard.profile',compact('user','earth'));
+        return view('dashboard.profile', compact('user', 'earth'));
     }
 
     public function ProfileUpdate(Request $request)
@@ -63,8 +63,8 @@ class UserController extends Controller
     {
         $earth = new Earth();
         $earth = $earth->getCountries()->toArray();
-        $address = address::where('user_id',session('user-id'))->paginate(3);
-        return view('dashboard.address',compact('earth','address'));
+        $address = address::where('user_id', session('user-id'))->paginate(3);
+        return view('dashboard.address', compact('earth', 'address'));
     }
 
     public function SelectAddressId(Request $request)
@@ -75,8 +75,6 @@ class UserController extends Controller
 
     public function AddressAdd(Request $request)
     {
-
-
 
         $request->validate([
             'name' => 'required|max:191',
@@ -108,7 +106,7 @@ class UserController extends Controller
         $insert->save();
 
         $request->session()->flash('message', 'Address add successfully');
-        return '1';
+        return $request->address_type;
     }
 
     public function AddressUpdate(Request $request)
@@ -164,12 +162,18 @@ class UserController extends Controller
         return $address;
     }
 
+    public function SelectAddressAll(Request $request)
+    {
+        $address = address::where('address_type', $request->id)->get();
+        return $address;
+    }
+
     public function PrepareShipment()
     {
         $earth = new Earth();
         $earth = $earth->getCountries()->toArray();
-        $address = address::where('user_id',session('user-id'))->get();
-        return view('dashboard.shipment',compact('address','earth'));
+        $address = address::where('user_id', session('user-id'))->get();
+        return view('dashboard.shipment', compact('address', 'earth'));
     }
 
 

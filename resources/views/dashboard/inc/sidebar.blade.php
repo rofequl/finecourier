@@ -53,6 +53,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{route('ShippingRate')}}">
+                        <i class="metismenu-icon fa fa-calculator"></i>
+                        Shipping rate check
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('address')}}">
                         <i class="metismenu-icon fa fa-globe" aria-hidden="true"></i>
                         Address book

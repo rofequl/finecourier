@@ -18,7 +18,7 @@ class CheckUser
         if(Session::get('user-email') != null) {
             return $next($request);  // if exist proceed to next step
         } else {
-            return redirect('/');
+            return redirect('/login');
         }
     }
 }

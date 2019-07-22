@@ -115,7 +115,6 @@ class QuotationController extends Controller
             'good_value' => 'required|max:11',
             'origin_currency' => 'required',
             'shipment_reference' => 'max:191',
-            'payment_type' => 'required',
             'delivery_type' => 'required',
         ]);
 
@@ -207,7 +206,6 @@ class QuotationController extends Controller
             'good_value' => 'required|max:11',
             'origin_currency' => 'required',
             'shipment_reference' => 'max:191',
-            'payment_type' => 'required',
             'delivery_type' => 'required',
         ]);
 
@@ -250,7 +248,6 @@ class QuotationController extends Controller
                 $insert->origin_country = $request->origin_country;
                 $insert->good_value = $request->good_value;
                 $insert->origin_currency = $request->origin_currency;
-                $insert->payment_type = $request->payment_type;
                 $insert->delivery_type = $request->delivery_type;
                 $insert->user_id = session('user-id');
                 $insert->price = $price;
@@ -335,17 +332,42 @@ class QuotationController extends Controller
 
     public function PrepareShipmentEdit($id)
     {
+        $earth = new Earth();
+        $earth = $earth->getCountries()->toArray();
+        $address = address::all();
         $shipment = shipment::where('user_id',session('user-id'))->where('id',$id)->first();
-        return view('dashboard.shipment_edit',compact('shipment'));
+        if ($shipment->status == 1){
+            return redirect('dashboard');
+        }
+        return view('dashboard.shipment_edit',compact('shipment','address','earth'));
     }
 
-    public function PrepareShipmentDone($id)
+    public function PrepareShipmentView(Request $request)
     {
-        $shipment = shipment::where('user_id',session('user-id'))->where('id',$id)->first();
-        $shipment->tracking_code = rand(1000,9999).str_pad($id, 3, "0", STR_PAD_LEFT).str_pad(session('user-id'), 3, "0", STR_PAD_LEFT);
+        $earth = new Earth();
+        $earth = $earth->getCountries()->toArray();
+        $address = address::all();
+        $shipment = shipment::where('user_id',session('user-id'))->where('id',base64_decode($request->data))->first();
+        return view('dashboard.shipment_view',compact('shipment','address','earth'));
+    }
+
+    public function PrepareShipmentDone(Request $request)
+    {
+
+        $request->validate([
+            'biller_address' => 'required',
+            'payment_type' => 'required'
+        ]);
+
+
+
+        $shipment = shipment::where('user_id',session('user-id'))->where('id',$request->id)->first();
+        $shipment->tracking_code = rand(1000,9999).str_pad($request->id, 3, "0", STR_PAD_LEFT).str_pad(session('user-id'), 3, "0", STR_PAD_LEFT);
         $shipment->status = 1;
+        $shipment->biller_address = $request->biller_address;
+        $shipment->payment_type = $request->payment_type;
         $shipment->save();
 
-        return redirect('dashboard');
+        return 1;
     }
 }

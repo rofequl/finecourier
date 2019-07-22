@@ -100,7 +100,7 @@
                                            class="delete text-success"><i class="fa fa-trash-o fa-2x"
                                                                           aria-hidden="true"></i></a>
                                     @else
-                                        <a href="{{route('PrepareShipmentEdit',$shipments->id)}}" class="w-100 btn btn-sm btn-success">
+                                        <a href="{{route('PrepareShipmentView','data='.base64_encode($shipments->id))}}" class="w-100 btn btn-sm btn-success">
                                             VIEW
                                         </a><br>
                                         <a href="" class="btn btn-sm btn-success mt-2 w-100">LABEL</a>

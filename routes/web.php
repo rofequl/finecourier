@@ -57,12 +57,14 @@ Route::group(['middleware' => 'CheckUser'], function () {
 
     Route::get('/prepare-shipment', 'UserController@PrepareShipment')->name('PrepareShipment');
     Route::post('/select-address', 'UserController@SelectAddress')->name('SelectAddress');
+    Route::post('/select-address-all', 'UserController@SelectAddressAll')->name('SelectAddressAll');
     Route::post('prepare-shipment-add', 'QuotationController@PrepareShipmentAdd')->name('PrepareShipmentAdd');
     Route::post('prepare-shipment-submit', 'QuotationController@PrepareShipmentSubmit')->name('PrepareShipmentSubmit');
     Route::get('prepare-shipment-delete', 'QuotationController@PrepareShipmentDelete')->name('PrepareShipmentDelete');
 
     Route::get('prepare-shipment-edit/{id}', 'QuotationController@PrepareShipmentEdit')->name('PrepareShipmentEdit');
-    Route::get('prepare-shipment-done/{id}', 'QuotationController@PrepareShipmentDone')->name('PrepareShipmentDone');
+    Route::get('prepare-shipment-view', 'QuotationController@PrepareShipmentView')->name('PrepareShipmentView');
+    Route::post('prepare-shipment-done', 'QuotationController@PrepareShipmentDone')->name('PrepareShipmentDone');
 });
 
 /*

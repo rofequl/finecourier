@@ -20,227 +20,511 @@
 
 
     <div class="main-card mb-3 card">
-        <div class="row">
-            <div class="col-md-5">
-                <div class="widget-content">
-                    <div class="widget-content-outer">
-                        <div class="widget-content-wrapper">
-                            <div class="widget-content-left">
-                                <div class="widget-heading">Shipper</div>
-                                <div class="widget-subheading" style="opacity: .9;">
-                                    <p class="text-success mb-0" style="font-size: 20px">
-                                        <i class="fa fa-user mr-2" aria-hidden="true"></i>
-                                        {{get_address_by_id($shipment->shipper_address)->name}}
-                                    </p>
-                                    <p class="text-black mb-0" style="font-size: 15px">
-                                        <i class="fa fa-building mr-2" aria-hidden="true"></i>
-                                        {{get_address_by_id($shipment->shipper_address)->company}}
-                                    </p>
-                                    <p class="text-black mb-0" style="font-size: 15px">
-                                        <i class="fa fa-phone-square mr-2" aria-hidden="true"></i>
-                                        {{get_address_by_id($shipment->shipper_address)->phone_one}}
-                                    </p>
-                                    <p class="text-black mb-0" style="font-size: 15px">
-                                        <i class="fa fa-envelope mr-2" aria-hidden="true"></i>
-                                        {{get_address_by_id($shipment->shipper_address)->email}}
-                                    </p>
-                                    <p class="" style="font-size: 15px">
-                                        <i class="fa fa-globe mr-2" aria-hidden="true"></i>
-                                        {{get_city_name_by_code(get_address_by_id($shipment->shipper_address)->country,get_address_by_id($shipment->shipper_address)->state,get_address_by_id($shipment->shipper_address)->city)->name}}
-                                        ,
-                                        {{get_state_name_by_code(get_address_by_id($shipment->shipper_address)->country,get_address_by_id($shipment->shipper_address)->state)->name}}
-                                        ,
-                                        {{get_country_name_by_code(get_address_by_id($shipment->shipper_address)->country)->name}}
-                                        ,
-                                        {{get_address_by_id($shipment->shipper_address)->post_code}}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+        <form class="submit" method="post" action="">
+            {{csrf_field()}}
+            <input type="hidden" name="id" value="{{$shipment->id}}">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="widget-content">
+                        <div class="widget-content-outer">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                    <div class="widget-heading">
+                                        Shipper: {{get_address_by_id($shipment->shipper_address)->name}}</div>
+                                    <div class="widget-subheading" style="opacity: .9;">
+                                        <div class="position-relative form-group">
+                                            <label for="shipper_address" class="shipper_address_info">
+                                                {{get_address_by_id($shipment->shipper_address)->name}}
+                                                from will be shipping this shipment from
+                                                {{get_address_by_id($shipment->shipper_address)->address_one}}
+                                            </label>
 
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <i class="fa fa-long-arrow-right fa-3x" aria-hidden="true" style="line-height: 160px"></i>
-            </div>
-            <div class="col-md-5">
-                <div class="widget-content">
-                    <div class="widget-content-outer">
-                        <div class="widget-content-wrapper">
-                            <div class="widget-content-left">
-                                <div class="widget-heading">Receiver</div>
-                                <div class="widget-subheading" style="opacity: .9;">
-                                    <p class="text-success mb-0" style="font-size: 20px">
-                                        <i class="fa fa-user mr-2" aria-hidden="true"></i>
-                                        {{get_address_by_id($shipment->receiver_address)->name}}
-                                    </p>
-                                    <p class="text-black mb-0" style="font-size: 15px">
-                                        <i class="fa fa-building mr-2" aria-hidden="true"></i>
-                                        {{get_address_by_id($shipment->receiver_address)->company}}
-                                    </p>
-                                    <p class="text-black mb-0" style="font-size: 15px">
-                                        <i class="fa fa-phone-square mr-2" aria-hidden="true"></i>
-                                        {{get_address_by_id($shipment->shipper_address)->phone_one}}
-                                    </p>
-                                    <p class="text-black mb-0" style="font-size: 15px">
-                                        <i class="fa fa-envelope mr-2" aria-hidden="true"></i>
-                                        {{get_address_by_id($shipment->shipper_address)->email}}
-                                    </p>
-                                    <p class="" style="font-size: 15px">
-                                        <i class="fa fa-globe mr-2" aria-hidden="true"></i>
-                                        {{get_city_name_by_code(get_address_by_id($shipment->receiver_address)->country,get_address_by_id($shipment->receiver_address)->state,get_address_by_id($shipment->receiver_address)->city)->name}}
-                                        ,
-                                        {{get_state_name_by_code(get_address_by_id($shipment->receiver_address)->country,get_address_by_id($shipment->receiver_address)->state)->name}}
-                                        ,
-                                        {{get_country_name_by_code(get_address_by_id($shipment->receiver_address)->country)->name}}
-                                        ,
-                                        {{get_address_by_id($shipment->receiver_address)->post_code}}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                                            <select name="shipper_address" id="shipper_address"
+                                                    class="form-control w-100" disabled="true">
+                                                @foreach($address as $addresses)
+                                                    @if($addresses->id == $shipment->shipper_address)
+                                                        <option value="{{$addresses->id}}">{{$addresses->name}}
+                                                            ({{$addresses->post_code}})
+                                                        </option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="table-responsive">
-                    <table class="align-middle mb-0 table table-bordered text-center">
-                        <thead>
-                        <tr>
-                            <th>No. of Peace</th>
-                            <th>Shipping Type</th>
-                            <th>Origin Country</th>
-                            <th>Weight</th>
-                            <th>Good Value</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>{{$shipment->peace}}</td>
-                            <td>{{$shipment->shipping_type}}</td>
-                            <td>{{$shipment->origin_country}}</td>
-                            <td>{{$shipment->weight}} {{$shipment->weight_type}}</td>
-                            <td>{{$shipment->good_value}} {{$shipment->origin_currency}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-5">
-                <div class="widget-content">
-                    <div class="widget-content-outer">
-                        <div class="widget-content-wrapper">
-                            <div class="widget-content-left">
-                                <div class="widget-heading">Service type:
-                                    <small>
-                                        @if($shipment->delivery_type == 'Regular')
-                                            REGULAR
-                                            (I am importing and I will pay when)
-                                        @else
-                                            EXPRESS
-                                            (I am exporting and I will pay when I ship)
-                                        @endif
-                                    </small>
-                                </div>
-                                <br>
-                                <div class="widget-heading">Payment:
-                                    <small>
-                                        @if($shipment->payment_type == 1)
-                                            In cash by the shipper
-                                        @else
-                                            By credit card by the shipper
-                                        @endif
-                                    </small>
-                                </div> <br>
-                                # We’ve notified the shipper and receiver.
-                                <br>
-                                @if($shipment->status == 0)
-                                    <div class="custom-checkbox custom-control"><input type="checkbox"
-                                                                                       id="exampleCustomCheckbox"
-                                                                                       class="custom-control-input">
-                                        <label class="custom-control-label" for="exampleCustomCheckbox">I accept the
-                                            Shipping Terms and Conditions</label></div>
-                                    <br>
-                                    <button class="mb-2 mr-2 px-5 btn btn-success submit">Confirm Shipment
-                                    </button>
-                                    @endif
-                            </div>
-                        </div>
 
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="widget-content">
-                    <div class="widget-content-outer">
-                        <div class="widget-content-wrapper">
-                            <div class="widget-content-left w-100">
-                                <div class="card card-body shadow-none p-1" id="FoundPrice"
-                                     style="text-align:center;border: 1px solid #ddd;font-size:15px;cursor: pointer;">
-                                    <div style="font-size: 20px;height: 100px;width: 107px;margin: 20px 0;border: 1px dotted blueviolet;border-radius: 50%;padding-top: 35px;display: inline-block;margin-left: auto;
-                            margin-right: auto;" id="PriceShowing">
-                                        {{$shipment->price}}
-                                        {{$shipment->currency}}
+                                        </div>
                                     </div>
-                                    <h4>
-                                        <span id="NotFoundState1">{{$shipment->address_one}}</span>
-                                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                                        <span id="NotFoundState21">{{$shipment->address_two}}</span>
-                                    </h4>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="widget-content">
+                        <div class="widget-content-outer">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                    <div class="widget-heading">
+                                        Receiver: {{get_address_by_id($shipment->shipper_address)->name}}</div>
+                                    <div class="widget-subheading" style="opacity: .9;">
+                                        <div class="position-relative form-group">
+                                            <label for="receiver_address" class="receiver_address_info">
+                                                {{get_address_by_id($shipment->receiver_address)->name}}
+                                                from will be shipping this shipment from
+                                                {{get_address_by_id($shipment->receiver_address)->address_one}}
+                                            </label>
+
+                                            <select name="receiver_address" id="receiver_address"
+                                                    class="form-control" disabled="true">
+                                                @foreach($address as $addresses)
+                                                    @if($addresses->id == $shipment->receiver_address)
+                                                        <option value="{{$addresses->id}}">{{$addresses->name}}
+                                                            ({{$addresses->post_code}})
+                                                        </option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            <h5 class="card-title px-3">Billing Address: <span class="biller_address_name"></span></h5>
+            <div class="form-row px-3">
+                <div class="col-md-12">
+                    <div class="position-relative form-group">
+                        <label for="biller_address" class="biller_address_info"></label>
+                        <div class="input-group">
+                            <select name="biller_address" id="biller_address" class="form-control shadow-none">
+                            </select>
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-success AddBillingAddress">
+                                    <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add new billing
+                                    address
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row px-3">
+                <div class="col-md-6 form-group text-left p-3">
+                    <label for="usr3">How do you want to payment?</label>
+                    <div class="row justify-content-center">
+                        <div class="card card-body col-md-4 m-1 p-3"
+                             style="border: 1px solid #ddd;font-size:15px;cursor: pointer;"
+                             id="delivery_type23">
+                            <p class="mb-0" style="font-size: 14px;">In cash by the shipper</p>
+                        </div>
+                        <div class="card card-body col-md-4 m-1 p-3"
+                             style="border: 1px solid #ddd;font-size:15px;cursor: pointer;"
+                             id="delivery_type24">
+                            <p class="mb-0" style="font-size: 14px;">By credit card by the shipper</p>
+                        </div>
+                        <input type="hidden"
+                               value=""
+                               name="payment_type" id="delivery_type22">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="widget-content">
+                        <div class="widget-content-outer">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left w-100">
+                                    <div class="card card-body shadow-none p-1" id="FoundPrice"
+                                         style="text-align:center;border: 1px solid #ddd;font-size:15px;cursor: pointer;">
+                                        <div style="font-size: 20px;height: 100px;width: 107px;margin: 20px 0;border: 1px dotted blueviolet;border-radius: 50%;padding-top: 35px;display: inline-block;margin-left: auto;
+                            margin-right: auto;" id="PriceShowing">
+                                            {{$shipment->price}}
+                                            {{$shipment->currency}}
+                                        </div>
+                                        <h4>
+                                            <span id="NotFoundState1">{{$shipment->address_one}}</span>
+                                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                            <span id="NotFoundState21">{{$shipment->address_two}}</span>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="widget-content">
+                        <div class="widget-content-outer">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                    # We’ve notified the shipper and receiver.
+                                    <br>
+                                    @if($shipment->status == 0)
+                                        <div class="custom-checkbox custom-control"><input type="checkbox"
+                                                                                           id="exampleCustomCheckbox"
+                                                                                           class="custom-control-input">
+                                            <label class="custom-control-label" for="exampleCustomCheckbox">I accept the
+                                                Shipping Terms and Conditions</label></div>
+                                        <br>
+                                        <button class="mb-2 mr-2 px-5 btn btn-success" type="submit">Confirm Shipment
+                                        </button>
+                                    @endif
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 
 
 @endsection
 
 @push('style')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{asset('assets/vendors/phone/css/intlTelInput.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendors/select2/dist/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/scripts/bootstrap4-select2.css')}}">
+    <link href="{{asset('assets/vendors/sweetalert/sweetalert.css')}}" rel="stylesheet"/>
 @endpush
 
 @push('scripts')
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-    <script>
+    <!-- Large modal -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" id="address_upload" action="">
+                    <div class="modal-body">
+                        {{csrf_field()}}
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    <label for="name" class="">Name*</label>
+                                    <input name="name" id="name"
+                                           type="text" class="form-control"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="position-relative form-group"><label for="company" class="">Company
+                                    </label><input name="company" id="company"
+                                                   type="text" class="form-control"></div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="position-relative form-group"><label for="email" class="">
+                                        Email*</label><input name="email" id="email"
+                                                             type="email" class="form-control"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="position-relative form-group"><label for="email" class="">
+                                        Address type*</label>
+                                    <select class="form-control" id="address_type" name="address_type">
+                                        <option value="">Select Type</option>
+                                        <option value="1">Shipping Address</option>
+                                        <option value="2">Receiver Address</option>
+                                        <option value="3">Billing Address</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    <label for="CountryId" class="">Country*</label>
+                                    <select class="form-control select2" id="CountryId" name="country">
+                                        <option value="">Select Country</option>
+                                        @foreach($earth as $earths)
+                                            @if(check_active_country($earths['code']))
+                                                <option value="{{$earths['code']}}">{{$earths['name']}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="position-relative form-group"><label for="post_code"
+                                                                                 class="">Post code*</label><input
+                                            name="post_code" id="post_code" type="text"
+                                            class="form-control"></div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    <label for="FromState" class="">City*</label>
+                                    <select class="form-control select2" id="FromState" name="state">
+                                        <option value="">Select State</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    <label for="FromCity" class="">State*</label>
+                                    <select class="form-control select2" id="FromCity" name="city">
+                                        <option value="">Select City</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="position-relative form-group phonediv"><label for="phone"
+                                                                                          class="">
+                                        Phone*</label><input name="phone_one"
+                                                             type="tel" class="form-control phone"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="position-relative form-group phonediv"><label for="phone2"
+                                                                                          class="">
+                                        Phone
+                                    </label><input name="phone_two"
+                                                   type="tel" class="form-control phone"></div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="position-relative form-group"><label for="address_one" class="">
+                                        Address line 1*</label><input name="address_one" id="address_one"
+                                                                      type="text" class="form-control"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="position-relative form-group"><label for="address_two" class="">
+                                        Address line 2
+                                    </label><input name="address_two" id="address_two"
+                                                   type="text" class="form-control"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save Address</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-        $('.delete').click(function (e) {
-            e.preventDefault(); // Prevent the href from redirecting directly
-            var linkURL = $(this).attr("href");
-            warnBeforeRedirect(linkURL);
+    <script src="{{asset('assets/vendors/phone/js/prism.js')}}"></script>
+    <script src="{{asset('assets/vendors/select2/dist/js/select2.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/phone/js/intlTelInput-jquery.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/sweetalert/sweetalert.js')}}"></script>
+
+    <script>
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        onload_biller();
+        $('.AddBillingAddress').click(function () {
+            $('#exampleModalLongTitle').html('Add New Billing Address');
+            $('#address_type').val(3).prop("disabled", true);
+            $('.bd-example-modal-lg').modal('show');
         });
 
-        function warnBeforeRedirect(linkURL) {
-            swal({
-                title: "Sure want to remove?",
-                text: "If you click 'OK' file will be remove",
-                type: "warning",
-                showCancelButton: true
-            }, function () { // Redirect the user | linkURL is href url
-                window.location.href = linkURL;
+        function onload_biller() {
+            $.ajax({
+                url: "{{ route('SelectAddressAll') }}",
+                type: 'post',
+                data: {_token: CSRF_TOKEN, id: 3},
+                dataType: 'json',
+                success: function (data) {
+                    $('#biller_address').html('');
+                    $('#biller_address').append($('<option>', {value: '', text: 'Select Shipper Address'}));
+                    data.forEach(function (element) {
+                        $('#biller_address').append($('<option>', {
+                            value: element.id,
+                            text: element.name + ' (' + element.post_code + ')'
+                        }));
+                    });
+                }
             });
         }
 
-        $('.submit').click(function (e) {
+        $(document).ready(function () {
+            $('#address_upload').on('submit', function () {
+                $(this).find(':input').prop('disabled', false);
+                var form = new FormData(this);
+                event.preventDefault();
+                $.ajax({
+                    url: "{{ route('AddressAdd') }}",
+                    type: 'post',
+                    processData: false,
+                    contentType: false,
+                    data: form,
+                    dataType: 'json',
+                    error: function (data) {
+                        if (data.status === 422) {
+                            var errors = $.parseJSON(data.responseText);
+                            let allData = '', mainData = '';
+                            $.each(errors, function (key, value) {
+                                if ($.isPlainObject(value)) {
+                                    $.each(value, function (key, value) {
+                                        allData += value + "<br/>";
+                                    });
+                                } else {
+                                    mainData += value + "<br/>";
+                                }
+                            });
+                            swal({
+                                title: mainData,
+                                text: allData,
+                                type: 'error',
+                                html: true,
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    },
+                    success: function (data) {
+                        if (data == 3) {
+                            $('#address_type').prop("disabled", true);
+                            $('.bd-example-modal-lg').modal('hide');
+                            onload_biller();
+                        } else {
+                            swal({
+                                title: "Something wrong",
+                                text: 'Please try again later',
+                                type: 'error',
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    }
+                });
+            });
+        });
+
+        $('#CountryId').change(function () {
+            let id = $(this).val();
+            $.ajax({
+                url: "{{ route('SelectState') }}",
+                type: 'post',
+                data: {_token: CSRF_TOKEN, id: id},
+                dataType: 'json',
+                success: function (data) {
+                    $('#FromState').html('');
+                    data.forEach(function (element) {
+                        $('#FromState').append($('<option>', {value: element.code, text: element.name}));
+                    });
+                }
+            });
+        });
+
+        $('#FromState').change(function () {
+            let country = $('#CountryId').val();
+            let id = $(this).val();
+            $.ajax({
+                url: "{{ route('SelectCity') }}",
+                type: 'post',
+                data: {_token: CSRF_TOKEN, id: id, country: country},
+                dataType: 'json',
+                success: function (data) {
+                    $('#FromCity').html('');
+                    data.forEach(function (element) {
+                        $('#FromCity').append($('<option>', {value: element.code, text: element.name}));
+                    });
+                }
+            });
+        });
+
+        $('#biller_address').change(function () {
+            let id = $(this).val();
+            $.ajax({
+                url: "{{ route('SelectAddress') }}",
+                type: 'post',
+                data: {_token: CSRF_TOKEN, id: id},
+                dataType: 'json',
+                success: function (data) {
+                    $('.biller_address_name').text(data.name);
+                    $('.biller_address_info').text(data.name + ' from will be shipping this shipment from ' + data.address_one);
+                }
+            });
+        });
+
+        $('.submit').on('submit', function () {
+            $(this).find(':input').prop('disabled', false);
+            var form = new FormData(this);
+            event.preventDefault();
             if ($('#exampleCustomCheckbox').is(':checked')) {
-                window.location.href = '{{route('PrepareShipmentDone',$shipment->id)}}';
+                $.ajax({
+                    url: "{{ route('PrepareShipmentDone') }}",
+                    type: 'post',
+                    processData: false,
+                    contentType: false,
+                    data: form,
+                    dataType: 'json',
+                    error: function (data) {
+                        if (data.status === 422) {
+                            var errors = $.parseJSON(data.responseText);
+                            let allData = '', mainData = '';
+                            $.each(errors, function (key, value) {
+                                if ($.isPlainObject(value)) {
+                                    $.each(value, function (key, value) {
+                                        allData += value + "<br/>";
+                                    });
+                                } else {
+                                    mainData += value + "<br/>";
+                                }
+                            });
+                            swal({
+                                title: mainData,
+                                text: allData,
+                                type: 'error',
+                                html: true,
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    },
+                    success: function (data) {
+                        if (data == 1) {
+                            var url = '{{ route("PrepareShipmentEdit", ":slug") }}';
+                            url = url.replace(':slug', data.id);
+                            window.location.href = url;
+                        }else {
+                            swal({
+                                title: "Something wrong",
+                                text: 'Please try again later',
+                                type: 'error',
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    }
+                });
             } else {
                 swal({
                     title: '',
                     text: "Click checkbox accept terms & conditions.",
                     type: "warning",
                 });
+            }
+        });
+
+        $('#delivery_type23').click(function () {
+            if ($('#delivery_type22').val() == 1 || $('#delivery_type22').val() === '') {
+                $("#delivery_type22").val(0);
+                $('#delivery_type23').css({'border': '1px solid red'});
+                $('#delivery_type24').css({'border': '1px solid #ddd'});
+            }
+        });
+        $('#delivery_type24').click(function () {
+            if ($('#delivery_type22').val() == 0 || $('#delivery_type22').val() === '') {
+                $("#delivery_type22").val(1);
+                $('#delivery_type24').css({'border': '1px solid red'});
+                $('#delivery_type23').css({'border': '1px solid #ddd'});
             }
         });
     </script>
