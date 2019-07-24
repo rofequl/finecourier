@@ -6,9 +6,11 @@ use App\address;
 use App\domestic_price;
 use App\international_price;
 use App\shipment;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 use MenaraSolutions\Geographer\Earth;
-use MenaraSolutions\Geographer\Country;
 
 class QuotationController extends Controller
 {
@@ -319,6 +321,7 @@ class QuotationController extends Controller
 
     }
 
+
     public function PrepareShipmentDelete(Request $request)
     {
         if ($request->delete) {
@@ -369,5 +372,15 @@ class QuotationController extends Controller
         $shipment->save();
 
         return 1;
+    }
+
+    public function ShipmentLabel($id)
+    {
+        $shipment = shipment::where('user_id',session('user-id'))->where('id',base64_decode($id))->first();
+
+        //return view('pdf.label',compact('shipment'));
+
+        $pdf = PDF::loadView('pdf.label',compact('shipment'));
+        return $pdf->setPaper('A4', 'portrait')->download('invoice.pdf');
     }
 }

@@ -65,6 +65,10 @@ Route::group(['middleware' => 'CheckUser'], function () {
     Route::get('prepare-shipment-edit/{id}', 'QuotationController@PrepareShipmentEdit')->name('PrepareShipmentEdit');
     Route::get('prepare-shipment-view', 'QuotationController@PrepareShipmentView')->name('PrepareShipmentView');
     Route::post('prepare-shipment-done', 'QuotationController@PrepareShipmentDone')->name('PrepareShipmentDone');
+
+    Route::get('shipment-label/{data}', 'QuotationController@ShipmentLabel')->name('ShipmentLabel');
+
+
 });
 
 /*

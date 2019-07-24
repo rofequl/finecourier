@@ -103,7 +103,7 @@
                                         <a href="{{route('PrepareShipmentView','data='.base64_encode($shipments->id))}}" class="w-100 btn btn-sm btn-success">
                                             VIEW
                                         </a><br>
-                                        <a href="" class="btn btn-sm btn-success mt-2 w-100">LABEL</a>
+                                        <a href="{{route('ShipmentLabel',base64_encode($shipments->id))}}" class="btn btn-sm btn-success mt-2 w-100">LABEL</a>
                                     @endif
                                 </td>
                             </tr>

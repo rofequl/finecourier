@@ -345,7 +345,7 @@
                 dataType: 'json',
                 success: function (data) {
                     $('#biller_address').html('');
-                    $('#biller_address').append($('<option>', {value: '', text: 'Select Shipper Address'}));
+                    $('#biller_address').append($('<option>', {value: '', text: 'Select Billing Address'}));
                     data.forEach(function (element) {
                         $('#biller_address').append($('<option>', {
                             value: element.id,
@@ -491,8 +491,7 @@
                     },
                     success: function (data) {
                         if (data == 1) {
-                            var url = '{{ route("PrepareShipmentEdit", ":slug") }}';
-                            url = url.replace(':slug', data.id);
+                            var url = '{{ route("PrepareShipmentEdit",$shipment->status) }}';
                             window.location.href = url;
                         }else {
                             swal({

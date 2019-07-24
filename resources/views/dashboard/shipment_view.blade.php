@@ -1,6 +1,5 @@
 @extends('dashboard.layout.app')
 @section('content')
-
     <div class="app-page-title">
         <div class="page-title-wrapper">
             <div class="page-title-heading">
@@ -8,10 +7,9 @@
                     <i class="fa fa-pencil text-success" aria-hidden="true"></i>
                 </div>
                 <div>
-                    {{$shipment->status==0?'Not Yet Confirmed':'Confirmed'}}
+                    Confirmed
                     <div class="page-title-subheading">
-                        {{$shipment->status==0?'Please take one more minute to double check the information
-                        provided':'Thank You! Your Shipment Details Have Been Submitted'}}
+                        Thank You! Your Shipment Details Have Been Submitted
                     </div>
                 </div>
             </div>
@@ -20,6 +18,31 @@
 
 
     <div class="main-card mb-3 card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="widget-content">
+                    <div class="widget-content-outer">
+                        <div class="widget-content-wrapper">
+                            <div class="widget-content-left w-100">
+                                <div class="widget-heading"><img
+                                        src="{{asset('storage/logo/'.basic_information()->company_logo)}}"
+                                        width="200px"></div>
+                                <div class="widget-subheading mt-4 row" style="opacity: .9;">
+                                    <div class="col-sm-6">
+                                        {!! DNS1D::getBarcodeHTML($shipment->tracking_code, "EAN13") !!}
+                                        <p class="text-dark" style="font-size: 15px">Tracking Code:
+                                            {{$shipment->tracking_code}}</p>
+                                    </div>
+                                    <div class="col-sm-6 text-sm-right">
+                                        Date: {{$shipment->created_at->format('d M, Y')}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-5">
                 <div class="widget-content">
@@ -31,10 +54,6 @@
                                     <p class="text-success mb-0" style="font-size: 20px">
                                         <i class="fa fa-user mr-2" aria-hidden="true"></i>
                                         {{get_address_by_id($shipment->shipper_address)->name}}
-                                    </p>
-                                    <p class="text-black mb-0" style="font-size: 15px">
-                                        <i class="fa fa-building mr-2" aria-hidden="true"></i>
-                                        {{get_address_by_id($shipment->shipper_address)->company}}
                                     </p>
                                     <p class="text-black mb-0" style="font-size: 15px">
                                         <i class="fa fa-phone-square mr-2" aria-hidden="true"></i>
@@ -76,10 +95,6 @@
                                         {{get_address_by_id($shipment->receiver_address)->name}}
                                     </p>
                                     <p class="text-black mb-0" style="font-size: 15px">
-                                        <i class="fa fa-building mr-2" aria-hidden="true"></i>
-                                        {{get_address_by_id($shipment->receiver_address)->company}}
-                                    </p>
-                                    <p class="text-black mb-0" style="font-size: 15px">
                                         <i class="fa fa-phone-square mr-2" aria-hidden="true"></i>
                                         {{get_address_by_id($shipment->shipper_address)->phone_one}}
                                     </p>
@@ -118,12 +133,6 @@
                                         {{get_address_by_id($shipment->shipper_address)->name}}
                                     </p>
                                     <div class="row">
-                                        <div class="col-md-4">
-                                            <p class="text-black mb-0" style="font-size: 15px">
-                                                <i class="fa fa-building mr-2" aria-hidden="true"></i>
-                                                {{get_address_by_id($shipment->shipper_address)->company}}
-                                            </p>
-                                        </div>
                                         <div class="col-md-4">
                                             <p class="text-black mb-0" style="font-size: 15px">
                                                 <i class="fa fa-phone-square mr-2" aria-hidden="true"></i>
@@ -208,19 +217,9 @@
                                             By credit card by the shipper
                                         @endif
                                     </small>
-                                </div> <br>
-                                # We’ve notified the shipper and receiver.
+                                </div>
                                 <br>
-                                @if($shipment->status == 0)
-                                    <div class="custom-checkbox custom-control"><input type="checkbox"
-                                                                                       id="exampleCustomCheckbox"
-                                                                                       class="custom-control-input">
-                                        <label class="custom-control-label" for="exampleCustomCheckbox">I accept the
-                                            Shipping Terms and Conditions</label></div>
-                                    <br>
-                                    <button class="mb-2 mr-2 px-5 btn btn-success submit">Confirm Shipment
-                                    </button>
-                                @endif
+                                # We’ve notified the shipper and receiver.
                             </div>
                         </div>
 

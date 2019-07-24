@@ -245,6 +245,7 @@
                                                 <i class="fa fa-arrow-right" aria-hidden="true"></i>
                                                 <span id="NotFoundState21z"></span>
                                             </h4>
+                                            <a href="{{route('PrepareShipment')}}" class="btn btn-sm btn-success" style="margin-top: 10px">Prepare Shipping</a>
                                         </div>
                                         <div class="panel panel-body hidden" id="NotFoundz"
                                              style="text-align:center;border: 1px solid #ddd;font-size:15px;cursor: pointer;">
