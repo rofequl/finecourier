@@ -33,6 +33,10 @@ Route::get('/shipping-rate', 'QuotationController@ShippingRate')->name('Shipping
 Route::post('/search-shipping-rate', 'QuotationController@ShippingRateSearch')->name('ShippingRateSearch');
 Route::post('/search-shipping-rate-domestic', 'QuotationController@ShippingRateSearchDomestic')->name('ShippingRateSearchDomestic');
 
+Route::get('/booking-shipment', 'QuotationController@BookingShipment')->name('BookingShipment');
+Route::post('/booking-shipment-post', 'QuotationController@BookingShipmentPost')->name('BookingShipmentPost');
+
+
 Route::get('faq', 'FrontendController@faq')->name('faq');
 Route::post('faq', 'FrontendController@AddFaq')->name('AddFaq');
 
@@ -146,5 +150,6 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::post('/admin-domestic', 'ShippingpriceController@AdminDomesticAdd')->name('AdminDomesticAdd');
     Route::get('/admin-domestic-delete', 'ShippingpriceController@AdminDomesticDelete')->name('AdminDomesticDelete');
 
+    Route::get('/admin-shipment', 'ShippingpriceController@AdminShipment')->name('AdminShipment');
 
 });

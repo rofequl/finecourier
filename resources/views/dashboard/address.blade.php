@@ -437,7 +437,7 @@
                         }
                     },
                     success: function (data) {
-                        if (data == 1) {
+                        if (data == 1 || data == 2 || data==3) {
                             window.location.href = '{{route('address')}}';
                         } else {
                             swal({

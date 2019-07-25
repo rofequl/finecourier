@@ -285,8 +285,8 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="">Currency</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select id="currency" name="currency col-md-7 col-xs-12 select2_single"
-                                                class="form-control">
+                                        <select id="currency" name="currency"
+                                                class="form-control col-md-7 col-xs-12">
                                             @foreach($earth as $earths)
                                                 <option value="{{$earths['currency']}}">{{$earths['currency']}}</option>
                                             @endforeach
@@ -369,32 +369,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <script>
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        $('#shipping_type1').click(function (e) {
-            if (!$(this).hasClass("btn-primary")) {
-                $(this).toggleClass('btn-default btn-primary');
-                $('#shipping_type2').toggleClass('btn-primary btn-default');
-            }
-        });
-
-        $('#shipping_type2').click(function (e) {
-            if (!$(this).hasClass("btn-primary")) {
-                $(this).toggleClass('btn-default btn-primary');
-                $('#shipping_type1').toggleClass('btn-primary btn-default');
-            }
-        });
 
 
-        function imageIsLoaded(e) {
-            $('#previewLogo').attr('src', e.target.result);
-        }
 
         $('.delete').click(function (e) {
             e.preventDefault(); // Prevent the href from redirecting directly
-            var linkURL = $(this).attr("href");
-            warnBeforeRedirect(linkURL);
-        });
-
-        function warnBeforeRedirect(linkURL) {
+            let linkURL = $(this).attr("href");
             swal({
                 title: "Sure want to delete?",
                 text: "If you click 'OK' file will be deleted",
@@ -403,7 +383,7 @@
             }, function () { // Redirect the user | linkURL is href url
                 window.location.href = linkURL;
             });
-        }
+        });
 
 
         $('#from_country').change(function () {
@@ -415,6 +395,7 @@
                 dataType: 'json',
                 success: function (data) {
                     $('#currency').val(data.currency);
+                    $('#currency').select2('refresh');
                 }
             });
         });

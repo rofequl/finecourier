@@ -24,6 +24,8 @@
                             <li><a href="{{route('AdminDomestic')}}">Domestic</a></li>
                         </ul>
                     </li>
+                    <li><a href="{{route('AdminShipment')}}"><i class="fa fa-location-arrow"></i> Prepare Shipment</a>
+                    </li>
                     <li><a><i class="fa fa-home"></i> Website Management <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{route('BasicInformation')}}">Basic Information</a></li>

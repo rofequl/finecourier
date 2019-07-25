@@ -234,4 +234,14 @@ class ShippingpriceController extends Controller
             echo "Something is wrong";
         }
     }
+
+    public function AdminShipment()
+    {
+        $earth = new Earth();
+
+        $earth = $earth->getCountries();
+        $data = domestic_price::all();
+        return view('admin.shipment.shipment', compact('data', 'earth'));
+    }
+
 }

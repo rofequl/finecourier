@@ -130,32 +130,34 @@
                                 <div class="widget-subheading" style="opacity: .9;">
                                     <p class="text-success mb-0" style="font-size: 20px">
                                         <i class="fa fa-user mr-2" aria-hidden="true"></i>
-                                        {{get_address_by_id($shipment->shipper_address)->name}}
+                                        {{get_address_by_id($shipment->biller_address)->name}}
                                     </p>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <p class="text-black mb-0" style="font-size: 15px">
                                                 <i class="fa fa-phone-square mr-2" aria-hidden="true"></i>
-                                                {{get_address_by_id($shipment->shipper_address)->phone_one}}
+                                                {{get_address_by_id($shipment->biller_address)->phone_one}}
                                             </p>
                                         </div>
                                         <div class="col-md-4">
                                             <p class="text-black mb-0" style="font-size: 15px">
                                                 <i class="fa fa-envelope mr-2" aria-hidden="true"></i>
-                                                {{get_address_by_id($shipment->shipper_address)->email}}
+                                                {{get_address_by_id($shipment->biller_address)->email}}
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="mt-2" style="font-size: 15px">
+                                                <i class="fa fa-globe mr-2" aria-hidden="true"></i>
+                                                {{get_city_name_by_code(get_address_by_id($shipment->biller_address)->country,get_address_by_id($shipment->biller_address)->state,get_address_by_id($shipment->biller_address)->city)->name}}
+                                                ,
+                                                {{get_state_name_by_code(get_address_by_id($shipment->biller_address)->country,get_address_by_id($shipment->biller_address)->state)->name}}
+                                                ,
+                                                {{get_country_name_by_code(get_address_by_id($shipment->biller_address)->country)->name}}
+                                                ,
+                                                {{get_address_by_id($shipment->biller_address)->post_code}}
                                             </p>
                                         </div>
                                     </div>
-                                    <p class="mt-2" style="font-size: 15px">
-                                        <i class="fa fa-globe mr-2" aria-hidden="true"></i>
-                                        {{get_city_name_by_code(get_address_by_id($shipment->shipper_address)->country,get_address_by_id($shipment->shipper_address)->state,get_address_by_id($shipment->shipper_address)->city)->name}}
-                                        ,
-                                        {{get_state_name_by_code(get_address_by_id($shipment->shipper_address)->country,get_address_by_id($shipment->shipper_address)->state)->name}}
-                                        ,
-                                        {{get_country_name_by_code(get_address_by_id($shipment->shipper_address)->country)->name}}
-                                        ,
-                                        {{get_address_by_id($shipment->shipper_address)->post_code}}
-                                    </p>
 
                                 </div>
                             </div>
@@ -182,7 +184,7 @@
                         <tr>
                             <td>{{$shipment->peace}}</td>
                             <td>{{$shipment->shipping_type}}</td>
-                            <td>{{$shipment->origin_country}}</td>
+                            <td>{{get_country_name_by_code($shipment->origin_country)->name}}</td>
                             <td>{{$shipment->weight}} {{$shipment->weight_type}}</td>
                             <td>{{$shipment->good_value}} {{$shipment->origin_currency}}</td>
                         </tr>

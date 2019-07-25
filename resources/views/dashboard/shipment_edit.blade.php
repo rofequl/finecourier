@@ -491,7 +491,7 @@
                     },
                     success: function (data) {
                         if (data == 1) {
-                            var url = '{{ route("PrepareShipmentEdit",$shipment->status) }}';
+                            var url = '{{ route("PrepareShipmentEdit",$shipment->id) }}';
                             window.location.href = url;
                         }else {
                             swal({

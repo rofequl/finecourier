@@ -10,7 +10,7 @@
                         <div class="widget-subheading">Last year expenses</div>
                     </div>
                     <div class="widget-content-right">
-                        <div class="widget-numbers text-white"><span>1896</span></div>
+                        <div class="widget-numbers text-white"><span>0</span></div>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                         <div class="widget-subheading">Total Clients Profit</div>
                     </div>
                     <div class="widget-content-right">
-                        <div class="widget-numbers text-white"><span>$ 568</span></div>
+                        <div class="widget-numbers text-white"><span>$ 0</span></div>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                         <div class="widget-subheading">People Interested</div>
                     </div>
                     <div class="widget-content-right">
-                        <div class="widget-numbers text-white"><span>46%</span></div>
+                        <div class="widget-numbers text-white"><span>0%</span></div>
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                         <div class="widget-subheading">Revenue streams</div>
                     </div>
                     <div class="widget-content-right">
-                        <div class="widget-numbers text-warning"><span>$14M</span></div>
+                        <div class="widget-numbers text-warning"><span>$0M</span></div>
                     </div>
                 </div>
             </div>

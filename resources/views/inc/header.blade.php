@@ -2,6 +2,20 @@
    START HEADER AREA
    =================================-->
 
+<style>
+    .btn-style{
+        background-color: #006cb7;
+        color: white;
+    }
+
+    .btn-style:hover{
+        background-color: #000000;
+        transition: 1s;
+        color: white;
+    }
+</style>
+
+
 <!-- start header -->
 <header>
     <!-- container start -->
@@ -39,13 +53,13 @@
         <!-- row start -->
         <div class="row">
             <div class="header_middle_wrapper clearfix">
-                <div class="col-md-3 xs_fullwidth col-xs-3">
+                <div class="col-md-3 xs_fullwidth col-xs-3" style="margin-left: -70px">
                     <div class="logo_container">
                         <a href="{{route('home')}}"><img src="{{asset('storage/logo/'.basic_information()->company_logo)}}" alt="logo Here" width="100%" height="48px"></a>
                     </div>
                 </div>
 
-                <div class="col-lg-5 xs_fullwidth col-xs-6 col-md-6 col-md-offset-0 col-lg-offset-1">
+                <div class="col-lg-4 xs_fullwidth col-xs-5 col-md-5 col-md-offset-0 col-lg-offset-0">
                     <div class="contact_info">
                         <div class="single_info_section">
                             <span class="fa fa-headphones v_middle"></span>
@@ -64,9 +78,10 @@
                     </div>
                 </div>
 
-                <div class="col-md-3 xs_fullwidth col-xs-3 col-lg-3">
-                    <a href="{{route('ShippingRate')}}" class="trust_btn quote_btn">Shipping Rate</a>
-                    <a href="{{route('track_trace')}}" class="trust_btn quote_btn">track & trace</a>
+                <div class="col-md-4 xs_fullwidth col-xs-4 col-lg-4" style="width: 40%">
+                    <a href="{{route('ShippingRate')}}" class="btn btn-default btn-sm btn-style" style="border-radius: 10px;margin-top: 0;line-height: 27px;width: 112px;">Shipping Request</a>
+                    <a href="{{route('BookingShipment')}}" class="btn btn-default btn-sm btn-style" style="border-radius: 10px;margin-top: 0;line-height: 27px;width: 112px;">Booking Shipment</a>
+                    <a href="{{route('track_trace')}}" class="btn btn-default btn-sm btn-style" style="border-radius: 10px;margin-top: 0;line-height: 27px;width: 112px;">Track and Trace</a>
                 </div>
             </div>
         </div><!-- /.row end -->

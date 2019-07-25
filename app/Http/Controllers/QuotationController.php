@@ -104,6 +104,23 @@ class QuotationController extends Controller
         }
     }
 
+
+
+    public function BookingShipment()
+    {
+        $title = 'Shipping rate Calculate';
+        $earth = new Earth();
+        $earth = $earth->getCountries()->toArray();
+        return view('booking_shipment', compact('title', 'earth'));
+    }
+
+    public function BookingShipmentPost(Request $request)
+    {
+        dd($request->all());
+    }
+
+
+
     public function PrepareShipmentAdd(Request $request)
     {
         $request->validate([
