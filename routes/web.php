@@ -97,6 +97,17 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::get('/basic-information', 'HomeController@BasicInformation')->name('BasicInformation');
     Route::post('/basic-information', 'HomeController@BasicInformationUpdate')->name('BasicInformationUpdate');
 
+    Route::get('/admin-country', 'CountryController@AdminCountry')->name('AdminCountry');
+    Route::get('/admin-country-get', 'CountryController@AdminCountryGet')->name('AdminCountryGet');
+    Route::get('/admin-country-single-get', 'CountryController@AdminCountrySingleGet')->name('AdminCountrySingleGet');
+    Route::post('/admin-country-add', 'CountryController@AdminCountryAdd')->name('AdminCountryAdd');
+
+    Route::get('/admin-state', 'CountryController@AdminState')->name('AdminState');
+    Route::post('/admin-state-add', 'CountryController@AdminStateAdd')->name('AdminStateAdd');
+
+    Route::get('/admin-city', 'CountryController@AdminCity')->name('AdminCity');
+    Route::post('/admin-city-add', 'CountryController@AdminCityAdd')->name('AdminCityAdd');
+
     Route::get('/slider-manage/{data?}', 'HomeController@SliderManage')->name('SliderManage');
     Route::get('/slider-manage-status', 'HomeController@SliderManageStatus')->name('SliderManageStatus');
     Route::get('/slider-manage-delete', 'HomeController@SliderManageDelete')->name('SliderManageDelete');
@@ -138,7 +149,7 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::get('/admin-news-delete', 'AboutController@AdminNewsDelete')->name('AdminNewsDelete');
     Route::post('/admin-news-update', 'AboutController@AdminNewsUpdate')->name('AdminNewsUpdate');
 
-    Route::get('/admin-Country', 'ShippingpriceController@AdminCountry')->name('AdminCountry');
+//    Route::get('/admin-Country', 'ShippingpriceController@AdminCountry')->name('AdminCountry');
     Route::post('/admin-Country-change', 'ShippingpriceController@AdminCountryChange')->name('AdminCountryChange');
 
 
@@ -151,5 +162,18 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::get('/admin-domestic-delete', 'ShippingpriceController@AdminDomesticDelete')->name('AdminDomesticDelete');
 
     Route::get('/admin-shipment', 'ShippingpriceController@AdminShipment')->name('AdminShipment');
+    Route::get('/admin-shipment-view', 'ShippingpriceController@AdminShipmentView')->name('AdminShipmentView');
+
+    Route::get('/admin-booking-request', 'ShippingpriceController@AdminBookingRequest')->name('AdminBookingRequest');
+    Route::get('/admin-booking-request-view', 'ShippingpriceController@AdminBookingRequestView')->name('AdminBookingRequestView');
+    Route::get('/admin-booking-request-action', 'ShippingpriceController@AdminBookingRequestAction')->name('AdminBookingRequestAction');
+
+    Route::get('/admin-cr-request', 'ShippingpriceController@AdminBookingRequest')->name('AdminBookingRequest');
+
+
+    Route::get('/admin-customer-list', 'CustomerController@AdminCustomerList')->name('AdminCustomerList');
+    Route::post('/admin-customer-add', 'CustomerController@AdminCustomerAdd')->name('AdminCustomerAdd');
+    Route::get('/admin-customer-view', 'CustomerController@AdminCustomerView')->name('AdminCustomerView');
+
 
 });

@@ -1,14 +1,16 @@
 <?php
 
 use App\basic_information;
+use App\citie;
 use App\contact;
 use App\country_manage;
 use App\our_inmormation;
 use App\service;
+use App\state;
 use App\user;
 use App\address;
+use App\country;
 use MenaraSolutions\Geographer\Earth;
-use MenaraSolutions\Geographer\Country;
 
 function basic_information()
 {
@@ -48,9 +50,7 @@ function contact_us()
 
 function get_country_name_by_code($data)
 {
-    $earth = new Earth();
-    $thailand = $earth->findOneByCode($data);
-    return $thailand;
+    return country::where('code',$data)->first();
 }
 
 function check_active_country($data)
@@ -65,14 +65,12 @@ function check_active_country($data)
 
 function get_state_name_by_code($country, $state)
 {
-    $earth = Country::build($country);
-    $thailand = $earth->getStates()->find(['code' => $state])->first();
-    return $thailand;
+    return state::where('country_code',$country)->where('code',$state)->first();
 }
 
 function get_city_name_by_code($country,$state,$city)
 {
-    return Country::build($country)->getStates()->find(['code' => $state])->first()->getCities()->find(['code' => $city])->first();
+    return citie::where('country_code',$country)->where('state_code',$state)->where('code',$city)->first();
 }
 
 function get_user_by_id($data)

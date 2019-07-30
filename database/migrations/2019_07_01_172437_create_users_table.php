@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('user_id');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
@@ -27,6 +28,12 @@ class CreateUsersTable extends Migration
             $table->string('placeName');
             $table->string('image')->nullable();
             $table->boolean('status')->default(1);
+
+            //0 = register
+            //1 = register complete
+            //2 = deactivate
+            //3 = block
+
             $table->timestamps();
         });
     }

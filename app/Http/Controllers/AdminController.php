@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\shipment;
 use Illuminate\Support\Facades\Hash;
 use Session;
 use App\adminpanel;
@@ -10,11 +11,16 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
-        return view('admin.index');
+        $shipping = shipment::orderBy('id','DESC')->paginate(15);
+        return view('admin.index',compact('shipping'));
     }
 
     public function LoginCheck(Request $request)
     {
+        $request->validate([
+            'username' => 'required|max:40',
+            'password' => 'required|min:8|max:20',
+        ]);
         $admin = adminpanel::where('name', $request->username)
             ->first();
         if (!empty($admin)) {
@@ -23,12 +29,12 @@ class AdminController extends Controller
                 Session::put('admin-id', $admin->id);
                 return redirect('/admin');
             } else {
-                $request->session()->flash('login_error', 'password not match');
-                return redirect('/admin');
+                Session::flash('message', 'password not match');
+                return redirect('admin-login');
             }
         } else {
-            $request->session()->flash('login_error', 'User name not match');
-            return redirect('/admin');
+            Session::flash('message', 'User name not match');
+            return redirect('admin-login');
         }
     }
 

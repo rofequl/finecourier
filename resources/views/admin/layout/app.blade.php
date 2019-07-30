@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Fine Courier | Admin Panel</title>
+    <title>@yield('pageTitle') - Fine Courier</title>
 
     <!-- Bootstrap -->
     <link href="{{asset('assets/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -33,9 +33,11 @@
     <link href="{{asset('assets/vendors/starrr/dist/starrr.css')}}" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="{{asset('assets/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+    <link href="//cdn.materialdesignicons.com/3.8.95/css/materialdesignicons.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="{{asset('assets/build/css/custom.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/build/css/util.css')}}" rel="stylesheet">
 </head>
 
 <body class="nav-md">

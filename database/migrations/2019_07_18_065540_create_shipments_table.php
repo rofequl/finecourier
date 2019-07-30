@@ -17,6 +17,7 @@ class CreateShipmentsTable extends Migration
             $table->bigIncrements('id');
             $table->string('shipper_address');
             $table->string('receiver_address');
+            $table->string('shipment');
             $table->string('shipping_type');
             $table->string('peace');
             $table->string('weight');

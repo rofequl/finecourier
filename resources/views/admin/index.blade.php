@@ -1,37 +1,38 @@
 @extends('admin.layout.app')
+@section('pageTitle','Dashboard')
 @section('content')
 
     <div class="right_col" role="main" style="min-height: 1962px;">
         <div class="row top_tiles">
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                    <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
+                    <div class="icon"><i class="fa mdi mdi-cube-send"></i></div>
                     <div class="count">0</div>
-                    <h3>New Sign ups</h3>
+                    <h3>Shipment</h3>
                     <p>Lorem ipsum psdea itgum rixt.</p>
                 </div>
             </div>
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                    <div class="icon"><i class="fa fa-comments-o"></i></div>
+                    <div class="icon"><i class="fa fa-user"></i></div>
                     <div class="count">0</div>
-                    <h3>New Sign ups</h3>
+                    <h3>User</h3>
                     <p>Lorem ipsum psdea itgum rixt.</p>
                 </div>
             </div>
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                    <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
+                    <div class="icon"><i class="fa mdi mdi-package-variant"></i></div>
                     <div class="count">0</div>
-                    <h3>New Sign ups</h3>
+                    <h3>Delivered</h3>
                     <p>Lorem ipsum psdea itgum rixt.</p>
                 </div>
             </div>
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                    <div class="icon"><i class="fa fa-check-square-o"></i></div>
+                    <div class="icon"><i class="fa mdi mdi-view-week"></i></div>
                     <div class="count">0</div>
-                    <h3>New Sign ups</h3>
+                    <h3>Container</h3>
                     <p>Lorem ipsum psdea itgum rixt.</p>
                 </div>
             </div>
@@ -42,7 +43,7 @@
                 <div class="dashboard_graph x_panel">
                     <div class="row x_title">
                         <div class="col-md-6">
-                            <h3>Network Activities <small>Graph title sub-title</small></h3>
+                            <h3>Shiping sales <small>How much shipping has been</small></h3>
                         </div>
                         <div class="col-md-6">
                             <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
@@ -60,6 +61,71 @@
             </div>
         </div>
 
+        <div class="row" style="margin-top: 30px">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Shipping list Earrings</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+
+                        <!-- start project list -->
+                        <table class="table table-striped table-hover projects">
+                            <thead>
+                            <tr>
+                                <th style="width: 1%">#</th>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Tracking Code</th>
+                                <th>Shipping type</th>
+                                <th>Shipping content</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($shipping as $shipment)
+                                <tr class="tr"
+                                    onclick="location.href='{{route('AdminShipmentView','data='.base64_encode($shipment->id))}}';">
+                                    <td>#</td>
+                                    <td>
+                                        <a title="Header" data-toggle="popover" data-trigger="hover"
+                                           data-content="Some content">
+                                            {{get_user_by_id($shipment->user_id)->first_name}}
+                                            {{get_user_by_id($shipment->user_id)->last_name}}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {{$shipment->created_at->format('d M, Y')}}
+                                    </td>
+                                    <td>
+                                        {!! DNS1D::getBarcodeHTML($shipment->tracking_code, "EAN13",1,23) !!}
+                                        <p style="font-size: 15px;color: black;">
+                                            *{{$shipment->tracking_code}}*</p>
+                                    </td>
+                                    <td>
+                                        @if($shipment->shipment == 1)
+                                            International
+                                        @else
+                                            Domestic
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{$shipment->shipping_type}}
+                                    </td>
+                                    <td>
+                                        <span class="label label-success">Ready For A Pickup</span>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                        {!! $shipping->render() !!}
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 @endsection

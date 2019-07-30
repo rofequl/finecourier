@@ -17,6 +17,7 @@ class CreateCitiesTable extends Migration
             $table->bigIncrements('id');
             $table->string('code')->nullable();
             $table->string('geonamesCode')->nullable();
+            $table->string('name')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->string('population')->nullable();

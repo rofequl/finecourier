@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\booking_shipment;
 use App\citie;
 use App\domestic_price;
 use App\country_manage;
 use App\international_price;
+use App\shipment;
 use App\state;
 use Illuminate\Http\Request;
 use MenaraSolutions\Geographer\City;
@@ -16,10 +18,6 @@ use App\Country;
 class ShippingpriceController extends Controller
 {
 
-//    public function __construct()
-//    {
-//        set_time_limit(8000000);
-//    }
 
     public function AdminCountry()
     {
@@ -237,11 +235,42 @@ class ShippingpriceController extends Controller
 
     public function AdminShipment()
     {
-        $earth = new Earth();
+        $shipping = shipment::orderBy('id','DESC')->paginate(15);
+        return view('admin.shipment.shipment', compact('shipping'));
+    }
 
-        $earth = $earth->getCountries();
-        $data = domestic_price::all();
-        return view('admin.shipment.shipment', compact('data', 'earth'));
+    public function AdminShipmentView(Request $request)
+    {
+        $shipment = shipment::find(base64_decode($request->data));
+        return view('admin.shipment.shipment_view', compact('shipment'));
+    }
+
+    public function AdminBookingRequest()
+    {
+        $shipping = booking_shipment::orderBy('id','DESC')->paginate(15);
+        return view('admin.shipment.booking_shipment',compact('shipping'));
+    }
+
+    public function AdminBookingRequestView(Request $request)
+    {
+        $shipping = booking_shipment::find(base64_decode($request->data));
+        return view('admin.shipment.booking_shipment_view',compact('shipping'));
+    }
+
+    public function AdminBookingRequestAction(Request $request)
+    {
+        if ($request->delete){
+            $data = booking_shipment::find(base64_decode($request->delete));
+            $data->delete();
+            Session::flash('message', 'Booking request Deleted Successfully');
+            return redirect('admin-booking-request');
+        }elseif ($request->block){
+            $data = booking_shipment::find(base64_decode($request->block));
+            $data->status=1;
+            $data->save();
+            Session::flash('message', 'Booking request has been block');
+            return redirect('admin-booking-request');
+        }
     }
 
 }

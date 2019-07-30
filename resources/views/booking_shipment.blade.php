@@ -18,7 +18,7 @@
                 <div class="col-md-10 col-sm-10 col-sm-offset-1 col-md-offset-1">
                     <div class="quote_requ_wrapper">
                         <div class="section_title">
-                            <div class="title"><h2>Shipping Rate Calculator</h2></div>
+                            <div class="title"><h2>You want to booking request?</h2></div>
                         </div>
                         <div class="sub_content">
                             <div class="btn-group btn-group-justified">
@@ -69,7 +69,8 @@
                                             <label class="radio-inline"><input type="radio" value="Document"
                                                                                name="shipping_type">Document</label>
                                             <label class="radio-inline"><input type="radio" value="Parcel"
-                                                                               name="shipping_type" checked>Parcel</label>
+                                                                               name="shipping_type"
+                                                                               checked>Parcel</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 form-group text-left">
@@ -93,7 +94,8 @@
                                         <label for="usr3">How do you want to arrange for payment?</label>
                                         <div class="row" style="margin-left: 5px">
                                             <label class="radio-inline"><input type="radio" value="Regular"
-                                                                               name="delivery_type" checked>Regular</label>
+                                                                               name="delivery_type"
+                                                                               checked>Regular</label>
                                             <label class="radio-inline"><input type="radio" value="Express"
                                                                                name="delivery_type">Express</label>
                                         </div>
@@ -115,7 +117,8 @@
                                         <div class="row" style="margin-left: 5px">
                                             <div class="form-group">
                                                 <label for="usr">Contact Name:</label>
-                                                <input type="text" name="shipper_name" placeholder="Shipper Name" class="form-control" id="usr">
+                                                <input type="text" name="shipper_name" placeholder="Shipper Name"
+                                                       class="form-control" id="usr">
                                             </div>
                                         </div>
                                     </div>
@@ -124,7 +127,8 @@
                                         <div class="row" style="margin-left: 5px;margin-top: 5px">
                                             <div class="form-group">
                                                 <label for="usr1">Contact Phone:</label>
-                                                <input type="tel" name="shipper_phone" placeholder="Shipper Phone" class="form-control" id="usr1">
+                                                <input type="tel" name="shipper_phone" placeholder="Shipper Phone"
+                                                       class="form-control" id="usr1">
                                             </div>
                                         </div>
                                     </div>
@@ -133,7 +137,8 @@
                                         <div class="row" style="margin-left: 5px;margin-top: 5px">
                                             <div class="form-group">
                                                 <label for="usr2">Contact Email:</label>
-                                                <input type="email" name="shipper_email" placeholder="Shipper Email" class="form-control" id="usr2">
+                                                <input type="email" name="shipper_email" placeholder="Shipper Email"
+                                                       class="form-control" id="usr2">
                                             </div>
                                         </div>
                                     </div>
@@ -143,7 +148,8 @@
                                         <div class="row" style="margin-left: 5px">
                                             <div class="form-group">
                                                 <label for="usr">Contact Address:</label>
-                                                <textarea name="shipper_address" placeholder="City / State / Address" class="form-control" style="height: 100px"></textarea>
+                                                <textarea name="shipper_address" placeholder="City / State / Address"
+                                                          class="form-control" style="height: 100px"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -154,7 +160,8 @@
                                         <div class="row" style="margin-left: 5px">
                                             <div class="form-group">
                                                 <label for="usr">Contact Name:</label>
-                                                <input type="text" name="receiver_name" placeholder="Receiver Name" class="form-control" id="usr">
+                                                <input type="text" name="receiver_name" placeholder="Receiver Name"
+                                                       class="form-control" id="usr">
                                             </div>
                                         </div>
                                     </div>
@@ -163,7 +170,8 @@
                                         <div class="row" style="margin-left: 5px;margin-top: 5px">
                                             <div class="form-group">
                                                 <label for="usr1">Contact Phone:</label>
-                                                <input type="tel" name="receiver_phone" placeholder="Receiver Phone" class="form-control" id="usr1">
+                                                <input type="tel" name="receiver_phone" placeholder="Receiver Phone"
+                                                       class="form-control" id="usr1">
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +180,8 @@
                                         <div class="row" style="margin-left: 5px;margin-top: 5px">
                                             <div class="form-group">
                                                 <label for="usr2">Contact Email:</label>
-                                                <input type="email" name="receiver_email" placeholder="Receiver Email" class="form-control" id="usr2">
+                                                <input type="email" name="receiver_email" placeholder="Receiver Email"
+                                                       class="form-control" id="usr2">
                                             </div>
                                         </div>
                                     </div>
@@ -182,8 +191,9 @@
                                         <div class="row" style="margin-left: 5px">
                                             <div class="form-group">
                                                 <label for="usr">Dalivery Address:</label>
-                                                <textarea class="form-control" name="receiver_address" style="height: 100px"
-                                                placeholder="City / State / Address"></textarea>
+                                                <textarea class="form-control" name="receiver_address"
+                                                          style="height: 100px"
+                                                          placeholder="City / State / Address"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -204,11 +214,11 @@
                                 <div class="row">
                                     <div class="col-md-6 form-group text-left">
                                         <label for="usr">Pickup date:</label>
-                                        <input type="text" class="form-control" name="pickup_date">
+                                        <input data-date-format="dd-MM-yyyy" type="text" class="form-control datepicker" name="pickup_date">
                                     </div>
                                     <div class="col-md-6 form-group text-left">
                                         <label for="usr2">Pickup Delivery:</label>
-                                        <input type="text" class="form-control" name="pickup_delivery">
+                                        <input data-date-format="dd-MM-yyyy" type="text" class="form-control datepicker" name="pickup_delivery">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -258,7 +268,8 @@
                                             <label class="radio-inline"><input type="radio" value="Document"
                                                                                name="shipping_type">Document</label>
                                             <label class="radio-inline"><input type="radio" value="Parcel"
-                                                                               name="shipping_type" checked>Parcel</label>
+                                                                               name="shipping_type"
+                                                                               checked>Parcel</label>
                                         </div>
                                     </div>
 
@@ -266,7 +277,8 @@
                                         <label for="usr3">How do you want to arrange for payment?</label>
                                         <div class="row" style="margin-left: 5px">
                                             <label class="radio-inline"><input type="radio" value="Regular"
-                                                                               name="delivery_type" checked>Regular</label>
+                                                                               name="delivery_type"
+                                                                               checked>Regular</label>
                                             <label class="radio-inline"><input type="radio" value="Express"
                                                                                name="delivery_type">Express</label>
                                         </div>
@@ -279,7 +291,8 @@
                                         <div class="row" style="margin-left: 5px">
                                             <div class="form-group">
                                                 <label for="usr">Contact Name:</label>
-                                                <input type="text" name="shipper_name" placeholder="Shipper Name" class="form-control" id="usr">
+                                                <input type="text" name="shipper_name" placeholder="Shipper Name"
+                                                       class="form-control" id="usr">
                                             </div>
                                         </div>
                                     </div>
@@ -288,7 +301,8 @@
                                         <div class="row" style="margin-left: 5px;margin-top: 5px">
                                             <div class="form-group">
                                                 <label for="usr1">Contact Phone:</label>
-                                                <input type="tel" name="shipper_phone" placeholder="Shipper Phone" class="form-control" id="usr1">
+                                                <input type="tel" name="shipper_phone" placeholder="Shipper Phone"
+                                                       class="form-control" id="usr1">
                                             </div>
                                         </div>
                                     </div>
@@ -297,7 +311,8 @@
                                         <div class="row" style="margin-left: 5px;margin-top: 5px">
                                             <div class="form-group">
                                                 <label for="usr2">Contact Email:</label>
-                                                <input type="email" name="shipper_email" placeholder="Shipper Email" class="form-control" id="usr2">
+                                                <input type="email" name="shipper_email" placeholder="Shipper Email"
+                                                       class="form-control" id="usr2">
                                             </div>
                                         </div>
                                     </div>
@@ -307,7 +322,8 @@
                                         <div class="row" style="margin-left: 5px">
                                             <div class="form-group">
                                                 <label for="usr">Contact Address:</label>
-                                                <textarea name="shipper_address" placeholder="City / State / Address" class="form-control" style="height: 100px"></textarea>
+                                                <textarea name="shipper_address" placeholder="City / State / Address"
+                                                          class="form-control" style="height: 100px"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -318,7 +334,8 @@
                                         <div class="row" style="margin-left: 5px">
                                             <div class="form-group">
                                                 <label for="usr">Contact Name:</label>
-                                                <input type="text" name="receiver_name" placeholder="Receiver Name" class="form-control" id="usr">
+                                                <input type="text" name="receiver_name" placeholder="Receiver Name"
+                                                       class="form-control" id="usr">
                                             </div>
                                         </div>
                                     </div>
@@ -327,7 +344,8 @@
                                         <div class="row" style="margin-left: 5px;margin-top: 5px">
                                             <div class="form-group">
                                                 <label for="usr1">Contact Phone:</label>
-                                                <input type="tel" name="receiver_phone" placeholder="Receiver Phone" class="form-control" id="usr1">
+                                                <input type="tel" name="receiver_phone" placeholder="Receiver Phone"
+                                                       class="form-control" id="usr1">
                                             </div>
                                         </div>
                                     </div>
@@ -336,7 +354,8 @@
                                         <div class="row" style="margin-left: 5px;margin-top: 5px">
                                             <div class="form-group">
                                                 <label for="usr2">Contact Email:</label>
-                                                <input type="email" name="receiver_email" placeholder="Receiver Email" class="form-control" id="usr2">
+                                                <input type="email" name="receiver_email" placeholder="Receiver Email"
+                                                       class="form-control" id="usr2">
                                             </div>
                                         </div>
                                     </div>
@@ -346,7 +365,8 @@
                                         <div class="row" style="margin-left: 5px">
                                             <div class="form-group">
                                                 <label for="usr">Dalivery Address:</label>
-                                                <textarea class="form-control" name="receiver_address" style="height: 100px"
+                                                <textarea class="form-control" name="receiver_address"
+                                                          style="height: 100px"
                                                           placeholder="City / State / Address"></textarea>
                                             </div>
                                         </div>
@@ -371,48 +391,82 @@
 
 @endsection
 
+@push('style')
+    <link href="{{asset('assets/vendors/sweetalert/sweetalert.css')}}" rel="stylesheet"/>
+    <link href="{{asset('assets/vendors/Datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet"/>
+@endpush
 @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="{{asset('assets/vendors/sweetalert/sweetalert.js')}}"></script>
+    <script src="{{asset('assets/vendors/Datepicker/bootstrap-datepicker.min.js')}}"></script>
     <script>
 
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
+        $('.datepicker').datepicker({
+            autoclose:true,
+            todayHighlight:true,
+            weekStart:6,
+            minDate: "25/07/2019",
+            maxDate: "31/12/2050",
+            yearRange: "2018:2050",
+        }).datepicker("setDate", new Date());
+
         $(document).ready(function () {
             $('#upload_form').on('submit', function () {
                 event.preventDefault();
-                $.ajax({
-                    url: "{{ route('BookingShipmentPost') }}",
-                    method: "POST",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: new FormData(this),
-                    dataType: 'json',
-                    error: function (data) {
-                        if (data.status === 422) {
-                            var errors = $.parseJSON(data.responseText);
-                            let allData = '', mainData = '';
-                            $.each(errors, function (key, value) {
-                                if ($.isPlainObject(value)) {
-                                    $.each(value, function (key, value) {
-                                        allData += value + "<br/>";
+                var form = new FormData(this);
+
+                swal({
+                    title: "Are you sure want to booking?",
+                    text: "If all information is correct, press ok.",
+                    type: "info",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                }, function () {
+                    setTimeout(function () {
+                        $.ajax({
+                            url: "{{ route('BookingShipmentPost') }}",
+                            method: "POST",
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: form,
+                            dataType: 'json',
+                            error: function (data) {
+                                if (data.status === 422) {
+                                    var errors = $.parseJSON(data.responseText);
+                                    let allData = '', mainData = '';
+                                    $.each(errors, function (key, value) {
+                                        if ($.isPlainObject(value)) {
+                                            $.each(value, function (key, value) {
+                                                allData += value + "<br/>";
+                                            });
+                                        } else {
+                                            mainData += value + "<br/>";
+                                        }
                                     });
-                                } else {
-                                    mainData += value + "<br/>";
+                                    swal({
+                                        title: mainData,
+                                        text: allData,
+                                        type: 'error',
+                                        html: true,
+                                        confirmButtonText: 'Ok'
+                                    })
                                 }
-                            });
-                            Swal.fire({
-                                title: mainData,
-                                html: allData,
-                                type: 'error',
-                                confirmButtonText: 'Ok'
-                            })
-                        }
-                    },
-                    success: function (data) {
-                       dd(data);
-                    }
-                })
+                            },
+                            success: function (data) {
+                                if (data == 2){
+                                    swal("Your Shipment Book, Please wait confirmation email.");
+                                    $("#upload_form").trigger("reset");
+                                } else{
+                                    swal("Something wrong, please try again later!");
+                                    $("#upload_form").trigger("reset");
+                                }
+                            }
+                        })
+                    }, 2000);
+                });
             });
         });
 
@@ -455,39 +509,59 @@
         $(document).ready(function () {
             $('#upload_form2').on('submit', function () {
                 event.preventDefault();
-                $.ajax({
-                    url: "{{ route('BookingShipmentPost') }}",
-                    method: "POST",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: new FormData(this),
-                    dataType: 'json',
-                    error: function (data) {
-                        if (data.status === 422) {
-                            var errors = $.parseJSON(data.responseText);
-                            let allData = '', mainData = '';
-                            $.each(errors, function (key, value) {
-                                if ($.isPlainObject(value)) {
-                                    $.each(value, function (key, value) {
-                                        allData += value + "<br/>";
+                var form = new FormData(this);
+
+                swal({
+                    title: "Are you sure want to booking?",
+                    text: "If all information is correct, press ok.",
+                    type: "info",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                }, function () {
+                    setTimeout(function () {
+                        $.ajax({
+                            url: "{{ route('BookingShipmentPost') }}",
+                            method: "POST",
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: form,
+                            dataType: 'json',
+                            error: function (data) {
+                                if (data.status === 422) {
+                                    var errors = $.parseJSON(data.responseText);
+                                    let allData = '', mainData = '';
+                                    $.each(errors, function (key, value) {
+                                        if ($.isPlainObject(value)) {
+                                            $.each(value, function (key, value) {
+                                                allData += value + "<br/>";
+                                            });
+                                        } else {
+                                            mainData += value + "<br/>";
+                                        }
                                     });
-                                } else {
-                                    mainData += value + "<br/>";
+                                    swal({
+                                        title: mainData,
+                                        text: allData,
+                                        type: 'error',
+                                        html: true,
+                                        confirmButtonText: 'Ok'
+                                    })
                                 }
-                            });
-                            Swal.fire({
-                                title: mainData,
-                                html: allData,
-                                type: 'error',
-                                confirmButtonText: 'Ok'
-                            })
-                        }
-                    },
-                    success: function (data) {
-                        console.log(data);
-                    }
-                })
+                            },
+                            success: function (data) {
+                                if (data == 1){
+                                    swal("Your Shipment Book, Please wait confirmation email.");
+                                    $("#upload_form2").trigger("reset");
+                                } else{
+                                    swal("Something wrong, please try again later!");
+                                    $("#upload_form2").trigger("reset");
+                                }
+                            }
+                        })
+                    }, 2000);
+                });
             });
         });
 

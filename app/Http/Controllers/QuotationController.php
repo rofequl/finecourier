@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\address;
+use App\booking_shipment;
 use App\domestic_price;
 use App\international_price;
 use App\shipment;
@@ -108,15 +109,97 @@ class QuotationController extends Controller
 
     public function BookingShipment()
     {
-        $title = 'Shipping rate Calculate';
+        $title = 'Booking Shipment';
         $earth = new Earth();
         $earth = $earth->getCountries()->toArray();
         return view('booking_shipment', compact('title', 'earth'));
+
     }
 
     public function BookingShipmentPost(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
+        if ($request->booking_type == 1){
+            $request->validate([
+                'from_country' => 'required',
+                'to_country' => 'required',
+                'shipping_type' => 'required',
+                'delivery_type' => 'required',
+                'weight' => 'required|max:11',
+                'weight_type' => 'required',
+                'dimenshion' => 'max:191',
+                'shipper_name' => 'required|max:191',
+                'shipper_phone' => 'required|max:191',
+                'shipper_email' => 'required|max:191',
+                'shipper_address' => 'required',
+                'receiver_name' => 'required|max:191',
+                'receiver_phone' => 'required|max:191',
+                'receiver_email' => 'required|max:191',
+                'receiver_address' => 'required',
+            ]);
+
+            $insert = new booking_shipment();
+            $insert->booking_type = $request->booking_type;
+            $insert->from_country = $request->from_country;
+            $insert->to_country = $request->to_country;
+            $insert->shipping_type = $request->shipping_type;
+            $insert->delivery_type = $request->delivery_type;
+            $insert->dimenshion = $request->dimenshion;
+            $insert->weight = $request->weight;
+            $insert->weight_type = $request->weight_type;
+            $insert->shipper_name = $request->shipper_name;
+            $insert->shipper_phone = $request->shipper_phone;
+            $insert->shipper_email = $request->shipper_email;
+            $insert->shipper_address = $request->shipper_address;
+            $insert->receiver_name = $request->receiver_name;
+            $insert->receiver_phone = $request->receiver_phone;
+            $insert->receiver_email = $request->receiver_email;
+            $insert->receiver_address = $request->receiver_address;
+            $insert->save();
+
+            return 1;
+        }else{
+            $request->validate([
+                'pickup_date' => 'required|max:191',
+                'pickup_delivery' => 'required|max:191',
+                'from_country' => 'required',
+                'shipping_type' => 'required',
+                'delivery_type' => 'required',
+                'weight' => 'required|max:11',
+                'weight_type' => 'required',
+                'dimenshion' => 'max:191',
+                'shipper_name' => 'required|max:191',
+                'shipper_phone' => 'required|max:191',
+                'shipper_email' => 'required|max:191',
+                'shipper_address' => 'required',
+                'receiver_name' => 'required|max:191',
+                'receiver_phone' => 'required|max:191',
+                'receiver_email' => 'required|max:191',
+                'receiver_address' => 'required',
+            ]);
+
+            $insert = new booking_shipment();
+            $insert->booking_type = $request->booking_type;
+            $insert->pickup_date = $request->pickup_date;
+            $insert->pickup_delivery = $request->pickup_delivery;
+            $insert->from_country = $request->from_country;
+            $insert->shipping_type = $request->shipping_type;
+            $insert->delivery_type = $request->delivery_type;
+            $insert->dimenshion = $request->dimenshion;
+            $insert->weight = $request->weight;
+            $insert->weight_type = $request->weight_type;
+            $insert->shipper_name = $request->shipper_name;
+            $insert->shipper_phone = $request->shipper_phone;
+            $insert->shipper_email = $request->shipper_email;
+            $insert->shipper_address = $request->shipper_address;
+            $insert->receiver_name = $request->receiver_name;
+            $insert->receiver_phone = $request->receiver_phone;
+            $insert->receiver_email = $request->receiver_email;
+            $insert->receiver_address = $request->receiver_address;
+            $insert->save();
+
+            return 2;
+        }
     }
 
 
@@ -260,6 +343,7 @@ class QuotationController extends Controller
                 $insert->shipper_address = $request->shipper_address;
                 $insert->receiver_address = $request->receiver_address;
                 $insert->shipping_type = $request->shipping_type;
+                $insert->shipment = 2;
                 $insert->peace = $request->peace;
                 $insert->weight = $request->weight;
                 $insert->weight_type = $request->weight_type;
@@ -305,6 +389,7 @@ class QuotationController extends Controller
                 $insert = new shipment();
                 $insert->shipper_address = $request->shipper_address;
                 $insert->receiver_address = $request->receiver_address;
+                $insert->shipment = 1;
                 $insert->shipping_type = $request->shipping_type;
                 $insert->peace = $request->peace;
                 $insert->weight = $request->weight;

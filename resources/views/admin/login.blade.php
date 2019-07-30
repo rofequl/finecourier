@@ -34,21 +34,19 @@
                     {{csrf_field()}}
                     <h1>Login Form</h1>
                     @if ($errors->any())
-                        @foreach ($errors->all() as $error)
-                            <div class="alert alert-danger alert-dismissible">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                {{$error}}
-                            </div>
-                        @endforeach
+                        <ul class="text-left">
+                            @foreach ($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
                     @endif
-                    @if(session()->has('login_error'))
-                        <div class="alert alert-danger alert-dismissible">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            {{ session()->get('login_error') }}
-                        </div>
+                    @if(session()->has('message'))
+                        <ul class="text-left">
+                            <li>{{ session()->get('message') }}</li>
+                        </ul>
                     @endif
                     <div>
-                        <input type="text" name="username" class="form-control" placeholder="Username" required=""/>
+                        <input type="text" name="username" class="form-control" placeholder="Username">
                     </div>
                     <div>
                         <input type="password" name="password" class="form-control" placeholder="Password" required=""/>
