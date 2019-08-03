@@ -74,6 +74,7 @@
                             <br>
                             <form id="upload_form" method="post" class="form-horizontal form-label-left input_mask">
                                 {{csrf_field()}}
+                                <input type="hidden" value="" name="id" id="country_id">
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <label for="code">Code*:</label>
                                     <input type="text" class="form-control" placeholder="BD" name="code" id="code"
@@ -252,6 +253,7 @@
 
                 serverSide: true,
                 ajax: "{{route('AdminCountryGet')}}",
+                order: [ [0, 'desc'] ],
                 columns: [
                     {data: 'numericCode'},
                     {data: 'code'},
@@ -266,66 +268,125 @@
             $(document).on('click', '.add-country', function () {
                $('#myModal').modal('show');
                $('.modal-header').html('Country Information Add');
+                $('#country_id').val('');
                 $("#upload_form").trigger("reset");
             });
 
             $('#upload_form').on('submit', function () {
                 event.preventDefault();
                 let form = new FormData(this);
-                swal({
-                    title: "Are you sure want to add country?",
-                    text: "If all information is correct, press ok.",
-                    type: "info",
-                    showCancelButton: true,
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true
-                }, function () {
-                    setTimeout(function () {
-                        $.ajax({
-                            url: "{{ route('AdminCountryAdd') }}",
-                            method: "POST",
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            data: form,
-                            dataType: 'json',
-                            error: function (data) {
-                                if (data.status === 422) {
-                                    var errors = $.parseJSON(data.responseText);
-                                    let allData = '', mainData = '';
-                                    $.each(errors, function (key, value) {
-                                        if ($.isPlainObject(value)) {
-                                            $.each(value, function (key, value) {
-                                                allData += value + "<br/>";
-                                            });
-                                        } else {
-                                            mainData += value + "<br/>";
-                                        }
-                                    });
-                                    swal({
-                                        title: mainData,
-                                        text: allData,
-                                        type: 'error',
-                                        html: true,
-                                        confirmButtonText: 'Ok'
-                                    })
+                let id = $('#country_id').val();
+                if (id===''){
+                    swal({
+                        title: "Are you sure want to add country?",
+                        text: "If all information is correct, press ok.",
+                        type: "info",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    }, function () {
+                        setTimeout(function () {
+                            $.ajax({
+                                url: "{{ route('AdminCountryAdd') }}",
+                                method: "POST",
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                data: form,
+                                dataType: 'json',
+                                error: function (data) {
+                                    if (data.status === 422) {
+                                        var errors = $.parseJSON(data.responseText);
+                                        let allData = '', mainData = '';
+                                        $.each(errors, function (key, value) {
+                                            if ($.isPlainObject(value)) {
+                                                $.each(value, function (key, value) {
+                                                    allData += value + "<br/>";
+                                                });
+                                            } else {
+                                                mainData += value + "<br/>";
+                                            }
+                                        });
+                                        swal({
+                                            title: mainData,
+                                            text: allData,
+                                            type: 'error',
+                                            html: true,
+                                            confirmButtonText: 'Ok'
+                                        })
+                                    }
+                                },
+                                success: function (data) {
+                                    if (data == 1){
+                                        swal("Country add successfully");
+                                        $("#upload_form").trigger("reset");
+                                        $('#myModal').modal('hide');
+                                        table.ajax.reload();
+                                    } else{
+                                        swal("Something wrong, please try again later!");
+                                        $("#upload_form").trigger("reset");
+                                        $('#myModal').modal('hide');
+                                    }
                                 }
-                            },
-                            success: function (data) {
-                                if (data == 1){
-                                    swal("Country add successfully");
-                                    $("#upload_form").trigger("reset");
-                                    $('#myModal').modal('hide');
-                                    table.ajax.reload();
-                                } else{
-                                    swal("Something wrong, please try again later!");
-                                    $("#upload_form").trigger("reset");
-                                    $('#myModal').modal('hide');
+                            })
+                        }, 2000);
+                    });
+                }else {
+                    swal({
+                        title: "Are you sure want to update country?",
+                        text: "If all information is correct, press ok.",
+                        type: "info",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    }, function () {
+                        setTimeout(function () {
+                            $.ajax({
+                                url: "{{ route('AdminCountryAdd') }}",
+                                method: "POST",
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                data: form,
+                                dataType: 'json',
+                                error: function (data) {
+                                    if (data.status === 422) {
+                                        var errors = $.parseJSON(data.responseText);
+                                        let allData = '', mainData = '';
+                                        $.each(errors, function (key, value) {
+                                            if ($.isPlainObject(value)) {
+                                                $.each(value, function (key, value) {
+                                                    allData += value + "<br/>";
+                                                });
+                                            } else {
+                                                mainData += value + "<br/>";
+                                            }
+                                        });
+                                        swal({
+                                            title: mainData,
+                                            text: allData,
+                                            type: 'error',
+                                            html: true,
+                                            confirmButtonText: 'Ok'
+                                        })
+                                    }
+                                },
+                                success: function (data) {
+                                    if (data == 1){
+                                        swal("Country update successfully");
+                                        $("#upload_form").trigger("reset");
+                                        $('#myModal').modal('hide');
+                                        table.ajax.reload();
+                                    } else{
+                                        swal("Something wrong, please try again later!");
+                                        $("#upload_form").trigger("reset");
+                                        $('#myModal').modal('hide');
+                                    }
                                 }
-                            }
-                        })
-                    }, 2000);
-                });
+                            })
+                        }, 2000);
+                    });
+                }
             });
 
             $(document).on('click', '.edit-country', function () {
@@ -339,8 +400,64 @@
                     data: {id: id},
                     dataType: 'json',
                     success: function (data) {
-
+                        $('#country_id').val(data.id);
+                        $('#code').val(data.code);
+                        $('#currency').val(data.currency);
+                        $('#name').val(data.name);
+                        $('#code3').val(data.code3);
+                        $('#isoCode').val(data.isoCode);
+                        $('#numericCode').val(data.numericCode);
+                        $('#geonamesCode').val(data.geonamesCode);
+                        $('#fipsCode').val(data.fipsCode);
+                        $('#area').val(data.area);
+                        $('#mobileFormat').val(data.mobileFormat);
+                        $('#phonePrefix').val(data.phonePrefix);
+                        $('#landlineFormat').val(data.landlineFormat);
+                        $('#trunkPrefix').val(data.trunkPrefix);
+                        $('#population').val(data.population);
+                        $('#continent').val(data.continent);
+                        $('#language').val(data.language);
                     }
+                });
+            });
+
+            $(document).on('click', '.delete', function () {
+                let id = $(this).attr('id');
+                let classes = $(this);
+                swal({
+                    title: "Are you sure want to delete country?",
+                    text: "If you click 'OK' country will be remove.",
+                    type: "warning",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                }, function () {
+                    setTimeout(function () {
+                        $.ajax({
+                            url: "{{ route('AdminCountryDelete') }}",
+                            type: 'get',
+                            data: {id: id},
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data == '1') {
+                                    swal({
+                                        title: "Deleted",
+                                        text: 'Country was deleted',
+                                        type: 'success',
+                                        confirmButtonText: 'Ok'
+                                    });
+                                    $(classes).closest('tr').remove();
+                                } else {
+                                    swal({
+                                        title: "Something wrong",
+                                        text: 'Please try again later.',
+                                        type: 'error',
+                                        confirmButtonText: 'Ok'
+                                    });
+                                }
+                            }
+                        });
+                    }, 2000);
                 });
             });
         });

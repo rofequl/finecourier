@@ -1,12 +1,6 @@
 @extends('admin.layout.app')
+@section('pageTitle','Booking Request list')
 @section('content')
-
-    <style>
-        .tr{
-            cursor: pointer;
-        }
-    </style>
-
     <div class="right_col" role="main">
         <div class="">
             <div class="page-title">
@@ -30,51 +24,72 @@
                             <p>Simple table with booking request any people</p>
 
                             <!-- start project list -->
-                            <table class="table table-striped table-hover projects">
-                                <thead>
-                                <tr>
-                                    <th style="width: 1%">#</th>
-                                    <th style="width: 40%">Address</th>
-                                    <th>Date</th>
-                                    <th>Shipping type</th>
-                                    <th>Booking type</th>
-                                    <th>Status</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($shipping as $shipment)
-                                    <tr class="tr" onclick="location.href='{{route('AdminBookingRequestView','data='.base64_encode($shipment->id))}}';">
-                                        <td>#</td>
-                                        <td>
-                                            <a>{{str_limit($shipment->shipper_address,50)}}</a>
-                                            <br>
-                                            <a>{{str_limit($shipment->receiver_address,50)}}</a>
-                                        </td>
-                                        <td>
-                                            @if($shipment->booking_type == 1)
-                                                {{$shipment->created_at->format('d-MM-YY')}}
-                                            @else
-                                                Pickup: {{$shipment->pickup_date}} <br>
-                                                Delivery: {{$shipment->pickup_delivery}}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{$shipment->shipping_type}}
-                                        </td>
-                                        <td>
-                                            @if($shipment->booking_type == 1)
-                                                International
-                                            @else
-                                                Domestic
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <span class="label label-success">Request</span>
-                                        </td>
+                            <div class="table-responsive">
+                                <table class="table table-striped projects">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 1%">#</th>
+                                        <th>Name</th>
+                                        <th>Date</th>
+                                        <th>Tracking Code</th>
+                                        <th>Shipping type</th>
+                                        <th>Shipping content</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($shipping as $shipment)
+                                        <tr class="tr">
+                                            <td>#</td>
+                                            <td>
+                                                <a>{{$shipment->shipper_name}}</a>
+                                                <br>
+                                                <a>{{get_country_name_by_code($shipment->from_country)->name}}</a>
+                                            </td>
+                                            <td>
+                                                @if($shipment->booking_type == 1)
+                                                    {{$shipment->created_at->format('d-M-Y')}}
+                                                @else
+                                                    Pickup: {{$shipment->pickup_date}} <br>
+                                                    Delivery: {{$shipment->pickup_delivery}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($shipment->tracking_code != '')
+                                                    {!! DNS1D::getBarcodeHTML($shipment->tracking_code, "EAN13",1,23) !!}
+                                                    <p style="font-size: 15px;color: black;">
+                                                        *{{$shipment->tracking_code}}*</p>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($shipment->booking_type == 1)
+                                                    International
+                                                @else
+                                                    Domestic
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{$shipment->shipping_type}}
+                                            </td>
+                                            <td>
+                                                @if($shipment->status == 0)
+                                                    <span class="label label-success">Request</span>
+                                                @elseif($shipment->status == 1)
+                                                    <span class="label label-success">Ready For A Pickup</span>
+                                                @else
+                                                    <span class="label label-success">Block</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{route('AdminBookingRequestView','data='.base64_encode($shipment->id))}}"
+                                                   class="btn btn-success">View</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                             {!! $shipping->render() !!}
 
                         </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\address;
+use App\driver;
 use Session;
 use App\country;
 use App\user;
@@ -56,5 +57,45 @@ class CustomerController extends Controller
         $user = user::find(base64_decode($request->profile));
         $address = address::where('user_id',base64_decode($request->profile))->get();
         return view('admin.customer.profile',compact('user','address'));
+    }
+
+    public function AdminDriverList(){
+        $user = driver::all();
+        $country = country::all();
+        return view('admin.driver.driver',compact('user','country'));
+    }
+
+    public function AdminDriverAdd(Request $request){
+
+        //dd($request->all());
+
+        $request->validate([
+            'first_name' => 'required|max:191',
+            'last_name' => 'required|max:191',
+            'email' => 'email|max:191',
+            'phone' => 'required|max:191',
+            'country' => 'required|max:191',
+            'post_code' => 'required|max:191',
+            'city' => 'required|max:191',
+            'division' => 'required|max:191',
+            'placeName' => 'required|max:191',
+            'password' => 'required|max:20|min:6|confirmed',
+        ]);
+
+        $register_user = new driver();
+        $register_user->driver_id = 'DR'.rand(100,999).time();
+        $register_user->first_name = $request->first_name;
+        $register_user->last_name = $request->last_name;
+        $register_user->email = $request->email;
+        $register_user->phone = $request->phone;
+        $register_user->country = $request->country;
+        $register_user->post_code = $request->post_code;
+        $register_user->city = $request->city;
+        $register_user->division = $request->division;
+        $register_user->placeName = $request->placeName;
+        $register_user->password = Hash::make($request->password);
+        $register_user->save();
+
+        return redirect('/admin-driver-list');
     }
 }

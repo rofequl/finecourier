@@ -1,12 +1,12 @@
 @extends('admin.layout.app')
+@section('pageTitle','Shipping History')
 @section('content')
-
 
     <div class="right_col" role="main">
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Booking request {{$shipment->shipment==1?'International':'Domestic'}}</h3>
+                    <h3>Shipment Information {{$shipment->shipment==1?'International':'Domestic'}}</h3>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -16,6 +16,25 @@
                     <div class="x_panel">
                         <div class="x_content">
                             <div class="row">
+                                <div class="col-12">
+                                    @if($shipment->status == 5)
+                                        <a href="{{route('AdminShipmentBlock','approve='.base64_encode($shipment->id))}}"
+                                           class="btn btn-primary pull-right"
+                                           data-toggle="tooltip"
+                                           data-placement="top" title=""
+                                           data-original-title="You can approve shipment again">Approve</a>
+                                    @else
+                                        <a href="{{route('AdminShipmentBlock','block='.base64_encode($shipment->id))}}"
+                                           class="btn btn-danger pull-right" style="" data-toggle="tooltip"
+                                           data-placement="top" title=""
+                                           data-original-title="You can block this shipment"><i class="mdi mdi-block-helper"></i> Reject</a>
+                                    @endif
+                                    <button class="btn btn-warning pull-right send-mail"
+                                            data-toggle="tooltip"
+                                            data-placement="top"
+                                            data-original-title="Send mail Shipper"><i class="mdi mdi-email"></i> Send Email
+                                    </button>
+                                </div>
                                 <div class="col-12">
                                     <img
                                         src="{{asset('storage/logo/'.basic_information()->company_logo)}}"
@@ -45,7 +64,7 @@
                                         <i class="fa fa-envelope mr-2" aria-hidden="true"></i>
                                         {{get_address_by_id($shipment->shipper_address)->email}}
                                     </p>
-                                    <p class="" style="font-size: 15px">
+                                    <p class="text-black" style="font-size: 15px">
                                         <i class="fa fa-globe mr-2" aria-hidden="true"></i>
                                         {{get_city_name_by_code(get_address_by_id($shipment->shipper_address)->country,get_address_by_id($shipment->shipper_address)->state,get_address_by_id($shipment->shipper_address)->city)->name}}
                                         ,
@@ -70,7 +89,7 @@
                                         <i class="fa fa-envelope mr-2" aria-hidden="true"></i>
                                         {{get_address_by_id($shipment->shipper_address)->email}}
                                     </p>
-                                    <p class="" style="font-size: 15px">
+                                    <p class="text-black" style="font-size: 15px">
                                         <i class="fa fa-globe mr-2" aria-hidden="true"></i>
                                         {{get_city_name_by_code(get_address_by_id($shipment->receiver_address)->country,get_address_by_id($shipment->receiver_address)->state,get_address_by_id($shipment->receiver_address)->city)->name}}
                                         ,
@@ -101,7 +120,7 @@
                                             </p>
                                         </div>
                                         <div class="col-md-4">
-                                            <p class="mt-2" style="font-size: 15px">
+                                            <p class="text-black mt-2" style="font-size: 15px">
                                                 <i class="fa fa-globe mr-2" aria-hidden="true"></i>
                                                 {{get_city_name_by_code(get_address_by_id($shipment->biller_address)->country,get_address_by_id($shipment->biller_address)->state,get_address_by_id($shipment->biller_address)->city)->name}}
                                                 ,
@@ -210,12 +229,143 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div id="myModal" class="modal fade bs-example-modal-lg" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>Send Mail shipper</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <br>
+                            <form id="upload_form" method="post" class="form-horizontal form-label-left input_mask">
+                                {{csrf_field()}}
+                                <input type="hidden" value="" name="id" id="country_id">
+                                <div class="col-xs-12 form-group has-feedback">
+                                    <label for="code">Shipper Mail Address:</label>
+                                    <input type="email" class="form-control" name="mail" id="mail"
+                                           value="{{get_address_by_id($shipment->shipper_address)->email}}" readonly>
+                                </div>
+                                <div class="col-xs-12 form-group has-feedback">
+                                    <label for="code">Subject:</label>
+                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Message subject">
+                                </div>
+                                <div class="col-xs-12">
+                                    <label for="language">Message:</label>
+                                    <textarea id="editor1" name="message"></textarea>
+                                    <script>
+                                        CKEDITOR.replace('editor1', {
+                                            customConfig: "{{asset('assets/vendors/ckeditor/config.js')}}"
+                                        });
+                                    </script>
+                                </div>
+                                <hr>
+                                <div class="col-md-12 form-group has-feedback" style="margin-top: 10px">
+                                    <button type="submit" class="btn btn-success pull-right send-button"
+                                            id="load"
+                                            data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing"><i
+                                            class="mdi mdi-send m-r-3"></i>Send Mail
+                                    </button>
+                                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">
+                                        <i class="mdi mdi-cancel m-r-3"></i>Cancel
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
 @endsection
 
 @push('style')
-
+    <link href="{{asset('assets/vendors/sweetalert/sweetalert.css')}}" rel="stylesheet"/>
+    <script src="{{asset('assets/vendors/ckeditor/ckeditor.js')}}"></script>
 @endpush
 
 @push('scripts')
+    <script src="{{asset('assets/vendors/sweetalert/sweetalert.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+
+            @if(session()->has('message'))
+            swal({
+                title: 'Message',
+                text: "{{ session()->get('message') }}",
+                type: 'info',
+                confirmButtonText: 'Ok'
+            });
+            @endif
+
+            $(document).on('click', '.send-mail', function () {
+                $('#myModal').modal('show');
+                $("#upload_form").trigger("reset");
+            });
+
+            $('#upload_form').on('submit', function () {
+                event.preventDefault();
+                let form = new FormData(this);
+                $('.send-button').button('loading');
+
+                $.ajax({
+                    url: "{{ route('AdminSandMail') }}",
+                    method: "POST",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form,
+                    dataType: 'json',
+                    error: function (data) {
+                        if (data.status === 422) {
+                            var errors = $.parseJSON(data.responseText);
+                            let allData = '', mainData = '';
+                            $.each(errors, function (key, value) {
+                                if ($.isPlainObject(value)) {
+                                    $.each(value, function (key, value) {
+                                        allData += value + "<br/>";
+                                    });
+                                } else {
+                                    mainData += value + "<br/>";
+                                }
+                            });
+                            $('.send-button').button('reset');
+                            swal({
+                                title: mainData,
+                                text: allData,
+                                type: 'error',
+                                html: true,
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    },
+                    success: function (data) {
+                        if(data == 1){
+                            $('.send-button').button('reset');
+                            $('#myModal').modal('hide');
+                            swal({
+                                title: "Congratulation",
+                                text: "Your message send to the shipper",
+                                type: 'success',
+                                html: true,
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    }
+                });
+            });
+
+        });
+    </script>
 
 @endpush

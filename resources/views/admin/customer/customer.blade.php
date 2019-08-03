@@ -94,7 +94,7 @@
                     <div class="x_panel">
                         <div class="x_title">
                             <h2>
-                                <small>Country Information add</small>
+                                <small>Customer Information add</small>
                             </h2>
                             <div class="clearfix"></div>
                         </div>

@@ -1,4 +1,5 @@
 @extends('admin.layout.app')
+@section('pageTitle','International shipping price')
 @section('content')
     <div class="right_col" role="main">
         <div class="">

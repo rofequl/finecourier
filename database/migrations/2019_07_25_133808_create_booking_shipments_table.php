@@ -33,6 +33,9 @@ class CreateBookingShipmentsTable extends Migration
             $table->string('receiver_phone');
             $table->string('receiver_email');
             $table->text('receiver_address');
+            $table->string('price')->nullable();
+            $table->string('currency')->nullable();
+            $table->string('tracking_code')->nullable();
             $table->boolean('status')->default('0');
             $table->timestamps();
         });

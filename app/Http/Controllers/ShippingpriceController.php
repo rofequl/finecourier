@@ -10,8 +10,12 @@ use App\international_price;
 use App\shipment;
 use App\state;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 use MenaraSolutions\Geographer\City;
 use Session;
+use Mail;
 use MenaraSolutions\Geographer\Earth;
 use App\Country;
 
@@ -23,7 +27,6 @@ class ShippingpriceController extends Controller
     {
         $earth = new Earth();
         $earth = $earth->getCountries()->toArray();
-
 
 
 //        foreach ($earth as $earths) {
@@ -84,7 +87,7 @@ class ShippingpriceController extends Controller
         //dd(' ');
 
 
-        return view('admin.shipping_price.country_manage', compact( 'earth'));
+        return view('admin.shipping_price.country_manage', compact('earth'));
     }
 
     public function AdminCountryChange(Request $request)
@@ -235,7 +238,7 @@ class ShippingpriceController extends Controller
 
     public function AdminShipment()
     {
-        $shipping = shipment::orderBy('id','DESC')->paginate(15);
+        $shipping = shipment::orderBy('id', 'DESC')->paginate(15);
         return view('admin.shipment.shipment', compact('shipping'));
     }
 
@@ -245,32 +248,118 @@ class ShippingpriceController extends Controller
         return view('admin.shipment.shipment_view', compact('shipment'));
     }
 
+    public function AdminShipmentBlock(Request $request)
+    {
+        if ($request->block) {
+            $data = shipment::find(base64_decode($request->block));
+            $data->status = 5;
+            $data->save();
+            Session::flash('message', 'Shipment has been rejected');
+            return redirect()->back();
+        } elseif ($request->approve) {
+            $data = shipment::find(base64_decode($request->approve));
+            $data->status = 1;
+            $data->save();
+            Session::flash('message', 'Shipment has been Approve');
+            return redirect()->back();
+        }
+    }
+
     public function AdminBookingRequest()
     {
-        $shipping = booking_shipment::orderBy('id','DESC')->paginate(15);
-        return view('admin.shipment.booking_shipment',compact('shipping'));
+        $shipping = booking_shipment::orderBy('id', 'DESC')->paginate(15);
+        return view('admin.shipment.booking_shipment', compact('shipping'));
     }
 
     public function AdminBookingRequestView(Request $request)
     {
+        $country = country::all();
         $shipping = booking_shipment::find(base64_decode($request->data));
-        return view('admin.shipment.booking_shipment_view',compact('shipping'));
+        return view('admin.shipment.booking_shipment_view', compact('shipping', 'country'));
     }
 
     public function AdminBookingRequestAction(Request $request)
     {
-        if ($request->delete){
+        if ($request->delete) {
             $data = booking_shipment::find(base64_decode($request->delete));
             $data->delete();
             Session::flash('message', 'Booking request Deleted Successfully');
             return redirect('admin-booking-request');
-        }elseif ($request->block){
+        } elseif ($request->block) {
             $data = booking_shipment::find(base64_decode($request->block));
-            $data->status=1;
+            $data->status = 5;
             $data->save();
-            Session::flash('message', 'Booking request has been block');
-            return redirect('admin-booking-request');
+            Session::flash('message', 'Shipment has been rejected');
+            return redirect()->back();
+        } elseif ($request->unblock) {
+            $data = booking_shipment::find(base64_decode($request->unblock));
+            $data->status = 1;
+            $data->save();
+            Session::flash('message', 'Shipment has been Approve');
+            return redirect()->back();
         }
     }
 
+    public function AdminBookingRequestApprove(Request $request)
+    {
+        $request->validate([
+            'price' => 'required',
+        ]);
+        $insert = booking_shipment::find($request->id);
+        $insert->price = $request->price;
+        $insert->currency = $request->currency;
+        $insert->status = 1;
+        $insert->tracking_code = rand(1000, 9999) . str_pad($request->id, 4, "0", STR_PAD_LEFT);
+        $insert->save();
+
+        Session::flash('message', 'Booking request has been Approve');
+        return redirect()->back();
+    }
+
+    public function AdminShippingRate()
+    {
+        $country = country::all();
+        return view('admin.shipping_price.shipping_rate', compact('country'));
+    }
+
+    public function AdminCreateShipping()
+    {
+        $country = country::all();
+        return view('admin.shipment.create_shipment', compact('country'));
+    }
+
+    public function AdminSandMail(Request $request)
+    {
+        $request->validate([
+            'subject' => 'required|max:200',
+            'message' => 'required',
+        ]);
+        Mail::send(array(), array(), function ($message) use ($request) {
+            $message->to($request->mail)->subject($request->subject);
+            $message->from('finecourier@gmail.com', 'Finecourier')
+                ->setBody($request->message, 'text/html');
+        });
+        return 1;
+    }
+
+    public function AdminManageShipmentAll()
+    {
+        $shipment = shipment::all();
+        $booking = booking_shipment::all();
+        $collection = new \Illuminate\Support\Collection();
+        $sortedCollection = $collection->merge($shipment)->merge($booking)->sortBy('created_at');
+        $sortedCollection = $this->paginate($sortedCollection);
+        return view('admin.manage_shipment.all', compact('sortedCollection'));
+    }
+
+    public function paginate($items, $perPage = 2, $page = null, $baseUrl = 'admin-manage-shipment-all', $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        $lap = new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+        if ($baseUrl) {
+            $lap->setPath($baseUrl);
+        }
+        return $lap;
+    }
 }

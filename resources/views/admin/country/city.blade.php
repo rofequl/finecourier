@@ -9,7 +9,7 @@
                 </div>
                 <div class="title_right">
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
+                        <button type="button" class="btn btn-info btn-sm add-city">
                             <i class="fa fa-plus fs-13 m-r-3"></i> Add New City
                         </button>
                     </div>
@@ -35,37 +35,20 @@
                 <div class="col-12">
                     <div class="x_panel">
                         <div class="x_content">
-
-                            <table id="datatable-buttons"
-                                   class="table table-striped table-bordered dataTable no-footer dtr-inline">
-                                <thead>
-                                <tr class="bg-dark">
-                                    <th>Code</th>
-                                    <th>Geo names Code</th>
-                                    <th>Name</th>
-                                    <th>State code</th>
-                                    <th>Country code</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($city as $cities)
-
-                                    <tr>
-                                        <th scope="row">{{$cities['code']}}</th>
-                                        <th scope="row">{{$cities['geonamesCode']}}</th>
-                                        <th scope="row">{{$cities['name']}}</th>
-                                        <th scope="row">{{$cities['state_code']}}</th>
-                                        <th scope="row">{{$cities['country_code']}}</th>
-                                        <td>
-
-                                        </td>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr class="bg-dark">
+                                        <th>Code</th>
+                                        <th>Geo names Code</th>
+                                        <th>Name</th>
+                                        <th>State code</th>
+                                        <th>Country code</th>
+                                        <th>Action</th>
                                     </tr>
-
-                                @endforeach
-                                </tbody>
-                            </table>
-
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -82,18 +65,15 @@
                 <div class="modal-body">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>
-                                <small>City Information add</small>
-                            </h2>
+                            <h4 class="modal-header"></h4>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
                             <br>
-                            <form id="demo-form2" method="post"
-                                  action="{{route('AdminStateAdd')}}"
+                            <form method="post" id="upload_form"
                                   class="form-horizontal form-label-left input_mask">
                                 {{csrf_field()}}
-
+                                <input type="hidden" value="" name="id" id="city_id">
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <label for="code">Code*:</label>
                                     <input type="number" class="form-control" placeholder="104515" name="code" id="code"
@@ -123,7 +103,8 @@
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <label for="geonamesCode">Geo names Code:</label>
-                                    <input type="text" class="form-control" placeholder="104515" name="geonamesCode" id="geonamesCode"
+                                    <input type="text" class="form-control" placeholder="104515" name="geonamesCode"
+                                           id="geonamesCode"
                                            value="{{old('geonamesCode')}}">
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -214,6 +195,227 @@
                 }
             });
         });
+        $(document).ready(function () {
+            $(function () {
+                table.ajax.reload();
+            });
+            let table = $('.table').DataTable({
+                processing: true,
+                "language": {
+                    processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>'
+                },
+                serverSide: true,
+                ajax: "{{route('AdminCityGet')}}",
+                order: [ [0, 'desc'] ],
+                columns: [
+                    {data: 'code'},
+                    {data: 'geonamesCode'},
+                    {data: 'name'},
+                    {data: 'state'},
+                    {data: 'country'},
+                    {data: 'action', orderable: false, searchable: false}
+                ]
+            });
 
+            $(document).on('click', '.add-city', function () {
+                $('#myModal').modal('show');
+                $('.modal-header').html('City Information Add');
+                $('#city_id').val('');
+                $("#upload_form").trigger("reset");
+            });
+
+            $('#upload_form').on('submit', function () {
+                event.preventDefault();
+                let form = new FormData(this);
+                let id = $('#state_id').val();
+                if (id===''){
+                    swal({
+                        title: "Are you sure want to add city?",
+                        text: "If all information is correct, press ok.",
+                        type: "info",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    }, function () {
+                        setTimeout(function () {
+                            $.ajax({
+                                url: "{{ route('AdminCityAdd') }}",
+                                method: "POST",
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                data: form,
+                                dataType: 'json',
+                                error: function (data) {
+                                    if (data.status === 422) {
+                                        var errors = $.parseJSON(data.responseText);
+                                        let allData = '', mainData = '';
+                                        $.each(errors, function (key, value) {
+                                            if ($.isPlainObject(value)) {
+                                                $.each(value, function (key, value) {
+                                                    allData += value + "<br/>";
+                                                });
+                                            } else {
+                                                mainData += value + "<br/>";
+                                            }
+                                        });
+                                        swal({
+                                            title: mainData,
+                                            text: allData,
+                                            type: 'error',
+                                            html: true,
+                                            confirmButtonText: 'Ok'
+                                        })
+                                    }
+                                },
+                                success: function (data) {
+                                    if (data == 1){
+                                        swal("City add successfully");
+                                        $("#upload_form").trigger("reset");
+                                        $('#myModal').modal('hide');
+                                        table.ajax.reload();
+                                    } else{
+                                        swal("Something wrong, please try again later!");
+                                        $("#upload_form").trigger("reset");
+                                        $('#myModal').modal('hide');
+                                    }
+                                }
+                            })
+                        }, 2000);
+                    });
+                }else {
+                    swal({
+                        title: "Are you sure want to update city?",
+                        text: "If all information is correct, press ok.",
+                        type: "info",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    }, function () {
+                        setTimeout(function () {
+                            $.ajax({
+                                url: "{{ route('AdminCityAdd') }}",
+                                method: "POST",
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                data: form,
+                                dataType: 'json',
+                                error: function (data) {
+                                    if (data.status === 422) {
+                                        var errors = $.parseJSON(data.responseText);
+                                        let allData = '', mainData = '';
+                                        $.each(errors, function (key, value) {
+                                            if ($.isPlainObject(value)) {
+                                                $.each(value, function (key, value) {
+                                                    allData += value + "<br/>";
+                                                });
+                                            } else {
+                                                mainData += value + "<br/>";
+                                            }
+                                        });
+                                        swal({
+                                            title: mainData,
+                                            text: allData,
+                                            type: 'error',
+                                            html: true,
+                                            confirmButtonText: 'Ok'
+                                        })
+                                    }
+                                },
+                                success: function (data) {
+                                    if (data == 1){
+                                        swal("City update successfully");
+                                        $("#upload_form").trigger("reset");
+                                        $('#myModal').modal('hide');
+                                        table.ajax.reload();
+                                    } else{
+                                        swal("Something wrong, please try again later!");
+                                        $("#upload_form").trigger("reset");
+                                        $('#myModal').modal('hide');
+                                    }
+                                }
+                            })
+                        }, 2000);
+                    });
+                }
+            });
+
+            $(document).on('click', '.edit-city', function () {
+                $('#myModal').modal('show');
+                $('.modal-header').html('City Information Update');
+                $("#upload_form").trigger("reset");
+                let id = $(this).attr('id');
+                $.ajax({
+                    url: "{{ route('AdminCitySingleGet') }}",
+                    type: 'get',
+                    data: {id: id},
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#city_id').val(data.id);
+                        $('#code').val(data.code);
+                        $('#country_code').val(data.country_code).trigger('change');
+                        $.ajax({
+                            url: "{{ route('SelectState') }}",
+                            type: 'post',
+                            data: {_token: CSRF_TOKEN, id: data.country_code},
+                            dataType: 'json',
+                            success: function (data) {
+                                $('#state_code').html('').append($('<option>', {value: '', text: 'Select State'}));
+                                data.forEach(function (element) {
+                                    $('#state_code').append($('<option>', {value: element.code, text: element.name}));
+                                });
+                            }
+                        });
+                        $('#state_code').val(data.state_code).trigger('change');
+                        $('#name').val(data.name);
+                        $('#geonamesCode').val(data.geonamesCode);
+                        $('#latitude').val(data.latitude);
+                        $('#longitude').val(data.longitude);
+                        $('#population').val(data.population);
+                    }
+                });
+            });
+
+            $(document).on('click', '.delete', function () {
+                let id = $(this).attr('id');
+                let classes = $(this);
+                swal({
+                    title: "Are you sure want to delete city?",
+                    text: "If you click 'OK' city will be remove.",
+                    type: "warning",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                }, function () {
+                    setTimeout(function () {
+                        $.ajax({
+                            url: "{{ route('AdminCityDelete') }}",
+                            type: 'get',
+                            data: {id: id},
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data == '1') {
+                                    swal({
+                                        title: "Deleted",
+                                        text: 'City was deleted',
+                                        type: 'success',
+                                        confirmButtonText: 'Ok'
+                                    });
+                                    $(classes).closest('tr').remove();
+                                } else {
+                                    swal({
+                                        title: "Something wrong",
+                                        text: 'Please try again later.',
+                                        type: 'error',
+                                        confirmButtonText: 'Ok'
+                                    });
+                                }
+                            }
+                        });
+                    }, 2000);
+                });
+            });
+        });
     </script>
 @endpush

@@ -12,53 +12,61 @@ use DataTables;
 
 class CountryController extends Controller
 {
-    public function AdminCountry(){
+    public function AdminCountry()
+    {
         $country = country::all();
-        return view('admin.country.country',compact('country'));
+        return view('admin.country.country', compact('country'));
     }
 
-    public function AdminCountryGet(){
-        return DataTables::of(country::all())->addColumn('action', function ($country) {
+    public function AdminCountryGet()
+    {
+        return DataTables::of(country::orderBy('id', 'DESC')->get())->addColumn('action', function ($country) {
             return '
             <div class="btn-group  btn-group-sm">
-                        <button class="btn btn-success edit-country" id="'.$country->code.'" type="button"><i class="mdi mdi-table-edit m-r-3"></i>Edit</button>
-                        <button class="btn btn-success" type="button"><i class="mdi mdi-delete m-r-3"></i>Delete</button>
+                        <button class="btn btn-success edit-country" id="' . $country->code . '" type="button"><i class="mdi mdi-table-edit m-r-3"></i>Edit</button>
+                        <button class="btn btn-success delete" id="' . $country->code . '" type="button"><i class="mdi mdi-delete m-r-3"></i>Delete</button>
                       </div>
             ';
         })->addColumn('status', function ($country) {
-            if(check_active_country($country->code)) {
+            if (check_active_country($country->code)) {
                 return "<button type = 'button' id = '$country->code' class='btn btn-success btn-xs Change'> Active</button>";
-            }else {
+            } else {
                 return "<button type = 'button' id = '$country->code' class='btn btn-info btn-xs Change'> Inactive</button>";
-           }
+            }
         })->rawColumns(['status', 'action'])->make(true);
     }
 
-    public function AdminCountrySingleGet(Request $request){
-        return country::where('code',$request->id)->first();
+    public function AdminCountrySingleGet(Request $request)
+    {
+        return country::where('code', $request->id)->first();
     }
 
-    public function AdminCountryAdd(Request $request){
-        $this->validate($request,[
-           'code' => 'Required|max:191|unique:countries,code',
-           'code3' => 'max:191',
-           'isoCode' => 'max:191',
-           'numericCode' => 'max:191',
-           'geonamesCode' => 'max:11',
-           'fipsCode' => 'max:191',
-           'area' => 'max:11',
-           'currency' => 'Required|max:191',
-           'phonePrefix' => 'max:191',
-           'mobileFormat' => 'max:191',
-           'landlineFormat' => 'max:191',
-           'trunkPrefix' => 'max:191',
-           'population' => 'max:11',
-           'continent' => 'max:191',
-           'language' => 'max:191',
-           'name' => 'Required|max:191',
+    public function AdminCountryAdd(Request $request)
+    {
+        $this->validate($request, [
+            'code' => 'Required|max:191|unique:countries,code,' . $request->id,
+            'code3' => 'max:191',
+            'isoCode' => 'max:191',
+            'numericCode' => 'max:191',
+            'geonamesCode' => 'max:11',
+            'fipsCode' => 'max:191',
+            'area' => 'max:11',
+            'currency' => 'Required|max:191',
+            'phonePrefix' => 'max:191',
+            'mobileFormat' => 'max:191',
+            'landlineFormat' => 'max:191',
+            'trunkPrefix' => 'max:191',
+            'population' => 'max:11',
+            'continent' => 'max:191',
+            'language' => 'max:191',
+            'name' => 'Required|max:191',
         ]);
 
-        $insert = new country();
+        if ($request->id == '') {
+            $insert = new country();
+        } else {
+            $insert = country::find($request->id);
+        }
         $insert->code = $request->code;
         $insert->code3 = $request->code3;
         $insert->isoCode = $request->isoCode;
@@ -79,15 +87,38 @@ class CountryController extends Controller
         return 1;
     }
 
-    public function AdminState(){
-        $state = state::all();
-        $country = country::all();
-        return view('admin.country.state',compact('state','country'));
+    public function AdminCountryDelete(Request $request)
+    {
+        $category = country::where('code', $request->id)->first();
+        if ($category->delete()) {
+            echo "1";
+        }
     }
 
-    public function AdminStateAdd(Request $request){
-        $this->validate($request,[
-            'code' => 'Required|max:11|unique:states,code',
+    public function AdminState()
+    {
+        $country = country::all();
+        return view('admin.country.state', compact('country'));
+    }
+
+    public function AdminStateGet()
+    {
+        return DataTables::of(state::orderBy('id', 'DESC')->get())->addColumn('action', function ($country) {
+            return '
+            <div class="btn-group  btn-group-sm">
+                        <button class="btn btn-success edit-country" id="' . $country->code . '" type="button"><i class="mdi mdi-table-edit m-r-3"></i>Edit</button>
+                        <button class="btn btn-success delete" id="' . $country->code . '" type="button"><i class="mdi mdi-delete m-r-3"></i>Delete</button>
+                      </div>
+            ';
+        })->addColumn('country', function ($country) {
+            return country::where('code', $country->country_code)->pluck('name')->first();
+        })->make(true);
+    }
+
+    public function AdminStateAdd(Request $request)
+    {
+        $this->validate($request, [
+            'code' => 'Required|max:11|unique:states,code,' . $request->id,
             'fipsCode' => 'max:191',
             'isoCode' => 'max:191',
             'geonamesCode' => 'max:11',
@@ -95,7 +126,11 @@ class CountryController extends Controller
             'country_code' => 'Required|max:191',
         ]);
 
-        $insert = new state();
+        if ($request->id == '') {
+            $insert = new state();
+        } else {
+            $insert = state::find($request->id);
+        }
         $insert->code = $request->code;
         $insert->isoCode = $request->isoCode;
         $insert->geonamesCode = $request->geonamesCode;
@@ -104,20 +139,54 @@ class CountryController extends Controller
         $insert->country_code = $request->country_code;
         $insert->save();
 
-        Session::flash('message', 'State add successfully');
-        return redirect('admin-state');
+        return 1;
     }
 
-    public function AdminCity(){
-        $city = citie::all();
-        $state = state::all();
+    public function AdminStateSingleGet(Request $request)
+    {
+        return state::where('code', $request->id)->first();
+    }
+
+    public function AdminStateDelete(Request $request)
+    {
+        $category = state::where('code', $request->id)->first();
+        if ($category->delete()) {
+            echo "1";
+        }
+    }
+
+    public function AdminCity()
+    {
+        $state = state::select('name', 'code')->get();
         $country = country::all();
-        return view('admin.country.city',compact('state','country','city'));
+        return view('admin.country.city', compact('state', 'country'));
     }
 
-    public function AdminCityAdd(Request $request){
-        $this->validate($request,[
-            'code' => 'Required|max:11|unique:cities,code',
+    public function AdminCityGet()
+    {
+        return DataTables::of(citie::all())->addColumn('action', function ($country) {
+            return '
+            <div class="btn-group  btn-group-sm">
+                        <button class="btn btn-success edit-city" id="' . $country->code . '" type="button"><i class="mdi mdi-table-edit m-r-3"></i>Edit</button>
+                        <button class="btn btn-success delete" id="' . $country->code . '" type="button"><i class="mdi mdi-delete m-r-3"></i>Delete</button>
+                      </div>
+            ';
+        })->addColumn('country', function ($country) {
+            return country::where('code', $country->country_code)->pluck('name')->first();
+        })->addColumn('state', function ($country) {
+            return state::where('code', $country->state_code)->pluck('name')->first();
+        })->make(true);
+    }
+
+    public function AdminCitySingleGet(Request $request)
+    {
+        return citie::where('code', $request->id)->first();
+    }
+
+    public function AdminCityAdd(Request $request)
+    {
+        $this->validate($request, [
+            'code' => 'Required|max:11|unique:cities,code,' . $request->id,
             'geonamesCode' => 'max:11',
             'name' => 'Required|max:191',
             'latitude' => 'max:191',
@@ -127,7 +196,11 @@ class CountryController extends Controller
             'state_code' => 'Required|max:191',
         ]);
 
-        $insert = new citie();
+        if ($request->id == '') {
+            $insert = new citie();
+        } else {
+            $insert = citie::find($request->id);
+        }
         $insert->code = $request->code;
         $insert->geonamesCode = $request->geonamesCode;
         $insert->name = $request->name;
@@ -138,8 +211,15 @@ class CountryController extends Controller
         $insert->state_code = $request->state_code;
         $insert->save();
 
-        Session::flash('message', 'City add successfully');
-        return redirect('admin-city');
+        return 1;
+    }
+
+    public function AdminCityDelete(Request $request)
+    {
+        $category = citie::where('code', $request->id)->first();
+        if ($category->delete()) {
+            echo "1";
+        }
     }
 
 }

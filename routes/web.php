@@ -101,12 +101,20 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::get('/admin-country-get', 'CountryController@AdminCountryGet')->name('AdminCountryGet');
     Route::get('/admin-country-single-get', 'CountryController@AdminCountrySingleGet')->name('AdminCountrySingleGet');
     Route::post('/admin-country-add', 'CountryController@AdminCountryAdd')->name('AdminCountryAdd');
+    Route::get('/admin-country-delete', 'CountryController@AdminCountryDelete')->name('AdminCountryDelete');
+    Route::post('/admin-Country-change', 'ShippingpriceController@AdminCountryChange')->name('AdminCountryChange');
 
     Route::get('/admin-state', 'CountryController@AdminState')->name('AdminState');
+    Route::get('/admin-state-get', 'CountryController@AdminStateGet')->name('AdminStateGet');
+    Route::get('/admin-state-single-get', 'CountryController@AdminStateSingleGet')->name('AdminStateSingleGet');
     Route::post('/admin-state-add', 'CountryController@AdminStateAdd')->name('AdminStateAdd');
+    Route::get('/admin-state-delete', 'CountryController@AdminStateDelete')->name('AdminStateDelete');
 
     Route::get('/admin-city', 'CountryController@AdminCity')->name('AdminCity');
+    Route::get('/admin-city-get', 'CountryController@AdminCityGet')->name('AdminCityGet');
+    Route::get('/admin-city-single-get', 'CountryController@AdminCitySingleGet')->name('AdminCitySingleGet');
     Route::post('/admin-city-add', 'CountryController@AdminCityAdd')->name('AdminCityAdd');
+    Route::get('/admin-city-delete', 'CountryController@AdminCityDelete')->name('AdminCityDelete');
 
     Route::get('/slider-manage/{data?}', 'HomeController@SliderManage')->name('SliderManage');
     Route::get('/slider-manage-status', 'HomeController@SliderManageStatus')->name('SliderManageStatus');
@@ -149,10 +157,6 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::get('/admin-news-delete', 'AboutController@AdminNewsDelete')->name('AdminNewsDelete');
     Route::post('/admin-news-update', 'AboutController@AdminNewsUpdate')->name('AdminNewsUpdate');
 
-//    Route::get('/admin-Country', 'ShippingpriceController@AdminCountry')->name('AdminCountry');
-    Route::post('/admin-Country-change', 'ShippingpriceController@AdminCountryChange')->name('AdminCountryChange');
-
-
     Route::get('/admin-international/{data?}', 'ShippingpriceController@AdminInternational')->name('AdminInternational');
     Route::post('/admin-international', 'ShippingpriceController@AdminInternationalAdd')->name('AdminInternationalAdd');
     Route::get('/admin-international-delete', 'ShippingpriceController@AdminInternationalDelete')->name('AdminInternationalDelete');
@@ -161,19 +165,41 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::post('/admin-domestic', 'ShippingpriceController@AdminDomesticAdd')->name('AdminDomesticAdd');
     Route::get('/admin-domestic-delete', 'ShippingpriceController@AdminDomesticDelete')->name('AdminDomesticDelete');
 
+    Route::get('/admin-shipping-rate', 'ShippingpriceController@AdminShippingRate')->name('AdminShippingRate');
+
+    Route::get('/admin-create-shipping', 'ShippingpriceController@AdminCreateShipping')->name('AdminCreateShipping');
+
     Route::get('/admin-shipment', 'ShippingpriceController@AdminShipment')->name('AdminShipment');
     Route::get('/admin-shipment-view', 'ShippingpriceController@AdminShipmentView')->name('AdminShipmentView');
+    Route::get('/admin-shipment-block', 'ShippingpriceController@AdminShipmentBlock')->name('AdminShipmentBlock');
+    Route::post('/admin-send-mail', 'ShippingpriceController@AdminSandMail')->name('AdminSandMail');
 
     Route::get('/admin-booking-request', 'ShippingpriceController@AdminBookingRequest')->name('AdminBookingRequest');
     Route::get('/admin-booking-request-view', 'ShippingpriceController@AdminBookingRequestView')->name('AdminBookingRequestView');
     Route::get('/admin-booking-request-action', 'ShippingpriceController@AdminBookingRequestAction')->name('AdminBookingRequestAction');
-
-    Route::get('/admin-cr-request', 'ShippingpriceController@AdminBookingRequest')->name('AdminBookingRequest');
+    Route::post('/admin-booking-request-approve', 'ShippingpriceController@AdminBookingRequestApprove')->name('AdminBookingRequestApprove');
 
 
     Route::get('/admin-customer-list', 'CustomerController@AdminCustomerList')->name('AdminCustomerList');
     Route::post('/admin-customer-add', 'CustomerController@AdminCustomerAdd')->name('AdminCustomerAdd');
     Route::get('/admin-customer-view', 'CustomerController@AdminCustomerView')->name('AdminCustomerView');
+
+    Route::get('/admin-manage-shipment-all', 'ShippingpriceController@AdminManageShipmentAll')->name('AdminManageShipmentAll');
+
+    Route::get('/admin-container', 'BookingController@AdminContainer')->name('AdminContainer');
+    Route::get('/admin-container-get', 'BookingController@AdminContainerGet')->name('AdminContainerGet');
+    Route::post('/admin-container-change', 'BookingController@AdminContainerChange')->name('AdminContainerChange');
+    Route::post('/admin-container-add', 'BookingController@AdminContainerAdd')->name('AdminContainerAdd');
+    Route::post('/admin-container-tracking-code', 'BookingController@AdminContainerTrackingCode')->name('AdminContainerTrackingCode');
+    Route::get('/admin-container-delete', 'BookingController@AdminContainerDelete')->name('AdminContainerDelete');
+
+    Route::get('/admin-driver-list', 'CustomerController@AdminDriverList')->name('AdminDriverList');
+    Route::post('/admin-driver-add', 'CustomerController@AdminDriverAdd')->name('AdminDriverAdd');
+
+    Route::get('/admin-container-driver', 'BookingController@AdminContainerDriver')->name('AdminContainerDriver');
+    Route::get('/admin-container-driver-get', 'BookingController@AdminContainerDriverGet')->name('AdminContainerDriverGet');
+    Route::post('/admin-container-driver-add', 'BookingController@AdminContainerDriverAdd')->name('AdminContainerDriverAdd');
+    Route::post('/admin-container-container-code', 'BookingController@AdminContainerContainerCode')->name('AdminContainerContainerCode');
 
 
 });

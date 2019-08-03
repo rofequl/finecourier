@@ -463,9 +463,6 @@ class QuotationController extends Controller
             'biller_address' => 'required',
             'payment_type' => 'required'
         ]);
-
-
-
         $shipment = shipment::where('user_id',session('user-id'))->where('id',$request->id)->first();
         $shipment->tracking_code = rand(1000,9999).str_pad($request->id, 3, "0", STR_PAD_LEFT).str_pad(session('user-id'), 3, "0", STR_PAD_LEFT);
         $shipment->status = 1;

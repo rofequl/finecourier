@@ -9,7 +9,7 @@
                 </div>
                 <div class="title_right">
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
+                        <button type="button" class="btn btn-info btn-sm add-country">
                             <i class="fa fa-plus fs-13 m-r-3"></i> Add New State
                         </button>
                     </div>
@@ -35,37 +35,20 @@
                 <div class="col-12">
                     <div class="x_panel">
                         <div class="x_content">
-
-                            <table id="datatable-buttons"
-                                   class="table table-striped table-bordered dataTable no-footer dtr-inline">
-                                <thead>
-                                <tr class="bg-dark">
-                                    <th>Code</th>
-                                    <th>Fips Code</th>
-                                    <th>ISO Code</th>
-                                    <th>Name</th>
-                                    <th>Country code</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($state as $states)
-
-                                    <tr>
-                                        <th scope="row">{{$states['code']}}</th>
-                                        <th scope="row">{{$states['fipsCode']}}</th>
-                                        <th scope="row">{{$states['isoCode']}}</th>
-                                        <th scope="row">{{$states['name']}}</th>
-                                        <th scope="row">{{$states['country_code']}}</th>
-                                        <td>
-
-                                        </td>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr class="bg-dark">
+                                        <th>Code</th>
+                                        <th>Fips Code</th>
+                                        <th>ISO Code</th>
+                                        <th>Name</th>
+                                        <th>Country code</th>
+                                        <th>Action</th>
                                     </tr>
-
-                                @endforeach
-                                </tbody>
-                            </table>
-
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -76,24 +59,19 @@
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
-
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>
-                                <small>State Information add</small>
-                            </h2>
+                            <h4 class="modal-header"></h4>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
                             <br>
-                            <form id="demo-form2" method="post"
-                                  action="{{route('AdminStateAdd')}}"
-                                  class="form-horizontal form-label-left input_mask">
+                            <form id="upload_form" method="post" class="form-horizontal form-label-left input_mask">
                                 {{csrf_field()}}
-
+                                <input type="hidden" value="" name="id" id="state_id">
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                     <label for="code">Code*:</label>
                                     <input type="number" class="form-control" placeholder="BD" name="code" id="code"
@@ -155,7 +133,7 @@
 @endsection
 
 @push('style')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet"/>
+    <link href="{{asset('assets/vendors/sweetalert/sweetalert.css')}}" rel="stylesheet"/>
     <!-- Datatables -->
     <link href="{{asset('assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css')}}" rel="stylesheet">
@@ -185,36 +163,217 @@
     <script src="{{asset('assets/vendors/pdfmake/build/vfs_fonts.js')}}"></script>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <script src="{{asset('assets/vendors/sweetalert/sweetalert.js')}}"></script>
     <script>
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        $('.Change').click(function () {
-            let id = $(this).attr('id'), action;
-            let clases = $(this);
-            if ($(this).hasClass("btn-success")) {
-                action = 'inactive';
-                $.ajax({
-                    url: '{{route('AdminCountryChange')}}',
-                    type: 'post',
-                    data: {_token: CSRF_TOKEN, id: id, action: action},
-                    success: function (response) {
-                        $(clases).toggleClass('btn-success btn-info');
-                        $(clases).html('Inactive');
-                    }
-                });
-            } else {
-                action = 'active';
-                $.ajax({
-                    url: '{{route('AdminCountryChange')}}',
-                    type: 'post',
-                    data: {_token: CSRF_TOKEN, id: id, action: action},
-                    success: function (response) {
-                        $(clases).toggleClass('btn-info btn-success');
-                        $(clases).html('Active');
-                    }
-                });
 
-            }
+        $(document).ready(function () {
+            $(function () {
+                table.ajax.reload();
+            });
+            let table = $('.table').DataTable({
+                processing: true,
+                "language": {
+                    processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>'
+                },
+                serverSide: true,
+                ajax: "{{route('AdminStateGet')}}",
+                order: [ [0, 'desc'] ],
+                columns: [
+                    {data: 'code'},
+                    {data: 'fipsCode'},
+                    {data: 'isoCode'},
+                    {data: 'name'},
+                    {data: 'country'},
+                    {data: 'action', orderable: false, searchable: false}
+                ]
+            });
+
+            $(document).on('click', '.add-country', function () {
+                $('#myModal').modal('show');
+                $('.modal-header').html('State Information Add');
+                $('#state_id').val('');
+                $("#upload_form").trigger("reset");
+            });
+
+            $('#upload_form').on('submit', function () {
+                event.preventDefault();
+                let form = new FormData(this);
+                let id = $('#state_id').val();
+                if (id===''){
+                    swal({
+                        title: "Are you sure want to add state?",
+                        text: "If all information is correct, press ok.",
+                        type: "info",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    }, function () {
+                        setTimeout(function () {
+                            $.ajax({
+                                url: "{{ route('AdminStateAdd') }}",
+                                method: "POST",
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                data: form,
+                                dataType: 'json',
+                                error: function (data) {
+                                    if (data.status === 422) {
+                                        var errors = $.parseJSON(data.responseText);
+                                        let allData = '', mainData = '';
+                                        $.each(errors, function (key, value) {
+                                            if ($.isPlainObject(value)) {
+                                                $.each(value, function (key, value) {
+                                                    allData += value + "<br/>";
+                                                });
+                                            } else {
+                                                mainData += value + "<br/>";
+                                            }
+                                        });
+                                        swal({
+                                            title: mainData,
+                                            text: allData,
+                                            type: 'error',
+                                            html: true,
+                                            confirmButtonText: 'Ok'
+                                        })
+                                    }
+                                },
+                                success: function (data) {
+                                    if (data == 1){
+                                        swal("State add successfully");
+                                        $("#upload_form").trigger("reset");
+                                        $('#myModal').modal('hide');
+                                        table.ajax.reload();
+                                    } else{
+                                        swal("Something wrong, please try again later!");
+                                        $("#upload_form").trigger("reset");
+                                        $('#myModal').modal('hide');
+                                    }
+                                }
+                            })
+                        }, 2000);
+                    });
+                }else {
+                    swal({
+                        title: "Are you sure want to update State?",
+                        text: "If all information is correct, press ok.",
+                        type: "info",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    }, function () {
+                        setTimeout(function () {
+                            $.ajax({
+                                url: "{{ route('AdminStateAdd') }}",
+                                method: "POST",
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                data: form,
+                                dataType: 'json',
+                                error: function (data) {
+                                    if (data.status === 422) {
+                                        var errors = $.parseJSON(data.responseText);
+                                        let allData = '', mainData = '';
+                                        $.each(errors, function (key, value) {
+                                            if ($.isPlainObject(value)) {
+                                                $.each(value, function (key, value) {
+                                                    allData += value + "<br/>";
+                                                });
+                                            } else {
+                                                mainData += value + "<br/>";
+                                            }
+                                        });
+                                        swal({
+                                            title: mainData,
+                                            text: allData,
+                                            type: 'error',
+                                            html: true,
+                                            confirmButtonText: 'Ok'
+                                        })
+                                    }
+                                },
+                                success: function (data) {
+                                    if (data == 1){
+                                        swal("State update successfully");
+                                        $("#upload_form").trigger("reset");
+                                        $('#myModal').modal('hide');
+                                        table.ajax.reload();
+                                    } else{
+                                        swal("Something wrong, please try again later!");
+                                        $("#upload_form").trigger("reset");
+                                        $('#myModal').modal('hide');
+                                    }
+                                }
+                            })
+                        }, 2000);
+                    });
+                }
+            });
+
+            $(document).on('click', '.edit-country', function () {
+                $('#myModal').modal('show');
+                $('.modal-header').html('State Information Update');
+                $("#upload_form").trigger("reset");
+                let id = $(this).attr('id');
+                $.ajax({
+                    url: "{{ route('AdminStateSingleGet') }}",
+                    type: 'get',
+                    data: {id: id},
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#state_id').val(data.id);
+                        $('#code').val(data.code);
+                        $('#country_code').val(data.country_code).trigger('change');
+                        $('#name').val(data.name);
+                        $('#fipsCode').val(data.fipsCode);
+                        $('#isoCode').val(data.isoCode);
+                        $('#geonamesCode').val(data.geonamesCode);
+                    }
+                });
+            });
+
+            $(document).on('click', '.delete', function () {
+                let id = $(this).attr('id');
+                let classes = $(this);
+                swal({
+                    title: "Are you sure want to delete state?",
+                    text: "If you click 'OK' state will be remove.",
+                    type: "warning",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                }, function () {
+                    setTimeout(function () {
+                        $.ajax({
+                            url: "{{ route('AdminStateDelete') }}",
+                            type: 'get',
+                            data: {id: id},
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data == '1') {
+                                    swal({
+                                        title: "Deleted",
+                                        text: 'state was deleted',
+                                        type: 'success',
+                                        confirmButtonText: 'Ok'
+                                    });
+                                    $(classes).closest('tr').remove();
+                                } else {
+                                    swal({
+                                        title: "Something wrong",
+                                        text: 'Please try again later.',
+                                        type: 'error',
+                                        confirmButtonText: 'Ok'
+                                    });
+                                }
+                            }
+                        });
+                    }, 2000);
+                });
+            });
         });
 
     </script>
