@@ -46,10 +46,10 @@
 <div class="container body">
     <div class="main_container">
 
-        @include('admin.inc.sidebar')
-        @include('admin.inc.header')
+        @include('driver.inc.sidebar')
+        @include('driver.inc.header')
         @yield('content')
-        @include('admin.inc.footer')
+        @include('driver.inc.footer')
 
     </div>
 </div>

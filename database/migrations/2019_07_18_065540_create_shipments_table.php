@@ -37,6 +37,7 @@ class CreateShipmentsTable extends Migration
             $table->string('tracking_code')->nullable();
             $table->string('biller_address')->nullable();
             $table->string('user_id');
+            $table->string('payment_status')->default(0);
             $table->string('status')->default(0);
             $table->timestamps();
         });

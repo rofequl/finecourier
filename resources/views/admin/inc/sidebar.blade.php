@@ -46,6 +46,8 @@
                             <li><a href="#">Delivered</a></li>
                         </ul>
                     </li>
+                    <li><a href="{{route('AdminPickup')}}"><i class="fa mdi mdi-package"></i> Pickup</a>
+                    </li>
                     <li><a href="{{route('AdminContainer')}}"><i class="fa mdi mdi-package-variant-closed"></i> Container</a>
                     </li>
                     <li><a><i class="fa mdi mdi-truck-fast"></i> Driver <span class="fa fa-chevron-down"></span></a>

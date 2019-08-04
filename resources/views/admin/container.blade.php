@@ -197,7 +197,6 @@
             $(document).on('click', '.add-country', function () {
                 $('#myModal').modal('show');
                 $('.modal-head').html('Container Information Add');
-                $('#country_id').val('');
                 $("#upload_form").trigger("reset");
             });
             $('#tracking_code').tagsInput();

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\booking_shipment;
 use App\comment;
 use App\contact;
 use App\news;
 use App\our_inmormation;
 use App\service;
+use App\shipment;
 use App\slider_manage;
 use App\sponsor;
 use App\faq;
@@ -141,6 +143,23 @@ class FrontendController extends Controller
         return 1;
     }
 
+    public function TrackTrace(Request $request)
+    {
+        $title = 'Track & Trace';
+        $track = shipment::where('tracking_code',$request->track)->first();
+        if ($track){
+            return view('track_trace',compact('track','title'));
+        }else{
+            $track = booking_shipment::where('tracking_code',$request->track)->first();
+            if ($track){
+                return view('track_trace',compact('track','title'));
+            }else{
+                $none = '';
+                return view('track_trace',compact('none','title'));
+            }
+        }
+    }
+
     public function SingleNews($id)
     {
         $title = "News Details";
@@ -196,6 +215,7 @@ class FrontendController extends Controller
     public function RegisterSubmit(Request $request)
     {
         $register_user = new user();
+        $register_user->user_id = 'UR'.rand(100,999).time();
         $register_user->first_name = $request->first_name;
         $register_user->last_name = $request->last_name;
         $register_user->email = $request->email;

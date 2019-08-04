@@ -36,6 +36,7 @@ class CreateBookingShipmentsTable extends Migration
             $table->string('price')->nullable();
             $table->string('currency')->nullable();
             $table->string('tracking_code')->nullable();
+            $table->string('payment_status')->default(0);
             $table->boolean('status')->default('0');
             $table->timestamps();
         });

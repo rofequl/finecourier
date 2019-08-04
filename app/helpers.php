@@ -4,6 +4,7 @@ use App\basic_information;
 use App\citie;
 use App\contact;
 use App\country_manage;
+use App\driver;
 use App\our_inmormation;
 use App\service;
 use App\state;
@@ -76,6 +77,16 @@ function get_city_name_by_code($country,$state,$city)
 function get_user_by_id($data)
 {
     $data = user::find($data);
+    if ($data) {
+        return $data;
+    } else {
+        return false;
+    }
+}
+
+function get_driver_by_id($data)
+{
+    $data = driver::find($data);
     if ($data) {
         return $data;
     } else {

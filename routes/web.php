@@ -41,7 +41,9 @@ Route::get('faq', 'FrontendController@faq')->name('faq');
 Route::post('faq', 'FrontendController@AddFaq')->name('AddFaq');
 
 Route::get('/track_trace', function () { $title = 'Track & Trace'; return view('track_trace',compact('title'));})->name('track_trace');
+Route::get('track-trace', 'FrontendController@TrackTrace')->name('TrackTrace');
 
+Route::post('/select-address', 'UserController@SelectAddress')->name('SelectAddress');
 Route::get('/quote', function () { $title = 'Request Quote'; return view('quote',compact('title'));})->name('quote');
 
 Route::get('/single_news', function () { $title = 'News Details'; return view('single_news',compact('title'));})->name('single_news');
@@ -60,7 +62,6 @@ Route::group(['middleware' => 'CheckUser'], function () {
     Route::get('/address-delete', 'UserController@AddressDelete')->name('AddressDelete');
 
     Route::get('/prepare-shipment', 'UserController@PrepareShipment')->name('PrepareShipment');
-    Route::post('/select-address', 'UserController@SelectAddress')->name('SelectAddress');
     Route::post('/select-address-all', 'UserController@SelectAddressAll')->name('SelectAddressAll');
     Route::post('prepare-shipment-add', 'QuotationController@PrepareShipmentAdd')->name('PrepareShipmentAdd');
     Route::post('prepare-shipment-submit', 'QuotationController@PrepareShipmentSubmit')->name('PrepareShipmentSubmit');
@@ -200,6 +201,28 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::get('/admin-container-driver-get', 'BookingController@AdminContainerDriverGet')->name('AdminContainerDriverGet');
     Route::post('/admin-container-driver-add', 'BookingController@AdminContainerDriverAdd')->name('AdminContainerDriverAdd');
     Route::post('/admin-container-container-code', 'BookingController@AdminContainerContainerCode')->name('AdminContainerContainerCode');
+
+    Route::get('/admin-pickup', 'BookingController@AdminPickup')->name('AdminPickup');
+    Route::post('/admin-pickup-get', 'BookingController@AdminPickupGet')->name('AdminPickupGet');
+    Route::post('/admin-pickup-status', 'BookingController@AdminPickupStatus')->name('AdminPickupStatus');
+    Route::post('/admin-pickup-payment-status', 'BookingController@AdminPickupPaymentStatus')->name('AdminPickupPaymentStatus');
+});
+
+/*
+|--------------------------------------------------------------------------
+| backend Driver Routes
+|--------------------------------------------------------------------------
+*/
+
+
+Route::get('driver-login', function () {return view('driver.login');})->name('DriverLogin');
+Route::post('/driver-login-check', 'DriverController@LoginCheck')->name('DriverLoginCheck');
+Route::get('/driver-logout', 'DriverController@Logout')->name('DriverLogout');
+
+Route::group(['middleware' => 'CheckDriver'], function () {
+
+    Route::get('/driver', 'DriverController@index')->name('driver');
+    Route::get('/driver-container', 'DriverController@DriverContainer')->name('DriverContainer');
 
 
 });

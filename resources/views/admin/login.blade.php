@@ -53,7 +53,7 @@
                     </div>
                     <div>
                         <button class="btn btn-default submit" type="submit">Log in</button>
-                        <a class="reset_pass" href="#">Lost your password?</a>
+                        <a class="reset_pass" href="{{route('DriverLogin')}}">Driver Login?</a>
                     </div>
 
                     <div class="clearfix"></div>

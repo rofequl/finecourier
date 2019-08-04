@@ -30,9 +30,9 @@
     <div class="login_wrapper">
         <div class="animate form login_form">
             <section class="login_content">
-                <form action="{{ route('AdminLoginCheck') }}" method="post">
+                <form action="{{ route('DriverLoginCheck') }}" method="post">
                     {{csrf_field()}}
-                    <h1>Login Form</h1>
+                    <h1>Driver Login Form</h1>
                     @if ($errors->any())
                         <ul class="text-left">
                             @foreach ($errors->all() as $error)
@@ -46,7 +46,7 @@
                         </ul>
                     @endif
                     <div>
-                        <input type="text" name="username" class="form-control" placeholder="Username">
+                        <input type="text" name="email" class="form-control" value="{{old('email')}}" placeholder="Email Id">
                     </div>
                     <div>
                         <input type="password" name="password" class="form-control" placeholder="Password" required=""/>
@@ -59,45 +59,6 @@
                     <div class="clearfix"></div>
 
                     <div class="separator">
-                        <p class="change_link">New to site?
-                            <a href="#signup" class="to_register"> Create Account </a>
-                        </p>
-                        <div class="clearfix"></div>
-                        <br/>
-
-                        <div>
-                            <h1>Fine Courier!</h1>
-                            <p>©2016 All Rights Reserved. Fine Courier!</p>
-                        </div>
-                    </div>
-                </form>
-            </section>
-        </div>
-        <div id="register" class="animate form registration_form">
-            <section class="login_content">
-                <form action="{{ route('AdminUserRegister') }}" method="post">
-                    {{csrf_field()}}
-                    <h1>Create Account</h1>
-                    <div>
-                        <input type="text" name="username" class="form-control" placeholder="Username" required=""/>
-                    </div>
-                    <div>
-                        <input type="email" name="email" class="form-control" placeholder="Email" required=""/>
-                    </div>
-                    <div>
-                        <input type="password" name="password" class="form-control" placeholder="Password" required=""/>
-                    </div>
-                    <div>
-                        <button type="submit" class="btn btn-default submit">Submit</button>
-                    </div>
-
-                    <div class="clearfix"></div>
-
-                    <div class="separator">
-                        <p class="change_link">Already a member ?
-                            <a href="#signin" class="to_register"> Log in </a>
-                        </p>
-
                         <div class="clearfix"></div>
                         <br/>
 

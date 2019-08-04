@@ -3,109 +3,244 @@
 
     @include('inc.slide_area')
 
-<!--================================
+    <!--================================
     START TRACK & TRACE AREA
 =================================-->
-<section class="tc_section section_padding reveal animated" data-delay="0.2s" data-anim="fadeInUpShort">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="tc_title"><h4>Please Enter Your Product Code And You Will See Your Product</h4></div>
-                <div class="tc_form">
-                    <form action="#" method="GET">
-                        <div class="tc_input_wrapper">
-                            <input name="code" type="text" placeholder="Enter Your Tracking Code">
-                            <span class="fa fa-truck"></span>
-                            <button class="tc_btn" type="submit">enter</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!--================================
-    END TRACK & TRACE AREA
-=================================-->
-
-<!--================================
-    START MAP AREA
-=================================-->
-<div id="google_map"></div>
-<!--================================
-    END MAP AREA
-=================================-->
-
-<!--================================
-    START PARTNER
-=================================-->
-<section class="partner_area section_padding reveal animated" data-delay="0.2s" data-anim="fadeInUpShort">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <!-- section_title starts -->
-                <div class="section_title title_center">
-                    <div class="sub_title">
-                        <p>What Our Partner Was</p>
-                    </div>
-                    <div class="title"><h2>Sponsor</h2></div>
-                </div><!-- section_title starts -->
-            </div>
-        </div><!-- /.row end -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="partner_wrapper">
-                    <div class="partner_slider">
-                        <div class="partner">
-                            <img src="images/partner1.png" alt="">
-                        </div>
-                        <div class="partner">
-                            <img src="images/partner2.png" alt="">
-                        </div>
-                        <div class="partner">
-                            <img src="images/partner1.png" alt="">
-                        </div>
-                        <div class="partner">
-                            <img src="images/partner2.png" alt="">
-                        </div>
+    <section class="tc_section section_padding reveal animated" style="padding-bottom: 70px" data-delay="0.2s"
+             data-anim="fadeInUpShort">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="tc_title"><h4>Please Enter Your Product Code And You Will See Your Product</h4></div>
+                    <div class="tc_form">
+                        <form action="{{route('TrackTrace')}}" method="GET">
+                            <div class="tc_input_wrapper">
+                                <input name="track" type="text" placeholder="Enter Your Tracking Code"
+                                       value="{{isset($track)?$track->tracking_code:''}}">
+                                <span class="fa fa-truck"></span>
+                                <button class="tc_btn" type="submit">enter</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!--================================
-    END PARTNER
-=================================-->
+    </section>
+    <!--================================
+        END TRACK & TRACE AREA
+    =================================-->
+    @if(isset($track))
+        <section>
+            <div class="container" style="margin-bottom: 20px">
+                <div class="row">
+                    <div class="col-md-8 panel panel-body col-md-offset-2"
+                         style="background-color: #006cb7;border-radius: 3px;color: white;font-size: 19px;">
+                        Your Item(s) has been
+                        @if($track->status == 1)
+                            ready for pickup
+                            <style>
+                                .shipment div,
+                                .shipment p {
+                                    color: #7f7f15 !important;
+                                }
+
+                                .shipment i {
+                                    border-color: #7f7f15 !important;
+                                }
+                            </style>
+                        @elseif($track->status == 1)
+                            picked
+                            <style>
+                                .shipment div,
+                                .pickup div,
+                                .pickup p,
+                                .shipment p {
+                                    color: #7f7f15 !important;
+                                }
+
+                                .pickup i,
+                                .shipment i {
+                                    border-color: #7f7f15 !important;
+                                }
+                            </style>
+                        @elseif($track->status == 3)
+                            container
+                            <style>
+                                .shipment div,
+                                .pickup div,
+                                .container div,
+                                .pickup p,
+                                .container p,
+                                .shipment p {
+                                    color: #7f7f15 !important;
+                                }
+
+                                .container i,
+                                .pickup i,
+                                .shipment i {
+                                    border-color: #7f7f15 !important;
+                                }
+                            </style>
+                        @elseif($track->status == 4)
+                            shipped
+                            <style>
+                                .shipment div,
+                                .pickup div,
+                                .container div,
+                                .shipped div,
+                                .pickup p,
+                                .shipped p,
+                                .container p,
+                                .shipment p {
+                                    color: #7f7f15 !important;
+                                }
+
+                                .shipped i,
+                                .container i,
+                                .pickup i,
+                                .shipment i {
+                                    border-color: #7f7f15 !important;
+                                }
+                            </style>
+                        @elseif($track->status == 7)
+                            delivered
+                            <style>
+                                .shipment div,
+                                .pickup div,
+                                .container div,
+                                .shipped div,
+                                .delivered div,
+                                .delivered p,
+                                .pickup p,
+                                .shipped p,
+                                .container p,
+                                .shipment p {
+                                    color: #7f7f15 !important;
+                                }
+
+                                .delivered i,
+                                .shipped i,
+                                .container i,
+                                .pickup i,
+                                .shipment i {
+                                    border-color: #7f7f15 !important;
+                                }
+                            </style>
+                        @endif
+                    </div>
+                </div>
+                <div class="row" style="margin: 20px 0">
+                    <div class="col-md-2 col-md-offset-1 text-center shipment">
+                        <div style="font-size: 50px;color: #9e9e9e;margin-top: 10px">
+                            <i class="mdi mdi-clipboard-check"
+                               style="border: 2px solid #9e9e9e;padding: 14px;border-radius: 50%;"></i>
+                            <p style="margin-top: 28px;color: #9e9e9e;">Confirm Shipment</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-center pickup">
+                        <div style="font-size: 50px;color: #9e9e9e;margin-top: 10px">
+                            <i class="mdi mdi-package"
+                               style="border: 2px solid #9e9e9e;padding: 14px;border-radius: 50%;"></i>
+                            <p style="margin-top: 28px;color: #9e9e9e;">Pickup</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-center container">
+                        <div style="font-size: 50px;color: #9e9e9e;margin-top: 10px">
+                            <i class="mdi mdi-package-variant-closed"
+                               style="border: 2px solid #9e9e9e;padding: 14px;border-radius: 50%;"></i>
+                            <p style="margin-top: 28px;color: #9e9e9e;">Container</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-center shipped">
+                        <div style="font-size: 50px;color: #9e9e9e;margin-top: 10px">
+                            <i class="mdi mdi-truck-delivery"
+                               style="border: 2px solid #9e9e9e;padding: 14px;border-radius: 50%;"></i>
+                            <p style="margin-top: 28px;color: #9e9e9e;">Shipped</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-center delivered">
+                        <div style="font-size: 50px;color: #9e9e9e;margin-top: 10px">
+                            <i class="mdi mdi-webpack"
+                               style="border: 2px solid #9e9e9e;padding: 14px;border-radius: 50%;"></i>
+                            <p style="margin-top: 28px;color: #9e9e9e;">Delivered</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 panel panel-body col-md-offset-2"
+                         style="background-color: #d9f5ff;border-radius: 3px;">
+                        Dear
+                        @if($track->receiver_name)
+                            {{$track->receiver_name}}
+                        @else
+                            {{get_user_by_id($track->user_id)->first_name}}
+                            {{get_user_by_id($track->user_id)->last_name}}
+                        @endif
+                        , <br>
+                        Item(s) from your order #{{$track->tracking_code}} has been Shipped! Details on when you can
+                        expect it at
+                        your doorstep are provided below. Please find tracking information for your package below.
+                        We will update you again if there is outstanding item(s) in your order.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 panel panel-body col-md-offset-2"
+                         style="background-color: #d9f5ff;border-radius: 3px;">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">Shipping type</th>
+                                <th class="text-center">Shipping content</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="text-center">@if($track->receiver_name)
+                                        {{$track->receiver_name}}
+                                    @else
+                                        {{get_user_by_id($track->user_id)->first_name}}
+                                        {{get_user_by_id($track->user_id)->last_name}}
+                                    @endif</td>
+                                <td class="text-center">
+                                    {{$track->created_at->format('d M, Y')}}
+                                </td>
+                                <td class="text-center">
+                                    @if($track->shipment == 1)
+                                        International
+                                    @else
+                                        Domestic
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    {{$track->shipping_type}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+    @if(isset($none))
+        <section>
+            <div class="container" style="margin-bottom: 20px">
+                <div class="row">
+                    <div class="col-md-8 panel panel-body col-md-offset-2"
+                         style="background-color: #006cb7;border-radius: 3px;color: white;font-size: 19px;">
+                        Invalid number / data not currently available
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
 
 
-
-<script>
-    var myCenter=new google.maps.LatLng(32.294445, 72.349724);
-    function initialize()
-    {
-        var mapProp = {
-            center:myCenter,
-            zoom:4,
-            scrollwheel: false,
-            mapTypeId:google.maps.MapTypeId.ROADMAP,
-            styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#edf0f5"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
-        };
-
-        var map = new google.maps.Map(document.getElementById("google_map"),mapProp);
-        var marker = new google.maps.Marker({
-            position: myCenter,
-            map: map,
-            icon:'images/map-marker1.png'
-        });
-
-
-        var infowindow = new google.maps.InfoWindow({
-            content:"united-states"
-        });
-    }
-
-    google.maps.event.addDomListener(window, 'load', initialize);
-</script>
 
 @endsection
+
+@push('style')
+    <link href="//cdn.materialdesignicons.com/3.8.95/css/materialdesignicons.min.css" rel="stylesheet">
+@endpush
