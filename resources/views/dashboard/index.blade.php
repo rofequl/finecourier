@@ -1,4 +1,5 @@
 @extends('dashboard.layout.app')
+@section('pageTitle','Customer Dashboard')
 @section('content')
 
     <div class="row">
@@ -6,11 +7,11 @@
             <div class="card mb-3 widget-content bg-midnight-bloom">
                 <div class="widget-content-wrapper text-white">
                     <div class="widget-content-left">
-                        <div class="widget-heading">Total Orders</div>
-                        <div class="widget-subheading">Last year expenses</div>
+                        <div class="widget-heading">Total Shipment</div>
+                        <div class="widget-subheading">All shipment request</div>
                     </div>
                     <div class="widget-content-right">
-                        <div class="widget-numbers text-white"><span>0</span></div>
+                        <div class="widget-numbers text-white"><span>{{$total_shipment}}</span></div>
                     </div>
                 </div>
             </div>
@@ -19,11 +20,11 @@
             <div class="card mb-3 widget-content bg-arielle-smile">
                 <div class="widget-content-wrapper text-white">
                     <div class="widget-content-left">
-                        <div class="widget-heading">Clients</div>
-                        <div class="widget-subheading">Total Clients Profit</div>
+                        <div class="widget-heading">Shipment Delivered</div>
+                        <div class="widget-subheading">How many shipment Delivered</div>
                     </div>
                     <div class="widget-content-right">
-                        <div class="widget-numbers text-white"><span>$ 0</span></div>
+                        <div class="widget-numbers text-white"><span>{{$total_delivered}}</span></div>
                     </div>
                 </div>
             </div>
@@ -32,24 +33,11 @@
             <div class="card mb-3 widget-content bg-grow-early">
                 <div class="widget-content-wrapper text-white">
                     <div class="widget-content-left">
-                        <div class="widget-heading">Followers</div>
-                        <div class="widget-subheading">People Interested</div>
+                        <div class="widget-heading">Shipment Reject</div>
+                        <div class="widget-subheading">If any shipment rejected</div>
                     </div>
                     <div class="widget-content-right">
-                        <div class="widget-numbers text-white"><span>0%</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="d-xl-none d-lg-block col-md-6 col-xl-4">
-            <div class="card mb-3 widget-content bg-premium-dark">
-                <div class="widget-content-wrapper text-white">
-                    <div class="widget-content-left">
-                        <div class="widget-heading">Products Sold</div>
-                        <div class="widget-subheading">Revenue streams</div>
-                    </div>
-                    <div class="widget-content-right">
-                        <div class="widget-numbers text-warning"><span>$0M</span></div>
+                        <div class="widget-numbers text-white"><span>{{$total_reject}}</span></div>
                     </div>
                 </div>
             </div>
@@ -70,7 +58,7 @@
                             <th>Tracking No.</th>
                             <th class="text-center">Date</th>
                             <th class="text-center">Recipient</th>
-                            <th class="text-center">Current activity</th>
+                            <th class="text-center">Shipping type</th>
                             <th class="text-center">Actions</th>
                         </tr>
                         </thead>
@@ -78,32 +66,52 @@
                         @foreach($shipment as $shipments)
                             <tr>
                                 <td class="text-center">
-                                    @if($shipments->status == 0)
-                                        <div class="badge badge-info text-capitalize">DRAFT</div>
+                                    @if($shipments->block == 1)
+
+                                        <span class="badge badge-danger text-capitalize">Reject</span>
                                     @else
-                                        <div class="badge badge-info text-capitalize">Ready for a pickup</div>
+                                        <div class="badge badge-info text-capitalize">
+                                            {{$shipments->status==0?'Draft':''}}
+                                            {{$shipments->status==1?'Label Create':''}}
+                                            {{$shipments->status==2?'Pickup':''}}
+                                            {{$shipments->status==3?'Dispatch Center':''}}
+                                            {{$shipments->status==4?'In Transit':''}}
+                                            {{$shipments->status==5?'Out for Delivery':''}}
+                                            {{$shipments->status==6?'Delivered':''}}
+                                        </div>
                                     @endif
                                 </td>
-                                <td>{{$shipments->tracking_code}}</td>
+                                <td><a style="color: #495057;text-decoration: none"
+                                       href="{{route('TrackTrace','track='.$shipments->tracking_code)}}">{{$shipments->tracking_code}}
+                                    </a></td>
                                 <td class="text-center">
                                     <p style="color: black;font-size: 19px"
                                        class="mb-0">{{$shipments->updated_at->format('d M')}}</p>
                                     {{$shipments->updated_at->format('Y')}}
                                 </td>
                                 <td style="font-size: 15px">{{get_address_by_id($shipments->receiver_address)->name}}</td>
-                                <td></td>
+                                <td>
+                                    @if($shipments->shipment == 1)
+                                        International
+                                    @else
+                                        Domestic
+                                    @endif
+                                </td>
                                 <td>
                                     @if($shipments->status == 0)
-                                        <a href="{{route('PrepareShipmentEdit',$shipments->id)}}" class="text-success"><i
-                                                    class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a><br>
+                                        <a href="{{route('PrepareShipmentEdit',$shipments->id)}}"
+                                           class="text-success"><i
+                                                class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a><br>
                                         <a href="{{route('PrepareShipmentDelete','delete='.$shipments->id)}}"
                                            class="delete text-success"><i class="fa fa-trash-o fa-2x"
                                                                           aria-hidden="true"></i></a>
                                     @else
-                                        <a href="{{route('PrepareShipmentView','data='.base64_encode($shipments->id))}}" class="w-100 btn btn-sm btn-success">
+                                        <a href="{{route('PrepareShipmentView','data='.base64_encode($shipments->id))}}"
+                                           class="w-100 btn btn-sm btn-success">
                                             VIEW
                                         </a><br>
-                                        <a href="{{route('ShipmentLabel',base64_encode($shipments->id))}}" class="btn btn-sm btn-success mt-2 w-100">LABEL</a>
+                                        <a href="{{route('ShipmentLabel',base64_encode($shipments->id))}}"
+                                           class="btn btn-sm btn-success mt-2 w-100">LABEL</a>
                                     @endif
                                 </td>
                             </tr>

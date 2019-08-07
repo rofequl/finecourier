@@ -1,4 +1,5 @@
 @extends('dashboard.layout.app')
+@section('pageTitle','Prepare Shipment')
 @section('content')
 
     <style>
@@ -39,14 +40,13 @@
             <div class="main-card mb-3 card card-body">
                 <form id="upload_form" method="post" action="">
                     {{csrf_field()}}
-                    <h5 class="card-title">Shipper Details:<span class="shipper_address_name"></span></h5>
+                    <h5 class="card-title">Shipper Details: <span class="shipper_address_name"></span></h5>
                     <div class="form-row">
                         <div class="col-md-12">
                             <div class="position-relative form-group">
                                 <label for="shipper_address" class="shipper_address_info"></label>
                                 <div class="input-group">
-                                    <select name="shipper_address" id="shipper_address" class="form-control my-select"
-                                            data-live-search="true">
+                                    <select name="shipper_address" id="shipper_address" class="form-control shadow-none">
                                     </select>
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-success AddShipperAddress">
@@ -65,8 +65,7 @@
                             <div class="position-relative form-group">
                                 <label for="receiver_address" class="receiver_address_info"></label>
                                 <div class="input-group">
-                                    <select name="receiver_address" id="receiver_address" class="form-control my-select"
-                                            data-live-search="true">
+                                    <select name="receiver_address" id="receiver_address" class="form-control shadow-none">
                                         <option value="" selected disabled>Select address</option>
                                         @foreach($address as $addresses)
                                             @if($addresses->address_type==2)
@@ -178,23 +177,22 @@
                         </div>
                     </div>
 
-                    <h5 class="card-title mt-5">Payment method:</h5>
+                    <h5 class="card-title mt-5">Service Type:</h5>
                     <div class="form-row">
                         <div class="col-md-6 form-group text-left">
-                            <label for="usr3">How do you want to arrange for payment?</label>
+                            <label for="usr3">How do you want to arrange for shipment?</label>
                             <div class="row justify-content-center">
                                 <div class="card card-body col-md-4 m-1 p-3"
                                      style="border: 1px solid #ddd;font-size:15px;cursor: pointer;"
                                      id="delivery_type12">
                                     <h4 class="card-title">Regular</h4>
-                                    <p class="mb-0" style="font-size: 12px;">I am exporting and I will pay when I
-                                        ship</p>
+
                                 </div>
                                 <div class="card card-body col-md-4 m-1 p-3"
                                      style="border: 1px solid #ddd;font-size:15px;cursor: pointer;"
                                      id="delivery_type13">
                                     <h4 class="card-title">Express</h4>
-                                    <p class="mb-0" style="font-size: 12px;">I am importing and I will pay when I</p>
+
                                 </div>
                                 <input type="hidden"
                                        value=""
@@ -242,7 +240,7 @@
 @endpush
 
 @push('scripts')
-
+    <script src="{{asset('assets/scripts/bootstrap4.js')}}"></script>
     <!-- Large modal -->
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
          aria-hidden="true">
@@ -312,7 +310,7 @@
                         <div class="form-row">
                             <div class="col-md-6">
                                 <div class="position-relative form-group">
-                                    <label for="FromState" class="">City*</label>
+                                    <label for="FromState" class="">State*</label>
                                     <select class="form-control select2" id="FromState" name="state">
                                         <option value="">Select State</option>
                                     </select>
@@ -320,7 +318,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="position-relative form-group">
-                                    <label for="FromCity" class="">State*</label>
+                                    <label for="FromCity" class="">City*</label>
                                     <select class="form-control select2" id="FromCity" name="city">
                                         <option value="">Select City</option>
                                     </select>
@@ -377,12 +375,14 @@
         onload_receiver();
 
         $('.AddShipperAddress').click(function () {
+            $("#address_upload").trigger("reset");
             $('#exampleModalLongTitle').html('Add New Shipper Address');
             $('#address_type').val(1).prop("disabled", true);
             $('.bd-example-modal-lg').modal('show');
         });
 
         $('.AddReceiverAddress').click(function () {
+            $("#address_upload").trigger("reset");
             $('#exampleModalLongTitle').html('Add New Receiver Address');
             $('#address_type').val(2).prop("disabled", true);
             $('.bd-example-modal-lg').modal('show');
@@ -392,16 +392,26 @@
             $.ajax({
                 url: "{{ route('SelectAddressAll') }}",
                 type: 'post',
-                data: {_token: CSRF_TOKEN, id: 1},
+                data: {_token: CSRF_TOKEN, id: 1,user_id: '{{session('user-id')}}'},
                 dataType: 'json',
                 success: function (data) {
                     $('#shipper_address').html('');
-                    $('#shipper_address').append($('<option>', {value: '', text: 'Select Shipper Address'}));
                     data.forEach(function (element) {
                         $('#shipper_address').append($('<option>', {
                             value: element.id,
                             text: element.name + ' (' + element.post_code + ')'
                         }));
+                    });
+                    let id = $("#shipper_address option:first").val();
+                    $.ajax({
+                        url: "{{ route('SelectAddress') }}",
+                        type: 'post',
+                        data: {_token: CSRF_TOKEN, id: id},
+                        dataType: 'json',
+                        success: function (data) {
+                            $('.shipper_address_name').text(data.name);
+                            $('.shipper_address_info').text(data.name + ' from will be shipping this shipment from ' + data.address_one);
+                        }
                     });
                 }
             });
@@ -411,16 +421,26 @@
             $.ajax({
                 url: "{{ route('SelectAddressAll') }}",
                 type: 'post',
-                data: {_token: CSRF_TOKEN, id: 2},
+                data: {_token: CSRF_TOKEN, id: 2,user_id: '{{session('user-id')}}'},
                 dataType: 'json',
                 success: function (data) {
                     $('#receiver_address').html('');
-                    $('#receiver_address').append($('<option>', {value: '', text: 'Select Receiver Address'}));
                     data.forEach(function (element) {
                         $('#receiver_address').append($('<option>', {
                             value: element.id,
                             text: element.name + ' (' + element.post_code + ')'
                         }));
+                    });
+                    let id = $("#receiver_address option:first").val();
+                    $.ajax({
+                        url: "{{ route('SelectAddress') }}",
+                        type: 'post',
+                        data: {_token: CSRF_TOKEN, id: id},
+                        dataType: 'json',
+                        success: function (data) {
+                            $('.receiver_address_name').text(data.name);
+                            $('.receiver_address_info').text(data.name + ' from will be receving this shipment from ' + data.address_one);
+                        }
                     });
                 }
             });

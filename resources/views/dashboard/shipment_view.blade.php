@@ -1,4 +1,5 @@
 @extends('dashboard.layout.app')
+@section('pageTitle','View Shipment')
 @section('content')
     <div class="app-page-title">
         <div class="page-title-wrapper">

@@ -11,9 +11,9 @@
             <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                    <li><a href="{{route('admin')}}"><i class="fa fa-dashboard"></i> Driver Dashboard</a>
+                    <li><a href="{{route('driver')}}"><i class="fa fa-dashboard"></i> Driver Dashboard</a>
                     </li>
-                    <li><a href="{{route('DriverContainer')}}"><i class="fa mdi mdi-truck-fast"></i> Shipment</a>
+                    <li><a href="{{route('DriverShipment')}}"><i class="fa mdi mdi-truck-fast"></i> Shipment</a>
                     </li>
                     <li><a href="#"><i class="fa mdi mdi-account"></i> Profile</a>
                     </li>

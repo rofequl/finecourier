@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Analytics Dashboard - This is an example dashboard created using build-in elements and components.</title>
+    <title>@yield('pageTitle') - Fine Courier</title>
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <link href="{{asset('assets/scripts/main.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}"/>
     @stack('style')
@@ -33,36 +33,11 @@
             <div class="app-wrapper-footer">
                 <div class="app-footer">
                     <div class="app-footer__inner">
-                        <div class="app-footer-left">
-                            <ul class="nav">
-                                <li class="nav-item">
-                                    <a href="javascript:void(0);" class="nav-link">
-                                        Footer Link 1
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="javascript:void(0);" class="nav-link">
-                                        Footer Link 2
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
                         <div class="app-footer-right">
-                            <ul class="nav">
-                                <li class="nav-item">
-                                    <a href="javascript:void(0);" class="nav-link">
-                                        Footer Link 3
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="javascript:void(0);" class="nav-link">
-                                        <div class="badge badge-success mr-1 ml-0">
-                                            <small>NEW</small>
-                                        </div>
-                                        Footer Link 4
-                                    </a>
-                                </li>
-                            </ul>
+                              <p>
+                                  {{basic_information()->footer_text}} <a
+                                      href="{{basic_information()->website_link}}">{{basic_information()->company_name}}</a>
+                              </p>
                         </div>
                     </div>
                 </div>
@@ -73,7 +48,6 @@
 </div>
 
 <script src="{{asset('assets/vendors/jquery/dist/jquery.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('assets/scripts/bootstrap4.js')}}" type="text/javascript"></script>
 <script type="text/javascript" src="{{asset('assets/scripts/main.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/scripts/user_custom.js')}}"></script>
 @stack('scripts')

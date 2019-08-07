@@ -24,7 +24,6 @@ class CountryController extends Controller
             return '
             <div class="btn-group  btn-group-sm">
                         <button class="btn btn-success edit-country" id="' . $country->code . '" type="button"><i class="mdi mdi-table-edit m-r-3"></i>Edit</button>
-                        <button class="btn btn-success delete" id="' . $country->code . '" type="button"><i class="mdi mdi-delete m-r-3"></i>Delete</button>
                       </div>
             ';
         })->addColumn('status', function ($country) {
@@ -103,11 +102,11 @@ class CountryController extends Controller
 
     public function AdminStateGet()
     {
-        return DataTables::of(state::orderBy('id', 'DESC')->get())->addColumn('action', function ($country) {
+        $active_country = country_manage::pluck('country_code')->all();
+        return DataTables::of(state::whereIn('country_code',$active_country)->orderBy('id', 'DESC')->get())->addColumn('action', function ($country) {
             return '
             <div class="btn-group  btn-group-sm">
                         <button class="btn btn-success edit-country" id="' . $country->code . '" type="button"><i class="mdi mdi-table-edit m-r-3"></i>Edit</button>
-                        <button class="btn btn-success delete" id="' . $country->code . '" type="button"><i class="mdi mdi-delete m-r-3"></i>Delete</button>
                       </div>
             ';
         })->addColumn('country', function ($country) {
@@ -164,11 +163,11 @@ class CountryController extends Controller
 
     public function AdminCityGet()
     {
-        return DataTables::of(citie::all())->addColumn('action', function ($country) {
+        $active_country = country_manage::pluck('country_code')->all();
+        return DataTables::of(citie::whereIn('country_code',$active_country)->get())->addColumn('action', function ($country) {
             return '
             <div class="btn-group  btn-group-sm">
                         <button class="btn btn-success edit-city" id="' . $country->code . '" type="button"><i class="mdi mdi-table-edit m-r-3"></i>Edit</button>
-                        <button class="btn btn-success delete" id="' . $country->code . '" type="button"><i class="mdi mdi-delete m-r-3"></i>Delete</button>
                       </div>
             ';
         })->addColumn('country', function ($country) {

@@ -40,13 +40,18 @@
                     </li>
                     <li><a><i class="fa mdi mdi-book-multiple"></i> Manage Shipment <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="#">All</a></li>
-                            <li><a href="#">Pending</a></li>
-                            <li><a href="#">Rejected</a></li>
-                            <li><a href="#">Delivered</a></li>
+                            <li><a href="{{route('AdminManageShipmentAll')}}">All</a></li>
+                            <li><a href="{{route('AdminManageShipmentPending')}}">Pending</a></li>
+                            <li><a href="{{route('AdminManageShipmentReject')}}">Rejected</a></li>
+                            <li><a href="{{route('AdminManageShipmentDelivered')}}">Delivered</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{route('AdminPickup')}}"><i class="fa mdi mdi-package"></i> Pickup</a>
+                    <li><a><i class="fa mdi mdi-currency-usd"></i> Transaction <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{route('AdminBilling')}}">Billing</a></li>
+                            <li><a href="{{route('AdminPickup')}}">Payments</a></li>
+                        </ul>
+                    </li>
                     </li>
                     <li><a href="{{route('AdminContainer')}}"><i class="fa mdi mdi-package-variant-closed"></i> Container</a>
                     </li>
@@ -57,12 +62,6 @@
                         </ul>
                     </li>
                     <li><a href="{{route('AdminCustomerList')}}"><i class="fa mdi mdi-account-multiple-plus"></i> Customer List</a>
-                    </li>
-                    <li><a><i class="fa mdi mdi-currency-usd"></i> Transaction <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="#">Billing</a></li>
-                            <li><a href="#">Payments</a></li>
-                        </ul>
                     </li>
                     <li><a><i class="fa mdi mdi-settings-box"></i> Website Management <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">

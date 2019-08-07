@@ -1,111 +1,114 @@
 @extends('dashboard.layout.app')
+@section('pageTitle',$user->first_name.' Profile')
 @section('content')
 
-    <div class="app-page-title">
+    <div class="app-page-title main-card card" style="border-radius: 0;background-color: #fff">
         <div class="page-title-wrapper">
             <div class="page-title-heading">
-                <div class="page-title-icon">
-                    <i class="fa fa-user text-success">
-                    </i>
+                <div class="page-title-icon" style="width: 87px;height: 87px;padding: 0px">
+                    <img src="{{$user->image==null? asset('images/user.png'):asset('storage/user/'.$user->image)}}" id="previewLogo" width="100%" height="100%" class="border p-1">
                 </div>
-                <div>Hello {{$user->first_name}} {{$user->last_name}}
-                    <div class="page-title-subheading">You can update your profile here
+                <div>{{$user->first_name.' '.$user->last_name}}
+                    <div class="page-title-subheading">{{$user->email}}
                     </div>
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <div class="d-inline-block dropdown">
+                    <button type="button" onclick="location.href='{{route('ProfileEdit')}}';" class="btn-shadow btn btn-info">
+                                            <span class="btn-icon-wrapper pr-2 opacity-7"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+                        Edit Profile
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="tab-content">
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                <div class="alert alert-danger alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    {{$error}}
-                </div>
-            @endforeach
-        @endif
-        @if(session()->has('message'))
-            <div class="alert alert-success alert-dismissible">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                {{ session()->get('message') }}
-            </div>
-        @endif
-        <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+    <div class="row">
+        <div class="col-lg-8">
             <div class="main-card mb-3 card">
                 <div class="card-body">
-                    <form method="post" action="{{route('ProfileUpdate')}}"  enctype="multipart/form-data">
-                        {{csrf_field()}}
-                        <input type="hidden" name="id" value="{{$user->id}}">
-                        <div class="row justify-content-center mb-4">
-                            <div class="col-md-3 col-12" onclick="chooseFile()" style="cursor: pointer">
-                                <img src="{{$user->image==null? asset('images/user.png'):asset('storage/user/'.$user->image)}}" id="previewLogo" width="100%" class="border p-1">
-                            </div>
-                        </div>
-                        <input type="file" name="image" class="ImageUpload d-none">
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <div class="position-relative form-group"><label for="exampleEmail11" class="">First
-                                        Name</label><input name="first_name" id="exampleEmail11"
-                                                           value="{{$user->first_name}}" type="text"
-                                                           class="form-control"></div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="position-relative form-group"><label for="examplePassword11" class="">Last
-                                        Name</label><input name="last_name" id="examplePassword11"
-                                                           value="{{$user->last_name}}" type="text"
-                                                           class="form-control"></div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <div class="position-relative form-group"><label for="exampleEmail11"
-                                                                                 class="">Phone</label><input
-                                            name="phone" id="exampleEmail11" value="{{$user->phone}}" type="text"
-                                            class="form-control"></div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="position-relative form-group">
-                                    <label for="examplePassword11" class="">Country</label>
-                                    <select class="form-control" id="CountryId" name="country">
-                                        <option value="">Select Country</option>
-                                        @foreach($earth as $earths)
-                                            @if($earths['code'] == $user->country)
-                                                <option value="{{$earths['code']}}"
-                                                        selected>{{$earths['name']}}</option>
-                                            @else
-                                                <option value="{{$earths['code']}}">{{$earths['name']}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                    <table class="mb-0 table table-hover">
+                        <tbody>
+                        <tr>
+                            <td style="width: 60%">Name:</td>
+                            <td>{{$user->first_name.' '.$user->last_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td>{{$user->email}}</td>
+                        </tr>
+                        <tr>
+                            <td>phone:</td>
+                            <td>{{$user->phone}}</td>
+                        </tr>
+                        <tr>
+                            <td>Country:</td>
+                            <td>{{get_country_name_by_code($user->country)->name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Post Code:</td>
+                            <td>{{$user->post_code}}</td>
+                        </tr>
+                        <tr>
+                            <td>State:</td>
+                            <td>{{get_state_name_by_code($user->country,$user->division)->name}}</td>
+                        </tr>
+                        <tr>
+                            <td>City:</td>
+                            <td>{{get_city_name_by_code($user->country,$user->division,$user->city)->name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Place Name:</td>
+                            <td>{{$user->placeName}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <div class="card mb-3 widget-content">
+                        <div class="widget-content-outer">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                    <div class="widget-heading">Total Address Book</div>
+                                </div>
+                                <div class="widget-content-right">
+                                    <div class="widget-numbers text-success">{{$total_address}}</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <div class="position-relative form-group">
-                                    <label for="exampleCity" class="">City</label>
-                                    <select class="form-control" id="FromState" name="division">
-                                        <option value="">Select Country</option>
-                                    </select>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xl-12">
+                    <div class="card mb-3 widget-content">
+                        <div class="widget-content-outer">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                    <div class="widget-heading">Total Shipment</div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="position-relative form-group">
-                                    <label for="exampleState" class="">State</label>
-                                    <select class="form-control" id="FromCity" name="city">
-                                        <option value="">Select Country</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="position-relative form-group"><label for="exampleZip" class="">Zip</label>
-                                    <input name="post_code" id="exampleZip" value="{{$user->post_code}}" type="text" class="form-control">
+                                <div class="widget-content-right">
+                                    <div class="widget-numbers text-warning">{{$total_shipment}}</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="" class="mt-2 btn btn-primary float-right mx-3">Cancel</a>
-                        <button class="mt-2 btn btn-primary float-right">Save</button>
-                    </form>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xl-12">
+                    <div class="card mb-3 widget-content">
+                        <div class="widget-content-outer">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                    <div class="widget-heading">Shipment Delivered</div>
+                                </div>
+                                <div class="widget-content-right">
+                                    <div class="widget-numbers text-danger">{{$total_delivered}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -212,5 +215,5 @@
 
 
     </script>
-    
+
 @endpush

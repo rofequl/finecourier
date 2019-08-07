@@ -1,4 +1,5 @@
 @extends('dashboard.layout.app')
+@section('pageTitle','Address Book')
 @section('content')
 
     <style>
@@ -343,7 +344,7 @@
                         <div class="form-row">
                             <div class="col-md-6">
                                 <div class="position-relative form-group">
-                                    <label for="FromState" class="">City*</label>
+                                    <label for="FromState" class="">State*</label>
                                     <select class="form-control select2" id="FromState" name="state">
                                         <option value="">Select State</option>
                                     </select>
@@ -351,7 +352,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="position-relative form-group">
-                                    <label for="FromCity" class="">State*</label>
+                                    <label for="FromCity" class="">City*</label>
                                     <select class="form-control select2" id="FromCity" name="city">
                                         <option value="">Select City</option>
                                     </select>
@@ -466,7 +467,6 @@
         });
 
         $(".phone").intlTelInput({
-            separateDialCode: true,
             initialCountry: "auto",
             geoIpLookup: function (callback) {
                 $.get('https://ipinfo.io', function () {

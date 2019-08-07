@@ -37,7 +37,7 @@
                 <li>
                     <a href="{{route('dashboard')}}">
                         <i class="metismenu-icon fa fa-tachometer"></i>
-                        Driver Dashboard
+                        Customer Dashboard
                     </a>
                 </li>
                 <li>
@@ -47,13 +47,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{route('account')}}">
                         <i class="metismenu-icon fa fa-cog"></i>
                         My Account
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('ShippingRate')}}">
+                    <a target="_blank" rel="noopener noreferrer" href="{{route('ShippingRate')}}">
                         <i class="metismenu-icon fa fa-calculator"></i>
                         Shipping rate check
                     </a>
@@ -68,6 +68,12 @@
                     <a href="{{route('PrepareShipment')}}">
                         <i class="metismenu-icon fa fa-location-arrow" aria-hidden="true"></i>
                         Prepare Shipment
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('logout')}}">
+                        <i class="metismenu-icon fa fa-sign-out" aria-hidden="true"></i>
+                        Logout
                     </a>
                 </li>
             </ul>

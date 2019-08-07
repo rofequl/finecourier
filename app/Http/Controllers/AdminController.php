@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\container;
 use App\shipment;
+use App\user;
 use Illuminate\Support\Facades\Hash;
 use Session;
 use App\adminpanel;
@@ -11,8 +13,52 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
-        $shipping = shipment::orderBy('id','DESC')->paginate(15);
-        return view('admin.index',compact('shipping'));
+        $shipment_count = shipment::all()->count();
+        $user_count = user::all()->count();
+        $delivered_count = shipment::where('status',5)->get()->count();
+        $container_count = container::all()->count();
+        $shipment = shipment::orderBy('id','DESC')->paginate(15);
+        return view('admin.index',compact('shipment','shipment_count','delivered_count',
+        'user_count','container_count'));
+    }
+
+    public function profile()
+    {
+        $admin = adminpanel::all();
+        return view('admin.profile',compact('admin'));
+    }
+
+    public function AdminDelete(Request $request)
+    {
+        if ($request->delete) {
+            $data = adminpanel::find(base64_decode($request->delete));
+            $data->delete();
+            Session::flash('message', 'Account deleted Successfully');
+            return redirect('admin-profile');
+        } else {
+            abort('404','Something wrong');
+        }
+    }
+
+    public function AdminSingleProfile(Request $request)
+    {
+        $admin = adminpanel::where('id',$request->id)->select('id','name','email')->first();
+        return json_encode($admin);
+    }
+
+    public function AdminSingleProfilePost(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:40',
+            'email' => 'required|email|max:255',
+        ]);
+        $register_user = adminpanel::find($request->id);
+        $register_user->name = $request->name;
+        $register_user->email = $request->email;
+        $register_user->save();
+
+        Session::flash('message', 'Account update successfully');
+        return redirect('/admin-profile');
     }
 
     public function LoginCheck(Request $request)
@@ -41,18 +87,32 @@ class AdminController extends Controller
     public function AdminRegister(Request $request)
     {
         $request->validate([
-            'username' => 'required|max:40',
+            'name' => 'required|max:40',
             'email' => 'required|email|max:255',
-            'password' => 'required|min:8|max:20',
+            'password' => 'required|min:8|max:20|confirmed',
         ]);
             $register_user = new adminpanel();
-            $register_user->name = $request->username;
+            $register_user->name = $request->name;
             $register_user->email = $request->email;
             $register_user->password = Hash::make($request->password);
             $register_user->save();
-        Session::put('admin-username', $request->username);
+        Session::put('admin-username', $request->name);
         Session::put('admin-id', $register_user->id);
-        return redirect('/admin');
+
+        Session::flash('message', 'New account create successfully');
+        return redirect('/admin-profile');
+    }
+
+    public function AdminPasswordChange(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:8|max:20|confirmed',
+        ]);
+        $register_user = adminpanel::find($request->id);
+        $register_user->password = Hash::make($request->password);
+
+        Session::flash('message', 'Password change successfully');
+        return redirect('/admin-profile');
     }
 
     public function Logout()

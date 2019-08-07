@@ -19,65 +19,82 @@
 
                             <!-- start project list -->
                             <div class="table-responsive">
-                                <table class="table table-striped projects">
+                                <table class="table table-striped table-bordered projects">
                                     <thead>
                                     <tr>
-                                        <th style="width: 1%">#</th>
-                                        <th>Name</th>
-                                        <th>Date</th>
-                                        <th>Tracking Code</th>
-                                        <th>Shipping type</th>
-                                        <th>Shipping content</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th class="text-center" style="width: 1%">#</th>
+                                        <th class="text-center">Tracking Code</th>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">From</th>
+                                        <th class="text-center">To</th>
+                                        <th class="text-center">Shipping type</th>
+                                        <th class="text-center">Shipping content</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($sortedCollection as $shipment)
-                                        <tr class="tr">
-                                            <td>#</td>
+                                    @php $no=1; @endphp
+                                    @foreach($shipment as $shipments)
+                                        <tr class="text-center">
+                                            <td>{{$no}}</td>
+                                            @php $no++; @endphp
+                                            <td>
+                                                {!! DNS1D::getBarcodeHTML($shipments->tracking_code, "EAN13",1,23) !!}
+                                                <p style="font-size: 15px;color: black;">
+                                                    *{{$shipments->tracking_code}}*</p>
+                                            </td>
+                                            <td>
+                                                {{$shipments->created_at->format('d M, Y')}}
+                                            </td>
                                             <td>
                                                 <a title="Header" data-toggle="popover" data-trigger="hover"
                                                    data-content="Some content">
-                                                    @if($shipment->receiver_name)
-                                                        {{$shipment->receiver_name}}
-                                                    @else
-                                                        {{get_user_by_id($shipment->user_id)->first_name}}
-                                                        {{get_user_by_id($shipment->user_id)->last_name}}
-                                                    @endif
+                                                        {{get_user_by_id($shipments->user_id)->first_name}}
+                                                        {{get_user_by_id($shipments->user_id)->last_name}}
                                                 </a>
                                             </td>
+                                            <td>{{$shipments->address_one}}</td>
+                                            <td>{{$shipments->address_two}}</td>
                                             <td>
-                                                {{$shipment->created_at->format('d M, Y')}}
-                                            </td>
-                                            <td>
-                                                {!! DNS1D::getBarcodeHTML($shipment->tracking_code, "EAN13",1,23) !!}
-                                                <p style="font-size: 15px;color: black;">
-                                                    *{{$shipment->tracking_code}}*</p>
-                                            </td>
-                                            <td>
-                                                @if($shipment->shipment == 1)
+                                                @if($shipments->shipment == 1)
                                                     International
                                                 @else
                                                     Domestic
                                                 @endif
                                             </td>
                                             <td>
-                                                {{$shipment->shipping_type}}
+                                                {{$shipments->shipping_type}}
                                             </td>
                                             <td>
-                                                <span class="label label-success">Ready For A Pickup</span>
+
+                                                @if($shipments->block == 1)
+                                                    <span class="label label-danger">Reject</span>
+                                                    @else
+                                                    {!!$shipments->status==1?' <span class="label label-default">Label Create':''!!}
+                                                    {!!$shipments->status==2?' <span class="label label-primary">Picked':''!!}
+                                                    {!!$shipments->status==3?' <span class="label label-info">Dispatch Center':''!!}
+                                                    {!!$shipments->status==4?' <span class="label label-warning">In Transit':''!!}
+                                                    {!!$shipments->status==5?' <span class="label label-success">Out for Delivery':''!!}
+                                                    {!!$shipments->status==6?' <span class="label label-primary">Delivered':''!!}
+                                                    </span><br>
+                                                    @if($shipments->status != 1)
+                                                        {{get_shipment_status($shipments->tracking_code, $shipments->status)->time}}
+                                                    @endif
+                                                @endif
                                             </td>
                                             <td>
-                                                <a href="{{route('AdminShipmentView','data='.base64_encode($shipment->id))}}"
+                                                <a href="{{route('AdminShipmentView','data='.base64_encode($shipments->id))}}"
                                                    class="btn btn-success">View</a>
                                             </td>
                                         </tr>
+
                                     @endforeach
                                     </tbody>
                                 </table>
                             </div>
-                            {!! $sortedCollection->render() !!}
+                            {!! $shipment->render() !!}
 
                         </div>
                     </div>

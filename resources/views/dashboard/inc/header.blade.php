@@ -74,14 +74,11 @@
                     <div class="widget-content-wrapper">
                         <div class="widget-content-left">
                             <div class="btn-group">
-                                <a class="p-0 btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="p-0 btn">
                                     <img width="42" height="42" class="rounded-circle" src="{{get_user_by_id(session('user-id'))->image==null? asset('images/user.png'):asset('storage/user/'.get_user_by_id(session('user-id'))->image)}}"
                                          alt="">
                                     {{get_user_by_id(session('user-id'))->first_name}}
                                 </a>
-                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                                    <button type="button" tabindex="0" class="dropdown-item">Log out</button>
-                                </div>
                             </div>
                         </div>
                     </div>

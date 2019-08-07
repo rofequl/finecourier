@@ -17,22 +17,40 @@
                         <div class="x_content">
                             <div class="row">
                                 <div class="col-12">
-                                    @if($shipment->status == 5)
-                                        <a href="{{route('AdminShipmentBlock','approve='.base64_encode($shipment->id))}}"
-                                           class="btn btn-primary pull-right"
+                                    @if($shipment->block == 1)
+                                        <a href="{{route('AdminShipmentBlock','unblock='.base64_encode($shipment->id))}}"
+                                           class="btn btn-success pull-right"
                                            data-toggle="tooltip"
-                                           data-placement="top" title=""
-                                           data-original-title="You can approve shipment again">Approve</a>
+                                           data-placement="top"
+                                           data-original-title="Shipment Approve"><i
+                                                class="mdi mdi-block-helper"></i> Approve
+                                        </a>
                                     @else
                                         <a href="{{route('AdminShipmentBlock','block='.base64_encode($shipment->id))}}"
-                                           class="btn btn-danger pull-right" style="" data-toggle="tooltip"
-                                           data-placement="top" title=""
-                                           data-original-title="You can block this shipment"><i class="mdi mdi-block-helper"></i> Reject</a>
+                                           class="btn btn-danger pull-right"
+                                           data-toggle="tooltip"
+                                           data-placement="top"
+                                           data-original-title="Shipment rejected"><i
+                                                class="mdi mdi-block-helper"></i> Reject
+                                        </a>
                                     @endif
+                                    <button class="btn btn-warning pull-right status"
+                                            data-toggle="tooltip"
+                                            data-placement="top"
+                                            data-original-title="Shipment Status update"><i
+                                            class="mdi mdi-comment-question-outline"></i> Status
+                                    </button>
                                     <button class="btn btn-warning pull-right send-mail"
                                             data-toggle="tooltip"
                                             data-placement="top"
-                                            data-original-title="Send mail Shipper"><i class="mdi mdi-email"></i> Send Email
+                                            data-original-title="Send mail Shipper"><i class="mdi mdi-email"></i> Send
+                                        Email
+                                    </button>
+                                    <button class="btn btn-warning pull-right driver-assign"
+                                            data-toggle="tooltip"
+                                            data-placement="top"
+                                            data-original-title="Driver assign by shipment"><i
+                                            class="mdi mdi-truck-fast"></i> Driver Assign
                                     </button>
                                 </div>
                                 <div class="col-12">
@@ -229,7 +247,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!--Mail Modal -->
     <div id="myModal" class="modal fade bs-example-modal-lg" role="dialog">
         <div class="modal-dialog modal-lg">
 
@@ -253,7 +271,8 @@
                                 </div>
                                 <div class="col-xs-12 form-group has-feedback">
                                     <label for="code">Subject:</label>
-                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Message subject">
+                                    <input type="text" class="form-control" name="subject" id="subject"
+                                           placeholder="Message subject">
                                 </div>
                                 <div class="col-xs-12">
                                     <label for="language">Message:</label>
@@ -287,14 +306,150 @@
         </div>
     </div>
 
+    <!--Driver Modal -->
+    <div id="myModal2" class="modal fade bs-example-modal-lg" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>Driver Assign by Shipment</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <br>
+                            <form id="upload_form2" method="post">
+                                {{csrf_field()}}
+                                <input type="hidden" value="{{$shipment->id}}" name="id">
+                                <div class="col-xs-12 form-group has-feedback">
+                                    <label for="code">Driver:</label>
+                                    <select class="select2_single" name="driver"
+                                            id="driver_id">
+                                        <option></option>
+                                        @foreach($driver as $drivers)
+                                            @if($drivers->driver_id == $shipment->driver)
+                                                <option value="{{$drivers->driver_id}}"
+                                                        selected>{{$drivers->driver_id.' ('.$drivers->first_name.' '.$drivers->last_name.')'}}</option>
+                                            @else
+                                                <option
+                                                    value="{{$drivers->driver_id}}">{{$drivers->driver_id.' ('.$drivers->first_name.' '.$drivers->last_name.')'}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <hr>
+                                <div class="col-md-12 form-group has-feedback" style="margin-top: 10px">
+                                    <button type="submit" class="btn btn-success pull-right send-button"
+                                            id="load"
+                                            data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing"><i
+                                            class="mdi mdi-truck-fast m-r-3"></i>Driver Assign
+                                    </button>
+                                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">
+                                        <i class="mdi mdi-cancel m-r-3"></i>Cancel
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--Status Modal -->
+    <div id="myModal3" class="modal fade bs-example-modal-lg" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>Shipment Status Update</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <br>
+                            <form id="upload_form3" method="post">
+                                {{csrf_field()}}
+                                <input type="hidden" value="{{$shipment->tracking_code}}" name="tracking_code">
+                                <div class="col-xs-12 form-group has-feedback">
+                                    <label for="code">Shipment Status:</label>
+                                    <select class="select2_single" name="status"
+                                            id="driver_id">
+                                        <option></option>
+                                        <option value="1" {{$shipment->status==1?'selected':''}}>Label Create
+                                            ({{$shipment->created_at->format('d M, Y')}})
+                                        </option>
+                                        <option value="2" {{$shipment->status==2?'selected':''}}>
+                                            Picked {{get_shipment_status($shipment->tracking_code, 2)? '('.get_shipment_status($shipment->tracking_code, 2)->time.')':''}}</option>
+                                        <option value="3" {{$shipment->status==3?'selected':''}}>
+                                            Dispatch Center {{get_shipment_status($shipment->tracking_code, 3)? '('.get_shipment_status($shipment->tracking_code, 3)->time.')':''}}</option>
+                                        <option value="4" {{$shipment->status==4?'selected':''}}>
+                                            In Transit {{get_shipment_status($shipment->tracking_code, 4)? '('.get_shipment_status($shipment->tracking_code, 4)->time.')':''}}</option>
+                                        <option value="5" {{$shipment->status==5?'selected':''}}>
+                                            Out for Delivery {{get_shipment_status($shipment->tracking_code, 5)? '('.get_shipment_status($shipment->tracking_code, 5)->time.')':''}}</option>
+                                        <option value="6" {{$shipment->status==6?'selected':''}}>
+                                            Delivered {{get_shipment_status($shipment->tracking_code, 6)? '('.get_shipment_status($shipment->tracking_code, 6)->time.')':''}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-12 form-group">
+                                    <label for="code">Date:</label>
+                                    <div class='input-group date' id='myDatepicker4'>
+                                        <input type='text' name="time" class="form-control" readonly="readonly"/>
+                                        <span class="input-group-addon">
+                                           <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 form-group has-feedback">
+                                    <label for="code">Location:</label>
+                                    <input type="text" placeholder="Enter the location" class="form-control"
+                                           name="location">
+                                </div>
+                                <hr>
+                                <div class="col-md-12 form-group has-feedback" style="margin-top: 10px">
+                                    <button type="submit" class="btn btn-success pull-right send-button"
+                                            id="load"
+                                            data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing"><i
+                                            class="mdi mdi-comment-question-outline m-r-3"></i>Update Status
+                                    </button>
+                                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">
+                                        <i class="mdi mdi-cancel m-r-3"></i>Cancel
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
 @endsection
 
 @push('style')
     <link href="{{asset('assets/vendors/sweetalert/sweetalert.css')}}" rel="stylesheet"/>
     <script src="{{asset('assets/vendors/ckeditor/ckeditor.js')}}"></script>
+    <!-- bootstrap-datetimepicker -->
+    <link href="{{asset('assets/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css')}}"
+          rel="stylesheet">
 @endpush
 
 @push('scripts')
+    <!-- bootstrap-datetimepicker -->
+    <script
+        src="{{asset('assets/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
     <script src="{{asset('assets/vendors/sweetalert/sweetalert.js')}}"></script>
     <script>
         $(document).ready(function () {
@@ -311,6 +466,14 @@
             $(document).on('click', '.send-mail', function () {
                 $('#myModal').modal('show');
                 $("#upload_form").trigger("reset");
+            });
+
+            $(document).on('click', '.driver-assign', function () {
+                $('#myModal2').modal('show');
+            });
+
+            $(document).on('click', '.status', function () {
+                $('#myModal3').modal('show');
             });
 
             $('#upload_form').on('submit', function () {
@@ -350,7 +513,7 @@
                         }
                     },
                     success: function (data) {
-                        if(data == 1){
+                        if (data == 1) {
                             $('.send-button').button('reset');
                             $('#myModal').modal('hide');
                             swal({
@@ -365,6 +528,123 @@
                 });
             });
 
+            $('#upload_form2').on('submit', function () {
+                event.preventDefault();
+                let form = new FormData(this);
+                $('.send-button').button('loading');
+                $.ajax({
+                    url: "{{ route('AdminShipmentDriver') }}",
+                    method: "POST",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form,
+                    dataType: 'json',
+                    error: function (data) {
+                        if (data.status === 422) {
+                            var errors = $.parseJSON(data.responseText);
+                            let allData = '', mainData = '';
+                            $.each(errors, function (key, value) {
+                                if ($.isPlainObject(value)) {
+                                    $.each(value, function (key, value) {
+                                        allData += value + "<br/>";
+                                    });
+                                } else {
+                                    mainData += value + "<br/>";
+                                }
+                            });
+                            $('.send-button').button('reset');
+                            swal({
+                                title: mainData,
+                                text: allData,
+                                type: 'error',
+                                html: true,
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    },
+                    success: function (data) {
+                        if (data == 1) {
+                            $('.send-button').button('reset');
+                            $('#myModal2').modal('hide');
+                            swal({
+                                title: "Congratulation",
+                                text: "Successfully assign driver",
+                                type: 'success',
+                                html: true,
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    }
+                });
+            });
+
+            $('#upload_form3').on('submit', function () {
+                event.preventDefault();
+                let form = new FormData(this);
+                $('.send-button').button('loading');
+                $.ajax({
+                    url: "{{ route('AdminShipmentStatus') }}",
+                    method: "POST",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form,
+                    dataType: 'json',
+                    error: function (data) {
+                        if (data.status === 422) {
+                            var errors = $.parseJSON(data.responseText);
+                            let allData = '', mainData = '';
+                            $.each(errors, function (key, value) {
+                                if ($.isPlainObject(value)) {
+                                    $.each(value, function (key, value) {
+                                        allData += value + "<br/>";
+                                    });
+                                } else {
+                                    mainData += value + "<br/>";
+                                }
+                            });
+                            $('.send-button').button('reset');
+                            swal({
+                                title: mainData,
+                                text: allData,
+                                type: 'error',
+                                html: true,
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    },
+                    success: function (data) {
+                        if (data == 1) {
+                            $('.send-button').button('reset');
+                            $('#myModal2').modal('hide');
+                            swal({
+                                title: "Congratulation",
+                                text: "Shipment status update",
+                                type: 'success',
+                                html: true,
+                                confirmButtonText: 'Ok'
+                            })
+                        } else if (data.error) {
+                            $('.send-button').button('reset');
+                            swal({
+                                title: "Error",
+                                text: data.error,
+                                type: 'warning',
+                                html: true,
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    }
+                });
+            });
+
+        });
+
+        $('#myDatepicker4').datetimepicker({
+            ignoreReadonly: true,
+            allowInputToggle: true,
+            defaultDate: new Date()
         });
     </script>
 

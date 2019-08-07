@@ -48,12 +48,20 @@ Route::get('/quote', function () { $title = 'Request Quote'; return view('quote'
 
 Route::get('/single_news', function () { $title = 'News Details'; return view('single_news',compact('title'));})->name('single_news');
 
+Route::get('shipment-label/{data}', 'QuotationController@ShipmentLabel')->name('ShipmentLabel');
+
 Route::group(['middleware' => 'CheckUser'], function () {
 
     Route::get('/dashboard', 'UserController@dashboard')->name('dashboard');
 
     Route::get('/profile', 'UserController@profile')->name('profile');
+    Route::get('/profile-edit', 'UserController@ProfileEdit')->name('ProfileEdit');
     Route::post('/profile-update', 'UserController@ProfileUpdate')->name('ProfileUpdate');
+
+    Route::get('/account', 'UserController@account')->name('account');
+    Route::post('/change-email', 'UserController@ChangeMail')->name('ChangeMail');
+    Route::post('/change-password', 'UserController@ChangePassword')->name('ChangePassword');
+
 
     Route::get('/address', 'UserController@address')->name('address');
     Route::post('select-address-id', 'UserController@SelectAddressId')->name('SelectAddressId');
@@ -71,8 +79,6 @@ Route::group(['middleware' => 'CheckUser'], function () {
     Route::get('prepare-shipment-view', 'QuotationController@PrepareShipmentView')->name('PrepareShipmentView');
     Route::post('prepare-shipment-done', 'QuotationController@PrepareShipmentDone')->name('PrepareShipmentDone');
 
-    Route::get('shipment-label/{data}', 'QuotationController@ShipmentLabel')->name('ShipmentLabel');
-
 
 });
 
@@ -89,12 +95,18 @@ Route::post('select-country-code', 'ShippingpriceController@SelectCountryCode')-
 Route::get('admin-login', function () {return view('admin.login');});
 Route::post('/admin-login-check', 'AdminController@LoginCheck')->name('AdminLoginCheck');
 Route::get('/AdminLogout', 'AdminController@Logout')->name('AdminLogout');
-Route::post('/admin-user-register', 'AdminController@AdminRegister')->name('AdminUserRegister');
 
 Route::group(['middleware' => 'CheckAdmin'], function () {
 
-
+    Route::post('/admin-user-register', 'AdminController@AdminRegister')->name('AdminUserRegister');
     Route::get('/admin', 'AdminController@index')->name('admin');
+    Route::get('/admin-profile', 'AdminController@profile')->name('admin.profile');
+    Route::get('/admin-single-profile', 'AdminController@AdminSingleProfile')->name('AdminSingleProfile');
+    Route::post('/admin-single-profile', 'AdminController@AdminSingleProfilePost')->name('AdminSingleProfile');
+    Route::get('/admin-delete', 'AdminController@AdminDelete')->name('AdminDelete');
+    Route::post('/admin-password-change', 'AdminController@AdminPasswordChange')->name('AdminPasswordChange');
+
+
     Route::get('/basic-information', 'HomeController@BasicInformation')->name('BasicInformation');
     Route::post('/basic-information', 'HomeController@BasicInformationUpdate')->name('BasicInformationUpdate');
 
@@ -172,8 +184,10 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
 
     Route::get('/admin-shipment', 'ShippingpriceController@AdminShipment')->name('AdminShipment');
     Route::get('/admin-shipment-view', 'ShippingpriceController@AdminShipmentView')->name('AdminShipmentView');
+    Route::post('/admin-shipment-status', 'ShippingpriceController@AdminShipmentStatus')->name('AdminShipmentStatus');
     Route::get('/admin-shipment-block', 'ShippingpriceController@AdminShipmentBlock')->name('AdminShipmentBlock');
     Route::post('/admin-send-mail', 'ShippingpriceController@AdminSandMail')->name('AdminSandMail');
+    Route::post('/admin-shipment-driver', 'ShippingpriceController@AdminShipmentDriver')->name('AdminShipmentDriver');
 
     Route::get('/admin-booking-request', 'ShippingpriceController@AdminBookingRequest')->name('AdminBookingRequest');
     Route::get('/admin-booking-request-view', 'ShippingpriceController@AdminBookingRequestView')->name('AdminBookingRequestView');
@@ -184,11 +198,18 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::get('/admin-customer-list', 'CustomerController@AdminCustomerList')->name('AdminCustomerList');
     Route::post('/admin-customer-add', 'CustomerController@AdminCustomerAdd')->name('AdminCustomerAdd');
     Route::get('/admin-customer-view', 'CustomerController@AdminCustomerView')->name('AdminCustomerView');
+    Route::get('/admin-customer-block', 'CustomerController@AdminCustomerBlock')->name('AdminCustomerBlock');
+    Route::post('/admin-customer-password-change', 'CustomerController@AdminCustomerPasswordChange')->name('AdminCustomerPasswordChange');
+    Route::post('/admin-customer-update', 'CustomerController@AdminCustomerUpdate')->name('AdminCustomerUpdate');
 
     Route::get('/admin-manage-shipment-all', 'ShippingpriceController@AdminManageShipmentAll')->name('AdminManageShipmentAll');
+    Route::get('/admin-manage-shipment-pending', 'ShippingpriceController@AdminManageShipmentPending')->name('AdminManageShipmentPending');
+    Route::get('/admin-manage-shipment-reject', 'ShippingpriceController@AdminManageShipmentReject')->name('AdminManageShipmentReject');
+    Route::get('/admin-manage-shipment-delivered', 'ShippingpriceController@AdminManageShipmentDelivered')->name('AdminManageShipmentDelivered');
 
     Route::get('/admin-container', 'BookingController@AdminContainer')->name('AdminContainer');
     Route::get('/admin-container-get', 'BookingController@AdminContainerGet')->name('AdminContainerGet');
+    Route::get('/admin-container-single-get', 'BookingController@AdminContainerSingleGet')->name('AdminContainerSingleGet');
     Route::post('/admin-container-change', 'BookingController@AdminContainerChange')->name('AdminContainerChange');
     Route::post('/admin-container-add', 'BookingController@AdminContainerAdd')->name('AdminContainerAdd');
     Route::post('/admin-container-tracking-code', 'BookingController@AdminContainerTrackingCode')->name('AdminContainerTrackingCode');
@@ -196,16 +217,22 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
 
     Route::get('/admin-driver-list', 'CustomerController@AdminDriverList')->name('AdminDriverList');
     Route::post('/admin-driver-add', 'CustomerController@AdminDriverAdd')->name('AdminDriverAdd');
+    Route::get('/admin-driver-delete', 'CustomerController@AdminDriverDelete')->name('AdminDriverDelete');
 
     Route::get('/admin-container-driver', 'BookingController@AdminContainerDriver')->name('AdminContainerDriver');
     Route::get('/admin-container-driver-get', 'BookingController@AdminContainerDriverGet')->name('AdminContainerDriverGet');
     Route::post('/admin-container-driver-add', 'BookingController@AdminContainerDriverAdd')->name('AdminContainerDriverAdd');
+    Route::get('/admin-container-driver-delete', 'BookingController@AdminContainerDriverDelete')->name('AdminContainerDriverDelete');
     Route::post('/admin-container-container-code', 'BookingController@AdminContainerContainerCode')->name('AdminContainerContainerCode');
 
-    Route::get('/admin-pickup', 'BookingController@AdminPickup')->name('AdminPickup');
+    Route::get('/admin-payments', 'BookingController@AdminPickup')->name('AdminPickup');
     Route::post('/admin-pickup-get', 'BookingController@AdminPickupGet')->name('AdminPickupGet');
     Route::post('/admin-pickup-status', 'BookingController@AdminPickupStatus')->name('AdminPickupStatus');
     Route::post('/admin-pickup-payment-status', 'BookingController@AdminPickupPaymentStatus')->name('AdminPickupPaymentStatus');
+
+    Route::get('/admin-billing', 'BookingController@AdminBilling')->name('AdminBilling');
+
+
 });
 
 /*
@@ -222,7 +249,9 @@ Route::get('/driver-logout', 'DriverController@Logout')->name('DriverLogout');
 Route::group(['middleware' => 'CheckDriver'], function () {
 
     Route::get('/driver', 'DriverController@index')->name('driver');
-    Route::get('/driver-container', 'DriverController@DriverContainer')->name('DriverContainer');
 
+    Route::get('/driver-shipment', 'DriverController@DriverShipment')->name('DriverShipment');
+    Route::get('/driver-shipment-view', 'DriverController@DriverShipmentView')->name('DriverShipmentView');
+    Route::post('/driver-shipment-status', 'DriverController@DriverShipmentStatus')->name('DriverShipmentStatus');
 
 });

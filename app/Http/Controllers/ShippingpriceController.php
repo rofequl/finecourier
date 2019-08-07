@@ -6,8 +6,10 @@ use App\booking_shipment;
 use App\citie;
 use App\domestic_price;
 use App\country_manage;
+use App\driver;
 use App\international_price;
 use App\shipment;
+use App\shipment_status;
 use App\state;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -17,7 +19,7 @@ use MenaraSolutions\Geographer\City;
 use Session;
 use Mail;
 use MenaraSolutions\Geographer\Earth;
-use App\Country;
+use App\country;
 
 class ShippingpriceController extends Controller
 {
@@ -112,16 +114,14 @@ class ShippingpriceController extends Controller
 
     public function SelectState(Request $request)
     {
-        $earth = new Earth();
-        $earth = $earth->findOneByCode($request->id);
-        return json_encode($earth->getStates()->toArray());
+        $earth = state::where('country_code',$request->id)->get();
+        return json_encode($earth);
     }
 
     public function SelectCity(Request $request)
     {
-        $earth = new Earth();
-        $earth = $earth->findOneByCode($request->country);
-        return json_encode($earth->getStates()->find(['code' => $request->id])->first()->getCities()->toArray());
+        $earth = citie::where('country_code',$request->country)->where('state_code',$request->id)->get();
+        return json_encode($earth);
     }
 
     public function SelectCountryCode(Request $request)
@@ -177,13 +177,8 @@ class ShippingpriceController extends Controller
     public function AdminDomestic()
     {
         $earth = new Earth();
-        //$earth = Country::build('BD');
 
         $earth = $earth->getCountries(); //Get all Country
-        //$earth = $earth->findOneByCode('TH');  //Get one Country
-        //$earth = Country::build('BD');  //Get one Country
-        //$earth->getStates()->find(['code' => 1337179])->toArray() //Get Single State
-        //$earth->getStates()->find(['code' => 1337179])->first()->getCities()->toArray() //Get all city
         $data = domestic_price::all();
         return view('admin.shipping_price.domestic', compact('data', 'earth'));
     }
@@ -236,33 +231,99 @@ class ShippingpriceController extends Controller
         }
     }
 
-    public function AdminShipment()
+    public function AdminShipment(Request $request)
     {
-        $shipping = shipment::orderBy('id', 'DESC')->paginate(15);
-        return view('admin.shipment.shipment', compact('shipping'));
+        if ($request->type && base64_decode($request->type) == 2){
+            $change = 2;
+            $shipping = shipment::orderBy('id', 'DESC')->where('shipment',base64_decode($request->type))->where('status','!=',0)->paginate(15);
+        }else{
+            $change = 1;
+            $shipping = shipment::orderBy('id', 'DESC')->where('shipment',1)->where('status','!=',0)->paginate(15);
+        }
+        return view('admin.shipment.shipment', compact('shipping','change'));
     }
 
     public function AdminShipmentView(Request $request)
     {
+        $driver = driver::all();
         $shipment = shipment::find(base64_decode($request->data));
-        return view('admin.shipment.shipment_view', compact('shipment'));
+        return view('admin.shipment.shipment_view', compact('shipment','driver'));
+    }
+
+    public function AdminShipmentDriver(Request $request)
+    {
+        $request->validate([
+            'driver' => 'required',
+        ]);
+
+        $insert = shipment::find($request->id);
+        $insert->driver = $request->driver;
+        $insert->save();
+        return 1;
+    }
+
+    public function AdminShipmentStatus(Request $request)
+    {
+        //dd($request->all());
+        $status = shipment_status::where('tracking_code',$request->tracking_code)->where('status',$request->status)->first();
+        if ($status){
+            $status->time = $request->time;
+            $status->location = $request->location;
+            $status->save();
+
+            return 1;
+        }elseif($request->status == 1){
+            $message = array(
+                'error' => 'This status already used for this shipment.',
+            );
+            return json_encode($message);
+        }else{
+            $insert = new shipment_status();
+            $insert->tracking_code = $request->tracking_code;
+            $insert->status = $request->status;
+            $insert->time = $request->time;
+            $insert->location = $request->location;
+            if ($request->status == 2){
+                $insert->name = 'Picked';
+            }elseif ($request->status == 3){
+                $insert->name = 'Dispatch Center';
+            }elseif ($request->status == 4){
+                $insert->name = 'In Transit';
+            }elseif ($request->status == 5){
+                $insert->name = 'Out for Delivery';
+            }elseif ($request->status == 6){
+                $insert->name = 'Delivered';
+            }
+            $insert->save();
+
+            $shipment = shipment::where('tracking_code',$request->tracking_code)->first();
+            $shipment->status = $request->status;
+            $shipment->save();
+
+            return 1;
+        }
     }
 
     public function AdminShipmentBlock(Request $request)
     {
-        if ($request->block) {
-            $data = shipment::find(base64_decode($request->block));
-            $data->status = 5;
-            $data->save();
-            Session::flash('message', 'Shipment has been rejected');
+
+        if ($request->block){
+            $insert = shipment::find(base64_decode($request->block));
+            $insert->block = 1;
+            $insert->save();
+            Session::flash('message', 'This shipment reject');
             return redirect()->back();
-        } elseif ($request->approve) {
-            $data = shipment::find(base64_decode($request->approve));
-            $data->status = 1;
-            $data->save();
-            Session::flash('message', 'Shipment has been Approve');
+        }elseif ($request->unblock){
+            $insert = shipment::find(base64_decode($request->unblock));
+            $insert->block = 0;
+            $insert->save();
+            Session::flash('message', 'This shipment approve');
+            return redirect()->back();
+        }else{
+            Session::flash('message', 'Something wrong, try again later');
             return redirect()->back();
         }
+
     }
 
     public function AdminBookingRequest()
@@ -344,13 +405,29 @@ class ShippingpriceController extends Controller
 
     public function AdminManageShipmentAll()
     {
-        $shipment = shipment::all();
-        $booking = booking_shipment::all();
-        $collection = new \Illuminate\Support\Collection();
-        $sortedCollection = $collection->merge($shipment)->merge($booking)->sortBy('created_at');
-        $sortedCollection = $this->paginate($sortedCollection);
-        return view('admin.manage_shipment.all', compact('sortedCollection'));
+        $shipment = shipment::orderBy('id',"DESC")->where('status','!=',0)->paginate(15);
+        return view('admin.manage_shipment.all', compact('shipment'));
     }
+
+    public function AdminManageShipmentPending()
+    {
+        $shipment = shipment::whereIn('status',[1,2,3,4,5])->orderBy('id',"DESC")->where('block',0)->paginate(15);
+        return view('admin.manage_shipment.panding', compact('shipment'));
+    }
+
+    public function AdminManageShipmentReject()
+    {
+        $shipment = shipment::where('block',1)->orderBy('id',"DESC")->paginate(15);
+        return view('admin.manage_shipment.reject', compact('shipment'));
+    }
+
+    public function AdminManageShipmentDelivered()
+    {
+        $shipment = shipment::where('status',6)->where('block',0)->orderBy('id',"DESC")->paginate(15);
+        return view('admin.manage_shipment.delivered', compact('shipment'));
+    }
+
+
 
     public function paginate($items, $perPage = 2, $page = null, $baseUrl = 'admin-manage-shipment-all', $options = [])
     {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\address;
 use App\booking_shipment;
 use App\comment;
 use App\contact;
@@ -148,11 +149,11 @@ class FrontendController extends Controller
         $title = 'Track & Trace';
         $track = shipment::where('tracking_code',$request->track)->first();
         if ($track){
-            return view('track_trace',compact('track','title'));
+            return view('track_trace2',compact('track','title'));
         }else{
             $track = booking_shipment::where('tracking_code',$request->track)->first();
             if ($track){
-                return view('track_trace',compact('track','title'));
+                return view('track_trace2',compact('track','title'));
             }else{
                 $none = '';
                 return view('track_trace',compact('none','title'));
@@ -227,6 +228,22 @@ class FrontendController extends Controller
         $register_user->placeName = $request->placeName;
         $register_user->password = Hash::make($request->password);
         $register_user->save();
+
+        $insert = new address();
+        $insert->name = $request->first_name.' '.$request->last_name;
+        $insert->country = $request->country;
+        $insert->address_type = 1;
+        $insert->post_code = $request->post_code;
+        $insert->city = $request->city;
+        $insert->state = $request->state;
+        $insert->phone_one = $request->phone;
+        $insert->address_one = get_city_name_by_code($request->country,$request->state,$request->city)->name.', '.
+            get_state_name_by_code($request->country,$request->state)->name.', '.get_country_name_by_code($request->country)->name.
+        ', '.$request->post_code;
+        $insert->email = $request->email;
+        $insert->user_id = $register_user->id;
+        $insert->save();
+
         Session::put('user-email', $request->email);
         Session::put('user-id', $register_user->id);
         return redirect('/dashboard');

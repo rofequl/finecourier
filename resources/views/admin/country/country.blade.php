@@ -72,7 +72,7 @@
                         </div>
                         <div class="x_content">
                             <br>
-                            <form id="upload_form" method="post" class="form-horizontal form-label-left input_mask">
+                            <form id="upload_form" autocomplete="off" method="post" class="form-horizontal form-label-left input_mask">
                                 {{csrf_field()}}
                                 <input type="hidden" value="" name="id" id="country_id">
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -268,6 +268,7 @@
             $(document).on('click', '.add-country', function () {
                $('#myModal').modal('show');
                $('.modal-header').html('Country Information Add');
+                $('#code').prop('readonly', false);
                 $('#country_id').val('');
                 $("#upload_form").trigger("reset");
             });
@@ -392,6 +393,7 @@
             $(document).on('click', '.edit-country', function () {
                 $('#myModal').modal('show');
                 $('.modal-header').html('Country Information Update');
+                $('#code').prop('readonly', true);
                 $("#upload_form").trigger("reset");
                 let id = $(this).attr('id');
                 $.ajax({

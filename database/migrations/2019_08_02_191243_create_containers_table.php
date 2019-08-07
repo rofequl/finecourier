@@ -16,8 +16,7 @@ class CreateContainersTable extends Migration
         Schema::create('containers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->text('tracking_code');
-            $table->string('code');
+            $table->string('container_number');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

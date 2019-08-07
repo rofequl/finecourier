@@ -1,4 +1,5 @@
 @extends('dashboard.layout.app')
+@section('pageTitle','Confirm Shipment')
 @section('content')
 
     <div class="app-page-title">
@@ -200,7 +201,7 @@
 @endpush
 
 @push('scripts')
-
+    <script src="{{asset('assets/scripts/bootstrap4.js')}}"></script>
     <!-- Large modal -->
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
          aria-hidden="true">
@@ -270,7 +271,7 @@
                         <div class="form-row">
                             <div class="col-md-6">
                                 <div class="position-relative form-group">
-                                    <label for="FromState" class="">City*</label>
+                                    <label for="FromState" class="">State*</label>
                                     <select class="form-control select2" id="FromState" name="state">
                                         <option value="">Select State</option>
                                     </select>
@@ -278,7 +279,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="position-relative form-group">
-                                    <label for="FromCity" class="">State*</label>
+                                    <label for="FromCity" class="">City*</label>
                                     <select class="form-control select2" id="FromCity" name="city">
                                         <option value="">Select City</option>
                                     </select>
@@ -332,6 +333,7 @@
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         onload_biller();
         $('.AddBillingAddress').click(function () {
+            $("#address_upload").trigger("reset");
             $('#exampleModalLongTitle').html('Add New Billing Address');
             $('#address_type').val(3).prop("disabled", true);
             $('.bd-example-modal-lg').modal('show');
@@ -341,16 +343,26 @@
             $.ajax({
                 url: "{{ route('SelectAddressAll') }}",
                 type: 'post',
-                data: {_token: CSRF_TOKEN, id: 3},
+                data: {_token: CSRF_TOKEN, id: 3,user_id: '{{session('user-id')}}'},
                 dataType: 'json',
                 success: function (data) {
                     $('#biller_address').html('');
-                    $('#biller_address').append($('<option>', {value: '', text: 'Select Billing Address'}));
                     data.forEach(function (element) {
                         $('#biller_address').append($('<option>', {
                             value: element.id,
                             text: element.name + ' (' + element.post_code + ')'
                         }));
+                    });
+                    let id = $("#biller_address option:first").val();
+                    $.ajax({
+                        url: "{{ route('SelectAddress') }}",
+                        type: 'post',
+                        data: {_token: CSRF_TOKEN, id: id},
+                        dataType: 'json',
+                        success: function (data) {
+                            $('.biller_address_name').text(data.name);
+                            $('.biller_address_info').text(data.name + ' from will be shipping this shipment from ' + data.address_one);
+                        }
                     });
                 }
             });

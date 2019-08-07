@@ -3,7 +3,36 @@
 @section('content')
 
     <div class="right_col" role="main" style="min-height: 1962px;">
-
+        <div class="row top_tiles">
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                    <div class="icon"><i class="fa mdi mdi-cube-send"></i></div>
+                    <div class="count">{{$shipment_count}}</div>
+                    <h3>Shipment</h3>
+                </div>
+            </div>
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-user"></i></div>
+                    <div class="count">{{$shipment_dispatch}}</div>
+                    <h3>Dispatch Center</h3>
+                </div>
+            </div>
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                    <div class="icon"><i class="fa mdi mdi-package-variant"></i></div>
+                    <div class="count">{{$shipment_transit}}</div>
+                    <h3>In Transit</h3>
+                </div>
+            </div>
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                    <div class="icon"><i class="fa mdi mdi-package-variant-closed"></i></div>
+                    <div class="count">{{$shipment_delivered}}</div>
+                    <h3>Delivered</h3>
+                </div>
+            </div>
+        </div>
 
     </div>
 

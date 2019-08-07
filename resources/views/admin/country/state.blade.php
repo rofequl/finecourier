@@ -192,6 +192,7 @@
             $(document).on('click', '.add-country', function () {
                 $('#myModal').modal('show');
                 $('.modal-header').html('State Information Add');
+                $('#code').prop('readonly', false);
                 $('#state_id').val('');
                 $("#upload_form").trigger("reset");
             });
@@ -316,6 +317,7 @@
             $(document).on('click', '.edit-country', function () {
                 $('#myModal').modal('show');
                 $('.modal-header').html('State Information Update');
+                $('#code').prop('readonly', true);
                 $("#upload_form").trigger("reset");
                 let id = $(this).attr('id');
                 $.ajax({

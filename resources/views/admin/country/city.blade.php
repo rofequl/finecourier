@@ -220,6 +220,7 @@
             $(document).on('click', '.add-city', function () {
                 $('#myModal').modal('show');
                 $('.modal-header').html('City Information Add');
+                $('#code').prop('readonly', false);
                 $('#city_id').val('');
                 $("#upload_form").trigger("reset");
             });
@@ -344,6 +345,7 @@
             $(document).on('click', '.edit-city', function () {
                 $('#myModal').modal('show');
                 $('.modal-header').html('City Information Update');
+                $('#code').prop('readonly', true);
                 $("#upload_form").trigger("reset");
                 let id = $(this).attr('id');
                 $.ajax({

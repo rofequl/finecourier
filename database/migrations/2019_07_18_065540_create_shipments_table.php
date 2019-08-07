@@ -39,6 +39,8 @@ class CreateShipmentsTable extends Migration
             $table->string('user_id');
             $table->string('payment_status')->default(0);
             $table->string('status')->default(0);
+            $table->string('block')->default(0);
+            $table->string('driver')->nullable();
             $table->timestamps();
         });
     }

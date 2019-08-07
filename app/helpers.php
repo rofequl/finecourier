@@ -3,10 +3,12 @@
 use App\basic_information;
 use App\citie;
 use App\contact;
+use App\container;
 use App\country_manage;
 use App\driver;
 use App\our_inmormation;
 use App\service;
+use App\shipment_status;
 use App\state;
 use App\user;
 use App\address;
@@ -94,6 +96,44 @@ function get_driver_by_id($data)
     }
 }
 
+function get_driver_by_code($data)
+{
+    $data = driver::where('driver_id',$data)->first();
+    if ($data) {
+        return $data;
+    } else {
+        return false;
+    }
+}
+
+function get_container_by_code($data)
+{
+    $data = container::where('container_number',$data)->first();
+    if ($data) {
+        return $data;
+    } else {
+        return false;
+    }
+}
+
 function get_address_by_id($data){
     return address::find($data);
+}
+
+function get_shipment_status($tracking_code, $status=false){
+    if ($status){
+        $shipment = shipment_status::where('tracking_code',$tracking_code)->where('status',$status)->first();
+        if ($shipment){
+            return $shipment;
+        }else{
+            return false;
+        }
+    }else{
+        $shipment = shipment_status::where('tracking_code',$tracking_code)->orderBy('time','DESC')->get();
+        if ($shipment->count() > 0){
+            return $shipment;
+        }else{
+            return false;
+        }
+    }
 }

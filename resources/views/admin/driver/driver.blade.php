@@ -10,7 +10,7 @@
                 <div class="title_right">
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                         <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
-                            <i class="fa fa-user-plus fs-13 m-r-3"></i> Create new Driver
+                            <i class="fa fa-user-plus fs-13 m-r-3"></i> Add Driver
                         </button>
                     </div>
                 </div>
@@ -39,36 +39,37 @@
                                    class="table table-striped table-bordered dataTable no-footer dtr-inline">
                                 <thead>
                                 <tr class="bg-dark">
-                                    <th>Driver Id</th>
-                                    <th>Image</th>
+                                    <th>Sl.</th>
                                     <th>Name</th>
+                                    <th>Driver Id</th>
                                     <th>Phone</th>
                                     <th>Email</th>
-                                    <th>Status</th>
+                                    <th>Image</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @php $no = 1 @endphp
                                 @foreach($user as $users)
 
                                     <tr>
+                                        <th scope="row">{{$no}}</th>
+                                        <th scope="row">{{$users['first_name']}} {{$users['last_name']}}</th>
                                         <th scope="row">{{$users['driver_id']}}</th>
+                                        <th scope="row">{{$users['phone']}}</th>
+                                        <th scope="row">{{$users['email']}}</th>
                                         <th scope="row"><img width="42" height="42" class="img-thumbnail img-fluid"
                                                              src="{{$users->image==null? asset('images/user.png'):asset('storage/user/'.$users->image)}}"
                                                              alt=""></th>
-                                        <th scope="row">{{$users['first_name']}} {{$users['last_name']}}</th>
-                                        <th scope="row">{{$users['phone']}}</th>
-                                        <th scope="row">{{$users['email']}}</th>
                                         <th scope="row">
-                                            @if($users->status==1)
-                                                <span class="label label-success">Registerd</span>
-                                            @elseif($users->status==1)
-                                                <span class="label label-success">Block</span>
-                                            @else
-                                                <span class="label label-success">{{$users->created_at->diffForHumans()}}</span>
-                                            @endif
+                                            <div class="btn-group  btn-group-sm">
+                                                <button
+                                                    href="{{route('AdminContainerDriverDelete','delete='.base64_encode($users->id))}}"
+                                                    class="btn btn-success delete" type="button"><i class="mdi mdi-delete m-r-3"></i>Delete</button>
+                                            </div>
                                         </th>
                                     </tr>
-
+                                    @php $no++ @endphp
                                 @endforeach
                                 </tbody>
                             </table>
@@ -279,6 +280,17 @@
                 client.send();
             }
         });
-
+        $('.delete').click(function (e) {
+            e.preventDefault(); // Prevent the href from redirecting directly
+            var linkURL = $(this).attr("href");
+            swal({
+                title: "Sure want to remove?",
+                text: "If you click 'OK' file will be remove",
+                type: "warning",
+                showCancelButton: true
+            }, function () { // Redirect the user | linkURL is href url
+                window.location.href = linkURL;
+            });
+        });
     </script>
 @endpush

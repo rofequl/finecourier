@@ -54,7 +54,7 @@
                                     <tr>
                                         <th scope="row">{{$users['user_id']}}</th>
                                         <th scope="row"><img width="42" height="42" class="img-thumbnail img-fluid"
-                                                             src="{{get_user_by_id($users->id)==null? asset('images/user.png'):asset('storage/user/'.get_user_by_id($users->id)->image)}}"
+                                                             src="{{get_user_by_id($users->id)->image == null? asset('images/user.png'):asset('storage/user/'.get_user_by_id($users->id)->image)}}"
                                                              alt=""></th>
                                         <th scope="row">{{$users['first_name']}} {{$users['last_name']}}</th>
                                         <th scope="row">{{$users['phone']}}</th>

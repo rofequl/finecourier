@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\booking_shipment;
 use App\container;
+use App\driver;
 use App\driver_container;
 use App\payment;
 use App\shipment;
 use Illuminate\Http\Request;
 use DataTables;
+use Session;
+use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
@@ -19,7 +22,9 @@ class BookingController extends Controller
 
     public function AdminContainerGet()
     {
-        return DataTables::of(container::all())->addColumn('action', function ($country) {
+        $count = container::all()->count() + 1;
+        DB::statement(DB::raw("set @rownum=$count"));
+        return DataTables::of(container::get(['*',DB::raw('@rownum  := @rownum  - 1 AS rownum')]))->addColumn('action', function ($country) {
             return '
             <div class="btn-group  btn-group-sm">
                         <button class="btn btn-success edit-country" id="' . $country->id . '" type="button"><i class="mdi mdi-table-edit m-r-3"></i>Edit</button>
@@ -32,52 +37,32 @@ class BookingController extends Controller
             } else {
                 return "<button type = 'button' id = '$country->id' class='btn btn-info btn-xs Change'> Inactive</button>";
             }
-        })->rawColumns(['status', 'action'])->make(true);
+        })->rawColumns(['status', 'action'])->addIndexColumn()->make(true);
+    }
+
+    public function AdminContainerSingleGet(Request $request)
+    {
+        return container::where('id', $request->id)->first();
     }
 
     public function AdminContainerAdd(Request $request)
     {
+        //dd($request->all());
         $this->validate($request, [
-            'name' => 'Required|max:191',
-            'tracking_code' => 'Required',
+            'name' => 'Required',
+            'container_number' => 'Required|max:191|unique:containers,container_number,'. $request->id,
         ]);
 
-        $error = '';
-
-        $array = explode(",", $request->tracking_code);
-        foreach ($array as $arraydatas) {
-            $track = shipment::where('tracking_code', $arraydatas)->first();
-            if (!$track) {
-                $track = booking_shipment::where('tracking_code', $arraydatas)->first();
-                if (!$track) {
-                    $error .= $arraydatas . ',';
-                }
-            }
-        }
-        if ($error == '') {
+        if ($request->id == '') {
             $insert = new container();
-            $insert->name = $request->name;
-            $insert->tracking_code = $request->tracking_code;
-            $insert->code = 'CC' . rand(100, 999) . time();
-            $insert->save();
-
-            $arraydata = explode(",", $request->tracking_code);
-            foreach ($arraydata as $arraydatas) {
-                $track = shipment::where('tracking_code', $arraydatas)->first();
-                if ($track) {
-                    $track->status = 3;
-                    $track->save();
-                } else {
-                    $track = booking_shipment::where('tracking_code', $arraydatas)->first();
-                    $track->status = 3;
-                    $track->save();
-                }
-            }
-
-            return 1;
-        } else {
-            return $error;
+        }else{
+            $insert = container::find($request->id);
         }
+        $insert->name = $request->name;
+        $insert->container_number = $request->container_number;
+        $insert->save();
+
+        return 1;
     }
 
     public function AdminContainerTrackingCode(Request $request)
@@ -126,7 +111,23 @@ class BookingController extends Controller
 
     public function AdminContainerDriver()
     {
-        return view("admin.driver.container_driver");
+        $driver = driver::all();
+        $container = container::where('status',1)->get();
+        $data = driver_container::all();
+        return view("admin.driver.container_driver",compact('driver','container','data'));
+    }
+
+    public function AdminContainerDriverDelete(Request $request){
+
+        if ($request->delete) {
+            $data = driver_container::find(base64_decode($request->delete));
+            $data->delete();
+            Session::flash('message', 'Driver by Container delete successfully');
+            return redirect('admin-container-driver');
+        } else {
+            echo "Something is wrong";
+        }
+
     }
 
     public function AdminContainerDriverGet()
@@ -150,7 +151,7 @@ class BookingController extends Controller
     public function AdminContainerDriverAdd(Request $request)
     {
         $this->validate($request, [
-            'driver_id' => 'Required|max:191',
+            'driver_id' => 'Required',
             'container_code' => 'Required',
         ]);
         $insert = new driver_container();
@@ -159,24 +160,14 @@ class BookingController extends Controller
         $insert->code = 'DC' . rand(100, 999) . time();
         $insert->save();
 
-        return 1;
+        Session::flash('message', 'Driver by Container add successfully');
+        return redirect('admin-container-driver');
     }
 
-    public function AdminContainerContainerCode(Request $request)
-    {
-        $track = container::where('code', 'LIKE', "%$request->id%")->get();
-        $data = array();
-        if ($track->count() > 0) {
-            foreach ($track as $tracks) {
-                $data[] = $tracks->code;
-            }
-        }
-        return json_encode($data);
-    }
 
     public function AdminPickup()
     {
-        return view("admin.pickup");
+        return view("admin.transaction.pickup");
     }
 
     public function AdminPickupGet(Request $request)
@@ -274,5 +265,16 @@ class BookingController extends Controller
                 $payment->delete();
             }
         }
+    }
+
+    public function AdminBilling(Request $request)
+    {
+        $shipment_count = shipment::all()->count();
+        $user_count = shipment::all()->count();
+        $delivered_count = shipment::where('status',5)->get()->count();
+        $container_count = container::all()->count();
+        $shipment = shipment::orderBy('id','DESC')->paginate(15);
+        return view('admin.transaction.billing',compact('shipment','shipment_count','delivered_count',
+            'user_count','container_count'));
     }
 }

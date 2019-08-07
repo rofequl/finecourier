@@ -6,6 +6,7 @@ use App\address;
 use App\shipment;
 use App\user;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use MenaraSolutions\Geographer\Earth;
 use MenaraSolutions\Geographer\Country;
 
@@ -13,16 +14,85 @@ class UserController extends Controller
 {
     public function dashboard()
     {
+        $total_shipment = shipment::where('user_id', session('user-id'))->get()->count();
+        $total_delivered = shipment::where('status',5)->where('user_id', session('user-id'))->get()->count();
+        $total_reject = shipment::where('status',6)->where('user_id', session('user-id'))->get()->count();
+
         $shipment = shipment::where('user_id', session('user-id'))->get();
-        return view('dashboard.index', compact('shipment'));
+        return view('dashboard.index', compact('shipment','total_shipment','total_delivered','total_reject'));
     }
 
     public function profile()
     {
+        $total_address = address::where('user_id', session('user-id'))->get()->count();
+        $total_shipment = shipment::where('user_id', session('user-id'))->get()->count();
+        $total_delivered = shipment::where('status',5)->where('user_id', session('user-id'))->get()->count();
+        $user = user::find(session('user-id'));
+        return view('dashboard.profile', compact('user','total_delivered','total_shipment','total_address'));
+    }
+
+    public function ProfileEdit()
+    {
         $earth = new Earth();
         $earth = $earth->getCountries()->toArray();
         $user = user::find(session('user-id'));
-        return view('dashboard.profile', compact('user', 'earth'));
+        return view('dashboard.profile2', compact('user', 'earth'));
+    }
+
+    public function account()
+    {
+        $user = user::find(session('user-id'));
+        return view('dashboard.account', compact('user'));
+    }
+
+    public function ChangeMail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|max:191',
+            'password' => 'required|max:20',
+        ]);
+
+        $admin = user::where('id', $request->id)->first();
+        if (!empty($admin)) {
+            if ($admin && Hash::check($request->password, $admin->password)) {
+                $admin->email = $request->email;
+                $admin->save();
+                $request->session()->flash('message', 'Email Change successfully');
+                return redirect('/account');
+            } else {
+                $request->session()->flash('message', 'Password not match');
+                return redirect('/account');
+            }
+        } else {
+            $request->session()->flash('message', 'Something wrong try again later');
+            return redirect('/account');
+        }
+
+    }
+
+    public function ChangePassword(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required|max:20',
+            'password' => 'required|max:20|confirmed',
+        ]);
+
+        $admin = user::where('id', $request->id)->first();
+        if (!empty($admin)) {
+            if ($admin && Hash::check($request->old_password, $admin->password)) {
+                $admin->password = Hash::make($request->password);
+                $admin->save();
+                $request->session()->flash('message', 'Password Change successfully');
+                return redirect('/account');
+            } else {
+                $request->session()->flash('message', 'Password not match');
+                return redirect('/account');
+            }
+        } else {
+            $request->session()->flash('message', 'Something wrong try again later');
+            return redirect('/account');
+        }
+
     }
 
     public function ProfileUpdate(Request $request)
@@ -164,7 +234,7 @@ class UserController extends Controller
 
     public function SelectAddressAll(Request $request)
     {
-        $address = address::where('address_type', $request->id)->get();
+        $address = address::where('address_type', $request->id)->where('user_id',$request->user_id)->get();
         return $address;
     }
 
