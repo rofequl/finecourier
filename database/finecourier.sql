@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 29, 2019 at 07:58 AM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.3.0
+-- Host: localhost:3306
+-- Generation Time: Aug 08, 2019 at 08:20 AM
+-- Server version: 5.6.41-84.1
+-- PHP Version: 7.2.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `finecourier`
+-- Database: `kajerkho_finecourier`
 --
 
 -- --------------------------------------------------------
@@ -39,7 +39,7 @@ CREATE TABLE `addresses` (
   `state` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone_one` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone_two` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address_one` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address_one` text COLLATE utf8mb4_unicode_ci,
   `address_two` text COLLATE utf8mb4_unicode_ci,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -52,9 +52,10 @@ CREATE TABLE `addresses` (
 --
 
 INSERT INTO `addresses` (`id`, `name`, `company`, `country`, `address_type`, `post_code`, `city`, `state`, `phone_one`, `phone_two`, `address_one`, `address_two`, `email`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'Nayem Islam', NULL, 'AF', 1, '1400', '1127110', '1127106', '1536131168', NULL, 'None', NULL, 'nayem@me.com', '1', '2019-07-26 22:18:30', '2019-07-26 22:18:30'),
-(2, 'Abul Kalam Azad', 'Mtlu', 'AL', 2, 'Aaa ae h  ht', '783263', '865732', '9623189889', NULL, 'Hminfmia', 'KUatoaya l ntgu', 'rilavofu@dokevmef.yt', '1', '2019-07-26 22:19:02', '2019-07-26 22:19:02'),
-(3, 'Nayem', NULL, 'AF', 3, '1400', '1139715', '1132366', '01536131168', NULL, 'None', NULL, 'nayem@me.com', '1', '2019-07-26 22:20:29', '2019-07-26 22:20:29');
+(1, 'Nayem Islam', NULL, 'BD', 1, '1400', '1185155', '1337179', '01923456789', NULL, 'Nārāyanganj, Dhaka, Bangladesh, 1400', NULL, 'nayem@gmail.com', '1', '2019-08-08 15:48:25', '2019-08-08 15:48:25'),
+(2, 'Ashraful', NULL, 'IN', 2, '2300', '1256525', '1252881', '01234567890', NULL, '9/1 Shilighuri', NULL, 'ashraf@gmail.com', '1', '2019-08-08 15:52:36', '2019-08-08 15:52:36'),
+(3, 'Rofequl', NULL, 'IN', 1, '5477', '1253437', '1255053', '5476586758', NULL, 'Tamil naru uttora', NULL, 'rofequl@gmail.com', '2', '2019-08-08 15:58:37', '2019-08-08 15:58:37'),
+(4, 'Nayem', NULL, 'BD', 2, '1000', '1185241', '1337179', '1536131168', NULL, 'Dhaka, Bangladesh', NULL, 'nayem@gmail.com', '2', '2019-08-08 16:00:01', '2019-08-08 16:00:01');
 
 -- --------------------------------------------------------
 
@@ -76,7 +77,7 @@ CREATE TABLE `adminpanels` (
 --
 
 INSERT INTO `adminpanels` (`id`, `name`, `email`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@me.com', '$2y$10$.Une.Frk0kzDziafk4ddZeJt8aRFgTm.zcx.jpnOYiAXSz4.2h5OK', '2019-07-24 10:29:11', '2019-07-24 10:29:11');
+(1, 'admin', 'admin@me.com', '$2y$10$.Une.Frk0kzDziafk4ddZeJt8aRFgTm.zcx.jpnOYiAXSz4.2h5OK', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -110,7 +111,7 @@ CREATE TABLE `basic_informations` (
 --
 
 INSERT INTO `basic_informations` (`id`, `website_title`, `company_name`, `phone_number_one`, `phone_number_two`, `email`, `website_link`, `facebook_link`, `twiter_link`, `google_plus_link`, `linkedin_link`, `pinterest_link`, `footer_text`, `address`, `company_logo`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Fine Courier', 'Fine Courier', '01971335588', '01994807666', 'finecourier@gmail.com', 'finecourier.com', 'http://bidazat.pa', 'http://fe.ki', 'http://ritahjur.bb', 'http://ewu.mp', 'http://lamuzav.nr', 'Copyright © 2019 FINE COURIER. All Rights Reserved by', 'house 1287, road 11, ave 02, mirpur dohs, dhaka 1216', '871564111823.png', 0, '2019-07-24 00:15:42', '2019-07-25 21:30:23');
+(1, 'Fine Courier', 'Fine Courier', '01971335588', '01994807666', 'finecourier@gmail.com', 'finecourier.com', 'http://bidazat.pa', 'http://fe.ki', 'http://du.cf', 'http://zu.tp', 'http://vi.ge', 'Copyright © 2019 FINE COURIER. All Rights Reserved by', 'house 1287, road 11, ave 02, mirpur dohs, dhaka 1216', '351565258996.png', 0, '2019-08-08 03:54:47', '2019-08-08 15:09:56');
 
 -- --------------------------------------------------------
 
@@ -138,6 +139,10 @@ CREATE TABLE `booking_shipments` (
   `receiver_phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `receiver_email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `receiver_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `currency` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tracking_code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -147,8 +152,8 @@ CREATE TABLE `booking_shipments` (
 -- Dumping data for table `booking_shipments`
 --
 
-INSERT INTO `booking_shipments` (`id`, `booking_type`, `pickup_date`, `pickup_delivery`, `from_country`, `to_country`, `shipping_type`, `weight`, `weight_type`, `delivery_type`, `dimenshion`, `shipper_name`, `shipper_phone`, `shipper_email`, `shipper_address`, `receiver_name`, `receiver_phone`, `receiver_email`, `receiver_address`, `status`, `created_at`, `updated_at`) VALUES
-(3, '1', NULL, NULL, 'AX', 'AL', 'Parcel', '0.5', 'KG', 'Regular', 'LOgtagv  gAa', 'HUruan', '2243969096', 'lirwirag@gohreni.cr', 'Wav osdog si cacgujfa he ak laf foffiwo ure osuta kavluv uvujetu deh. Dasarku zeg rawbucli izjip faho hu kaulu abibo luzpiho jod gesabfes baja volegal lo bi jubuve tokhu. Me jurunru mu dumbuwu wep las wurcivi boshavnop ilomakfe sihpu no vanpag gugfungew god kegi jiw sovoet. Dewiju ewoposub fe oki bulpo lasja ak cu etasutu nifembub kucidcu tohezjop nu moledi daz sov zofaok. Fozaz liksa atureha rakzep epotebu zozzeb bihri fe', 'Nyvaas', '4108506610', 'lirwirag@gohreni.cr', 'Gamu zo pefeteben asbus miugu be wulhog reb tucba afmeub tafribo pafnuv otijiw tujfi maj vatgic nahag ida. Na', 1, '2019-07-26 23:24:32', '2019-07-26 23:30:58');
+INSERT INTO `booking_shipments` (`id`, `booking_type`, `pickup_date`, `pickup_delivery`, `from_country`, `to_country`, `shipping_type`, `weight`, `weight_type`, `delivery_type`, `dimenshion`, `shipper_name`, `shipper_phone`, `shipper_email`, `shipper_address`, `receiver_name`, `receiver_phone`, `receiver_email`, `receiver_address`, `price`, `currency`, `tracking_code`, `payment_status`, `status`, `created_at`, `updated_at`) VALUES
+(1, '1', NULL, NULL, 'BD', 'IN', 'Parcel', '0.5', 'KG', 'Regular', 'GOttenan\' f', 'N', '9016983778', 'zuhikwef@aba.ro', 'Neg avovekep co dashidad ajoaba rigmuj wuutir iwre kushuwkiz ede hiw gehuvupon ucefik ja. Iweepjif mobilija gizcim jezramseg awcacajo pavvusnel urifumi mu hu ef wok cavriip. Kaf ibiif kivutav bu ve koc ecfevo uwza tewe mokdat wanrunro udidis jeh mot', 'Akhl uega', '7509166079', 'zuhikwef@aba.ro', 'Noz olihublu vuchibano uvo wuhfuc wa susehag mamki ve va no noenci tozitonog bu ivkud voz. Duwefca tifvolug ojifoso juz seiki vo piera kehnehho sab wo ug abulih soznobuh. Toodre zutmel divobu olfu bev waccu adodo maclu nim agutet anbib towuc cekaz lec', NULL, NULL, NULL, '0', 0, '2019-08-08 17:30:13', '2019-08-08 17:30:13');
 
 -- --------------------------------------------------------
 
@@ -8798,6 +8803,28 @@ CREATE TABLE `contacts` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `contacts`
+--
+
+INSERT INTO `contacts` (`id`, `contact_title`, `contact_information`, `created_at`, `updated_at`) VALUES
+(1, 'Head Office', '<p><strong>Call Us</strong></p>\r\n\r\n<p>+8801971335588</p>\r\n\r\n<p><strong>Location</strong></p>\r\n\r\n<p>house 1287, road 11, ave 02,</p>\r\n\r\n<p>mirpur dohs, dhaka 1216</p>\r\n\r\n<p><strong>Email</strong></p>\r\n\r\n<p><a href=\"mailto:finecourier@gmail.com\" target=\"_blank\">finecourier@gmail.com</a></p>', '2019-08-08 15:16:05', '2019-08-08 15:16:05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `containers`
+--
+
+CREATE TABLE `containers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `container_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -9097,9 +9124,27 @@ CREATE TABLE `country_manages` (
 --
 
 INSERT INTO `country_manages` (`id`, `country_code`, `created_at`, `updated_at`) VALUES
-(1, 'AF', '2019-07-24 00:15:51', '2019-07-24 00:15:51'),
-(2, 'AX', '2019-07-24 00:15:52', '2019-07-24 00:15:52'),
-(3, 'AL', '2019-07-24 00:15:53', '2019-07-24 00:15:53');
+(1, 'BD', '2019-08-08 15:19:49', '2019-08-08 15:19:49'),
+(2, 'AE', '2019-08-08 15:44:25', '2019-08-08 15:44:25'),
+(3, 'IN', '2019-08-08 15:44:37', '2019-08-08 15:44:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `currencies`
+--
+
+CREATE TABLE `currencies` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `symbol` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `format` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exchange_rate` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -9122,6 +9167,55 @@ CREATE TABLE `domestic_prices` (
   `per_weight` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `currency` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `domestic_prices`
+--
+
+INSERT INTO `domestic_prices` (`id`, `country`, `from_city`, `from_state`, `to_city`, `to_state`, `shipping_type`, `weight_type`, `delivery_type`, `max_weight`, `max_price`, `per_weight`, `price`, `currency`, `created_at`, `updated_at`) VALUES
+(1, 'AE', '292223', '292224', '292913', '292969', 'Parcel', 'KG', 'Regular', '200', '250', '100', '80', 'AED', '2019-08-08 15:46:37', '2019-08-08 15:46:37'),
+(2, 'BD', '1185155', '1337179', '1185138', '1337229', 'Parcel', 'KG', 'Regular', '500', '500', '200', '150', 'BDT', '2019-08-08 15:47:15', '2019-08-08 15:47:15');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `drivers`
+--
+
+CREATE TABLE `drivers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `driver_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `first_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `post_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `division` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `placeName` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `driver_containers`
+--
+
+CREATE TABLE `driver_containers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `driver_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `container_code` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -9171,7 +9265,8 @@ CREATE TABLE `international_prices` (
 --
 
 INSERT INTO `international_prices` (`id`, `from_country`, `to_country`, `shipping_type`, `weight_type`, `delivery_type`, `max_weight`, `max_price`, `per_weight`, `price`, `currency`, `created_at`, `updated_at`) VALUES
-(1, 'AF', 'AL', 'Parcel', 'KG', 'Regular', '56', '567', '567', '75', 'AFN', '2019-07-26 22:19:56', '2019-07-26 22:19:56');
+(1, 'BD', 'IN', 'Parcel', 'KG', 'Regular', '500', '550', '200', '200', 'BDT', '2019-08-08 15:45:25', '2019-08-08 15:45:25'),
+(2, 'IN', 'BD', 'Document', 'KG', 'Regular', '500', '350', '100', '100', 'INR', '2019-08-08 15:45:54', '2019-08-08 15:45:54');
 
 -- --------------------------------------------------------
 
@@ -9190,27 +9285,33 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2019_06_30_051029_create_adminpanels_table', 1),
-(2, '2019_06_30_063156_create_basic_informations_table', 1),
-(3, '2019_07_01_061713_create_slider_manages_table', 1),
-(4, '2019_07_01_090929_create_services_table', 1),
-(6, '2019_07_02_102602_create_faqs_table', 1),
-(7, '2019_07_02_105957_create_contacts_table', 1),
-(8, '2019_07_02_151334_create_testimonials_table', 1),
-(9, '2019_07_03_053527_create_our_inmormations_table', 1),
-(10, '2019_07_03_064713_create_sponsors_table', 1),
-(11, '2019_07_03_074616_create_news_table', 1),
-(12, '2019_07_06_041051_create_comments_table', 1),
-(13, '2019_07_12_040746_create_international_prices_table', 1),
-(14, '2019_07_12_092450_create_domestic_prices_table', 1),
-(15, '2019_07_12_163537_create_country_manages_table', 1),
-(16, '2019_07_16_091902_create_addresses_table', 1),
-(18, '2019_07_21_062234_create_countries_table', 1),
-(19, '2019_07_21_065411_create_states_table', 1),
-(22, '2019_07_25_133808_create_booking_shipments_table', 2),
-(23, '2019_07_18_065540_create_shipments_table', 3),
-(24, '2019_07_21_072301_create_cities_table', 4),
-(25, '2019_07_01_172437_create_users_table', 5);
+(1, '2013_11_26_161501_create_currency_table', 1),
+(2, '2019_06_30_051029_create_adminpanels_table', 1),
+(3, '2019_06_30_063156_create_basic_informations_table', 1),
+(4, '2019_07_01_061713_create_slider_manages_table', 1),
+(5, '2019_07_01_090929_create_services_table', 1),
+(6, '2019_07_01_172437_create_users_table', 1),
+(7, '2019_07_02_102602_create_faqs_table', 1),
+(8, '2019_07_02_105957_create_contacts_table', 1),
+(9, '2019_07_02_151334_create_testimonials_table', 1),
+(10, '2019_07_03_053527_create_our_inmormations_table', 1),
+(11, '2019_07_03_064713_create_sponsors_table', 1),
+(12, '2019_07_03_074616_create_news_table', 1),
+(13, '2019_07_06_041051_create_comments_table', 1),
+(14, '2019_07_12_040746_create_international_prices_table', 1),
+(15, '2019_07_12_092450_create_domestic_prices_table', 1),
+(16, '2019_07_12_163537_create_country_manages_table', 1),
+(17, '2019_07_16_091902_create_addresses_table', 1),
+(18, '2019_07_18_065540_create_shipments_table', 1),
+(19, '2019_07_21_062234_create_countries_table', 1),
+(20, '2019_07_21_065411_create_states_table', 1),
+(22, '2019_07_25_133808_create_booking_shipments_table', 1),
+(23, '2019_08_02_191243_create_containers_table', 1),
+(24, '2019_08_03_052208_create_drivers_table', 1),
+(25, '2019_08_03_054037_create_driver_containers_table', 1),
+(26, '2019_08_04_055301_create_payments_table', 1),
+(27, '2019_08_05_082700_create_shipment_statuses_table', 1),
+(28, '2019_07_21_072301_create_cities_table', 2);
 
 -- --------------------------------------------------------
 
@@ -9254,7 +9355,30 @@ CREATE TABLE `our_inmormations` (
 --
 
 INSERT INTO `our_inmormations` (`id`, `mission_title`, `mission`, `vision_title`, `vision`, `who_we_are`, `image`, `created_at`, `updated_at`) VALUES
-(1, 'Efbrfa r aa', 'Zof soliwide lidasiza mevewve soih zuhtup hag mo pumpa fu avbekawa biwo mebeb adejo. Rorogker iva miemejev zo ofiahirur joro pufiri wiibka pup fem as vozapi baw he. If le pumcil fihcuama wevnaulu sir zehni untumhog wizuktuw debatof ogi silekmu digwal porim ze melnume ra', 'HmlhaaRtaimaaa', 'Pat sajuwle fu natha kuwiv ku do zosid kogjoz do fil weatuc cugip. Ipifa urimere ratow faw cewe fu cenoah irsigloc fiz ebpi rasuw vepjuncon woza jejivwi kujugor. Zikhen opdenta sepuk kiduki hedo junibamu lecewead col rewsojabu kodet peelo basewu ud. Uw zihdijfi mujpa zu anoug po zeijohi firgebse moz nin nazozo zibkuz navulzi pucve ani otupure. Tak ovorihel ninte zil kauvo rejzar ehzec awuwoz epiaj kelem wumudow liftefu ko tid amki pazo. Covle paz veeze jab ji wuv gigug fooj dihdinul rug nejakuze', 'Dusociiju waz ejna ne mume nenop hopza upwiv zewmevje geufges ak bipus fuzu ih fevit. Keltibrag egohi ro zibonvib nedzaff', '601564112219.jpg', '2019-07-24 00:15:42', '2019-07-25 21:36:59');
+(1, 'He akathtann', 'Wuclaw palburu pa lidnil zacojo vutaalo es zukzef upajek ji ej jogwefka guk jignowo jifhu vi sa tedgigow. Nefzancib calegahuf cuhhifri ocfu lo hotni oruebuaro olutasif babe papevlic nublilzu zeunicu idulizod evo is li ajo ati. Lor carmilu liegaguz nigtebnu', 'Iouaa tt\'aa', 'Ofute dodzuwih te ufi tutefri govisow turwet cubud uvgermi am api ogmo mekafev ohopo mizojva kijuvoh wuhin ji. Ko owudi relobwin ute erahefos zeso lebuzsab dif cohw', 'Jevlazi up de ukkahdo it depfow corson mol cewik cenfa fan tibeic mifaov wug. Kuvagok iste fus raseriha pozogef go domez miw uc kem ijcov jaon teuzzew fem. Hurti buidubew nutpu ti hamow arsuawe upiaziago mor cutzug ewuekbov loca dowzev zi so rahbi zezis nasirow. Hinah pabet onhi zuutatu hi jajon nunazwad afcalko surec', '411565259551.jpg', '2019-08-08 03:54:47', '2019-08-08 15:19:11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tracking_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `currency` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`id`, `tracking_code`, `price`, `currency`, `created_at`, `updated_at`) VALUES
+(34, '6151001001', '2150', 'BDT', '2019-08-08 16:55:49', '2019-08-08 16:55:49'),
+(35, '6246002002', '350', 'INR', '2019-08-08 17:02:10', '2019-08-08 17:02:10');
 
 -- --------------------------------------------------------
 
@@ -9277,10 +9401,11 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`id`, `title`, `description`, `image`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Domestic Delivery', 'Havgirun ulasimo sov zazgured jufi ipgudul tiuhgah sikdi umasu kavdemze fa pawi. Sifarmi jumecses ugeg fufol mitosola vadugot lelupara roz rafvivtur jifru kuto gepjig calugo boote hi uzve ozgoziv. Une gohikwip tejif roloz edu esjo muve wahke bec elol evabu bilefvoc loimo ohiin hot. Mujvezlat je inela cewu gogdu kuhtuz vojag kohakgal tadan sumzin umobuplij wutwuz hodgaino kib cu', '281564112084.jpg', 1, '2019-07-25 21:34:44', '2019-07-25 21:36:20'),
-(2, 'Cash on Delivery', 'Opa kerniwet saborenis fokco bagkuma zo wi ecru pumho hif fibelak had vibjukal odter er pitin. Luzoweg lup sucpetjo loklidom kalilu kanciho ma ka wifju desfubjub cib mecaji cac waj fum joc fo. Bok', '781564112113.jpg', 0, '2019-07-25 21:35:13', '2019-07-25 21:35:13'),
-(3, 'E commerce Dalivery', 'Hokov lokotuw iwuza guh juhce mo ajowabagi ce ojoila vufaga ejzi an zohnisdod ruc jif sozoja jiakdo. Caj gishiod ukezuke jevahlom ejovtel dalubes uni sis kih paib puop', '341564112142.jpg', 1, '2019-07-25 21:35:42', '2019-07-25 21:36:23'),
-(4, 'International Delivery', 'Ha ihcuso duzhup luude robhege ras hem ezu catrogrew bojop lot ijuiwahin huze gohauhu mantubti ze upcice hubmo. Fi gic edjiktom manbij wealmob con kaz gadjusmo mimkejej vov ka agagu abinu', '131564112171.jpg', 1, '2019-07-25 21:36:11', '2019-07-25 21:36:25');
+(1, 'Domestic Delivary', 'Lu ehemegu rircaz midib ekisece mino daca kuzel meeba co mem buwav la dod ija himuj. Fipeg wocaner upohi ziwudod mulobma im vipus ba zuc liesaava jibruh ebavvog amo hafras ejtocis ga lusaj. Acoze hudzera ihavra tivkewguv pu buje usaibianu ki se tu diawo kirowsiw ce hipubru f', '121565267150.jpg', 1, '2019-08-08 17:25:50', '2019-08-08 17:25:53'),
+(2, 'Cash on Delivary', 'Ifce se jil amop cas wezagkuc kuwbovzem ot vivisgur kecerzo cuh je vas cobegijo lo. Dedin wupi sucje irtajke za duripruh fe jupilwi cava gebbu muv fo roriw juc nejuet lufocelo tef evbeprar. Ibuz gauraid kefas rubewje cewgeszuj ucvib pa paciz bokpespa ad mepezib na zewe bijo kudo dilagne. Pac jepsetoh ba z', '381565267189.jpg', 1, '2019-08-08 17:26:29', '2019-08-08 17:27:13'),
+(3, 'E commerce Dalivery', 'Ro bis pedke gete hoceozu johoced vulu ducheg jik soet wacit zi jukrudi redoreku. Sizuhis hov le didu hiscoedo rosumo vehuc gok sucde aso fad ruhe tefwicgej eze ec. Lifi tapuzin nabse red hon jihuhi atow vevaruw zuhri bosu daher tulotfet fa woli', '421565267229.jpg', 1, '2019-08-08 17:27:09', '2019-08-08 17:27:16'),
+(4, 'International Delivery', 'Aga vucjufif ilakimnar jab na cevredow saksan pekkipo ophud tijuma rivfuvi hufotmeb cahzocuh legif owmemoh. Ec cun reuke cu memegpen cuk jesfi teatko ruemove pohwal vobowvez tobmag to. Kovu tahluf tut velozves lawof oheluha igougag dolgagdop heh bu dazies sijbug deejlez ecedigike dami uk loic. Wafolun leko sub itikiw vo cav eruwoc goras no kiw ocolib ofiattad da. Magga wumviw fepkiw obite juf onfejw', '921565267260.jpg', 1, '2019-08-08 17:27:40', '2019-08-08 17:27:43'),
+(5, 'warerhousing', 'Dasfo ezu rehihazo divur jeneb afo ov tagal bisnacza nutcomo kelnig du. Omica metavdot vogpi cah gukage lanadker igata naheswi dutejke loepiwuj wodta ba efjepsac wakedju ik ifozi. Jahvo acekulaf', '361565267306.jpg', 1, '2019-08-08 17:28:26', '2019-08-08 17:28:33');
 
 -- --------------------------------------------------------
 
@@ -9312,7 +9437,10 @@ CREATE TABLE `shipments` (
   `tracking_code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `biller_address` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `block` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `driver` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -9321,8 +9449,33 @@ CREATE TABLE `shipments` (
 -- Dumping data for table `shipments`
 --
 
-INSERT INTO `shipments` (`id`, `shipper_address`, `receiver_address`, `shipment`, `shipping_type`, `peace`, `weight`, `weight_type`, `origin_country`, `good_value`, `origin_currency`, `shipment_reference`, `remarks`, `payment_type`, `delivery_type`, `parcel_content`, `price`, `currency`, `address_one`, `address_two`, `tracking_code`, `biller_address`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, '1', '2', '1', 'Parcel', '1', '0.5', 'KG', 'AX', '546', 'EUR', NULL, NULL, '0', 'Regular', 'fxbcn', '642', 'AFN', 'Afghanistan', 'Albania', '9484001001', '3', '1', '1', '2019-07-26 22:25:46', '2019-07-26 22:25:52');
+INSERT INTO `shipments` (`id`, `shipper_address`, `receiver_address`, `shipment`, `shipping_type`, `peace`, `weight`, `weight_type`, `origin_country`, `good_value`, `origin_currency`, `shipment_reference`, `remarks`, `payment_type`, `delivery_type`, `parcel_content`, `price`, `currency`, `address_one`, `address_two`, `tracking_code`, `biller_address`, `user_id`, `payment_status`, `status`, `block`, `driver`, `created_at`, `updated_at`) VALUES
+(1, '1', '2', '1', 'Parcel', '1', '2', 'KG', 'BD', '1000', 'BDT', NULL, NULL, '0', 'Regular', 'Book', '2150', 'BDT', 'Bangladesh', 'India', '6151001001', '1', '1', '1', '1', '0', NULL, '2019-08-08 15:53:19', '2019-08-08 17:21:40'),
+(2, '3', '4', '1', 'Document', '1', '0.3', 'KG', 'IN', '1000', 'INR', NULL, NULL, '1', 'Regular', 'Mango', '350', 'INR', 'India', 'Bangladesh', '6246002002', '4', '2', '1', '2', '0', NULL, '2019-08-08 16:01:23', '2019-08-08 17:20:31');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shipment_statuses`
+--
+
+CREATE TABLE `shipment_statuses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tracking_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `time` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `location` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `shipment_statuses`
+--
+
+INSERT INTO `shipment_statuses` (`id`, `tracking_code`, `status`, `time`, `location`, `name`, `created_at`, `updated_at`) VALUES
+(1, '6246002002', '2', '08/08/2019 6:20 PM', 'Narayanganj', 'Picked', '2019-08-08 17:20:31', '2019-08-08 17:20:37');
 
 -- --------------------------------------------------------
 
@@ -9345,8 +9498,8 @@ CREATE TABLE `slider_manages` (
 --
 
 INSERT INTO `slider_manages` (`id`, `slider_title_one`, `slider_title_two`, `image`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Aa', 'Hahhfga tulyara', '971564111853.jpg', 1, '2019-07-25 21:30:53', '2019-07-25 21:31:31'),
-(2, 'Peaham', 'N', '581564111882.jpg', 1, '2019-07-25 21:31:22', '2019-07-25 21:31:33');
+(1, 'FAST DELIVERY', 'FINE CCOURIER IS WORLD WIDE TRANSPORT SERVICE', '581565259137.jpg', 1, '2019-08-08 15:12:17', '2019-08-08 15:12:21'),
+(2, 'FAST DELIVERY', 'FINE CCOURIER IS WORLD WIDE TRANSPORT SERVICE', '181565259211.jpg', 1, '2019-08-08 15:13:31', '2019-08-08 15:13:35');
 
 -- --------------------------------------------------------
 
@@ -9367,10 +9520,10 @@ CREATE TABLE `sponsors` (
 --
 
 INSERT INTO `sponsors` (`id`, `image`, `url`, `created_at`, `updated_at`) VALUES
-(1, '671564112324.png', 'http://gepipoba.gf', '2019-07-25 21:38:44', '2019-07-25 21:38:44'),
-(2, '811564112334.png', 'http://koereni.bi', '2019-07-25 21:38:54', '2019-07-25 21:38:54'),
-(3, '141564112346.png', 'http://ohitiafa.do', '2019-07-25 21:39:06', '2019-07-25 21:39:06'),
-(4, '761564112359.png', 'http://barfom.eh', '2019-07-25 21:39:20', '2019-07-25 21:39:20');
+(1, '331565259497.png', 'http://zefimwuc.mg', '2019-08-08 15:18:17', '2019-08-08 15:18:17'),
+(2, '681565259509.png', 'http://wa.tr', '2019-08-08 15:18:29', '2019-08-08 15:18:29'),
+(3, '921565259523.png', 'http://laprul.svg', '2019-08-08 15:18:43', '2019-08-08 15:18:43'),
+(4, '461565259533.png', 'http://ge.pr', '2019-08-08 15:18:53', '2019-08-08 15:18:53');
 
 -- --------------------------------------------------------
 
@@ -13035,10 +13188,10 @@ CREATE TABLE `testimonials` (
 --
 
 INSERT INTO `testimonials` (`id`, `name`, `profession`, `image`, `message`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Tfasgtta', 'Uhh nar', '691564112242.jpg', 'Tueseem muhdoc doito rawhov ro mijbadop wam bebosaz hoizeci fucwuh rafuer jakla fuuljoh. Lerokwo zi buzujeci ledpop zidza re pegzov lupaf vepelu idegijwi mukze wetot aco ohi lusek zar. Ge odife heedido godmiowe taj lezramcek zemoih rutuf uhola nav civintuh we fe pevramtuc leduhru. Joufo ge akzaz ralsaf barjuki putpaas gudip hevbofogo ro uki tac vo pe gad kazunju cet use. Tave nocawiagi ka kop upeme kendum le go', 1, '2019-07-25 21:37:22', '2019-07-25 21:37:55'),
-(2, 'Aataeasg', 'A', '641564112252.jpg', 'Culhi ruse laug joagu ehavot dioz fiwrom bupel cangoz cuzmoc kekolas gecbi vitumin wob utza ho tojluwew tegmica. Apul ug pevefan tazu tejap zok ameil ikheh we kiiw jewabug agfep tawet ci kak. Orifan lek wa cu juzobca caru tem riveja ipulovo kervi mudal hut. Poheb h', 1, '2019-07-25 21:37:32', '2019-07-25 21:37:57'),
-(3, 'Ana bttlaaa', 'A', '341564112262.jpg', 'Cenpe juug ficetuwe hu izabik hitilo hasohi fik dap uhmujdov isfa gabnejik okehu. Dunope wekoc zoemi ozzu ijeze nu he kilo nirvez zu ka lo efezor. Wirneah ruddus dec wu en av wo zoja ej uligibwuf gej gume rimco liik ta ciwareha. Wicehrop nepacjeg jekeip od nafu zun fe ip wajirpa sofgoz la ako vafrul. Ocowocuc babjuitu fo dioja nadad nuemica nerenju noprem capirom ukbejiv ta efa lu. Oho bedanuf ifi kawisik suk jufpebom ate gioh sa bim cifnu owgen f', 1, '2019-07-25 21:37:42', '2019-07-25 21:37:59'),
-(4, 'Auhaa', 'Em', '301564112272.jpg', 'Be pi ge ujaejacub waor uhoked ijodo fitaha mopoit ijoha ote zatemdom nila. Biifuel batzewoka zul micib rorazol tifo', 1, '2019-07-25 21:37:52', '2019-07-25 21:38:02');
+(1, 'Gg\' a  oelwi', 'Atu ae agnr', '691565259396.jpg', 'Juhnuwep jen ujmoki omu icekug fini ijawozpoh ze womona zabahune bittumul wob ha ne womhivipe corpi. Buk nar bik mozof undi afoci izu edi vebe home vot pa kumfetza de tewpehu zij wi. Ocedol sozen denijer odritur omto mufnaz r', 1, '2019-08-08 15:16:36', '2019-08-08 15:16:54'),
+(2, 'Irh', 'Umae kne  aw', '441565259407.jpg', 'Owber semuv giija demosje pulofses awutur ruhkuuco hanaknec waaki laloam vuke cibmo fibruvut cipem anuvavag wuunpah keoba wapseg. Kumjica vool hahebeaj co ahda linkebej go focaw pini sotipmep derilame como webwujdew ce wu pujozcud jedkera kalat. Rinfutu idevo zufgom loj haakuig zofcifuw mumunze mepuit dumu rapiba culeclos eb. Jevda afvopbez nowsi taf firudkov gefdofin of iz nereg apomocmad sugal ji iz', 1, '2019-08-08 15:16:47', '2019-08-08 15:17:02'),
+(3, 'Fhnla', 'K o', '541565259435.jpg', 'Fuhkuvfor ajinefi cirevtoj vanel pa werlanut bazu ni eja zil zarkobipo kem dodekute hinlotol sofeeho gades tedzat. Ez pola bosnerov acfaip ja tobe fo kebaim hunu idnemkak epo do eh. Teli vadoj upovutweh ogucev kerga wapi bualeovu ba ul segtiod ikafe jolipak fuot', 1, '2019-08-08 15:17:15', '2019-08-08 15:17:19'),
+(4, 'Tb', 'Atnnta naphna', '381565259454.jpg', 'Tit le emiva wamlovale baafagos ro alu dombipgu ifo ezco mehvalbof ferocmi je. Tocnu tomuv gop bovo vackida ew ebmes nik rektahob eja ufenitoh ifemut casba facbate. Fidgafas suk zakmizzev seplo', 1, '2019-08-08 15:17:34', '2019-08-08 15:17:39');
 
 -- --------------------------------------------------------
 
@@ -13070,7 +13223,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `user_id`, `first_name`, `last_name`, `email`, `phone`, `password`, `country`, `post_code`, `city`, `division`, `placeName`, `image`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'UR7361564333792', 'Ane', 'Avgmanfbt t', 'uka@giw.ky', '9826611225', '$2y$10$v0AHGZGl0r36/cnrnelDmemGpBQHvtjUed3bdHLuSkXNKWRVBbY/W', 'BD', '1400', '1185155', '1337179', 'Narayanganj Sadar', '511564334256.jpg', 1, '2019-07-28 11:09:52', '2019-07-28 11:17:36');
+(1, 'UR6211565261305', 'Nayem', 'Islam', 'nayem@gmail.com', '01923456789', '$2y$10$yJHhtwr26RMLjeAVgvRoZ.jpviRQeAtRybRFBMW0Tvg9LLF.BGcdC', 'BD', '1400', '1185155', '1337179', 'Narayanganj Sadar', '851565261454.jpg', 1, '2019-08-08 15:48:25', '2019-08-08 15:50:54'),
+(2, 'UR4151565261387', 'Rofequl', 'Islam', 'rofequl@gmail.com', '01234567890', '$2y$10$pLAkeqQLd3N17V6ehN/m9e2iGVNjbwer/.snWKroMYl8UurgB9N0W', 'BD', '1000', '1185241', '1337179', 'Dhaka GPO', NULL, 1, '2019-08-08 15:49:47', '2019-08-08 15:49:47');
 
 --
 -- Indexes for dumped tables
@@ -13119,6 +13273,12 @@ ALTER TABLE `contacts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `containers`
+--
+ALTER TABLE `containers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `countries`
 --
 ALTER TABLE `countries`
@@ -13131,9 +13291,28 @@ ALTER TABLE `country_manages`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `currencies`
+--
+ALTER TABLE `currencies`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `currencies_code_index` (`code`);
+
+--
 -- Indexes for table `domestic_prices`
 --
 ALTER TABLE `domestic_prices`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `drivers`
+--
+ALTER TABLE `drivers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `driver_containers`
+--
+ALTER TABLE `driver_containers`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -13167,6 +13346,12 @@ ALTER TABLE `our_inmormations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `services`
 --
 ALTER TABLE `services`
@@ -13176,6 +13361,12 @@ ALTER TABLE `services`
 -- Indexes for table `shipments`
 --
 ALTER TABLE `shipments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `shipment_statuses`
+--
+ALTER TABLE `shipment_statuses`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -13216,7 +13407,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `adminpanels`
@@ -13234,7 +13425,7 @@ ALTER TABLE `basic_informations`
 -- AUTO_INCREMENT for table `booking_shipments`
 --
 ALTER TABLE `booking_shipments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `cities`
@@ -13252,13 +13443,19 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `containers`
+--
+ALTER TABLE `containers`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `countries`
 --
 ALTER TABLE `countries`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=501;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=499;
 
 --
 -- AUTO_INCREMENT for table `country_manages`
@@ -13267,9 +13464,27 @@ ALTER TABLE `country_manages`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `currencies`
+--
+ALTER TABLE `currencies`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `domestic_prices`
 --
 ALTER TABLE `domestic_prices`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `drivers`
+--
+ALTER TABLE `drivers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `driver_containers`
+--
+ALTER TABLE `driver_containers`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -13282,13 +13497,13 @@ ALTER TABLE `faqs`
 -- AUTO_INCREMENT for table `international_prices`
 --
 ALTER TABLE `international_prices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `news`
@@ -13303,15 +13518,27 @@ ALTER TABLE `our_inmormations`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `shipments`
 --
 ALTER TABLE `shipments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `shipment_statuses`
+--
+ALTER TABLE `shipment_statuses`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
@@ -13342,7 +13569,7 @@ ALTER TABLE `testimonials`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -124,12 +124,12 @@
                         <div class="card card-body col-md-4 m-1 p-3"
                              style="border: 1px solid #ddd;font-size:15px;cursor: pointer;"
                              id="delivery_type23">
-                            <p class="mb-0" style="font-size: 14px;">In cash by the shipper</p>
+                            <p class="mb-0" style="font-size: 14px;">Cash on delivery</p>
                         </div>
                         <div class="card card-body col-md-4 m-1 p-3"
                              style="border: 1px solid #ddd;font-size:15px;cursor: pointer;"
                              id="delivery_type24">
-                            <p class="mb-0" style="font-size: 14px;">By credit card by the shipper</p>
+                            <p class="mb-0" style="font-size: 14px;">Cash advance bank transfer</p>
                         </div>
                         <input type="hidden"
                                value=""
@@ -343,7 +343,7 @@
             $.ajax({
                 url: "{{ route('SelectAddressAll') }}",
                 type: 'post',
-                data: {_token: CSRF_TOKEN, id: 3,user_id: '{{session('user-id')}}'},
+                data: {_token: CSRF_TOKEN,user_id: '{{session('user-id')}}'},
                 dataType: 'json',
                 success: function (data) {
                     $('#biller_address').html('');

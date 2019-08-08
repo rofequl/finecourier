@@ -17,6 +17,13 @@
                         <div class="x_content">
                             <div class="row">
                                 <div class="col-12">
+                                    <a href="{{route('AdminShipmentDelete','id='.base64_encode($shipment->id))}}"
+                                       class="btn btn-success pull-right"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       data-original-title="Shipment Approve"><i
+                                            class="mdi mdi-block-helper"></i> Delete
+                                    </a>
                                     @if($shipment->block == 1)
                                         <a href="{{route('AdminShipmentBlock','unblock='.base64_encode($shipment->id))}}"
                                            class="btn btn-success pull-right"
@@ -118,7 +125,7 @@
                                         {{get_address_by_id($shipment->receiver_address)->post_code}}
                                     </p>
                                 </div>
-                                <div class="col-12" style="padding: 10px;">
+                                <div class="col-sm-12" style="padding: 10px;">
                                     <h4 style="font-weight: 700;font-size: 20px;color: #6f5858;">Biller address</h4>
                                     <p class="text-success mb-0" style="font-size: 20px">
                                         <i class="fa fa-user mr-2" aria-hidden="true"></i>
@@ -155,7 +162,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
-                                        <table class="align-middle mb-0 table table-bordered text-center">
+                                        <table class="table">
                                             <thead>
                                             <tr>
                                                 <th>No. of Peace</th>

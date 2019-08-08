@@ -186,6 +186,7 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::get('/admin-shipment-view', 'ShippingpriceController@AdminShipmentView')->name('AdminShipmentView');
     Route::post('/admin-shipment-status', 'ShippingpriceController@AdminShipmentStatus')->name('AdminShipmentStatus');
     Route::get('/admin-shipment-block', 'ShippingpriceController@AdminShipmentBlock')->name('AdminShipmentBlock');
+    Route::get('/admin-shipment-delete', 'ShippingpriceController@AdminShipmentDelete')->name('AdminShipmentDelete');
     Route::post('/admin-send-mail', 'ShippingpriceController@AdminSandMail')->name('AdminSandMail');
     Route::post('/admin-shipment-driver', 'ShippingpriceController@AdminShipmentDriver')->name('AdminShipmentDriver');
 
@@ -231,6 +232,8 @@ Route::group(['middleware' => 'CheckAdmin'], function () {
     Route::post('/admin-pickup-payment-status', 'BookingController@AdminPickupPaymentStatus')->name('AdminPickupPaymentStatus');
 
     Route::get('/admin-billing', 'BookingController@AdminBilling')->name('AdminBilling');
+
+    Route::get('/admin-track', 'AdminController@AdminTrack')->name('AdminTrack');
 
 
 });

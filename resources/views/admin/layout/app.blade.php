@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <title>@yield('pageTitle') - Fine Courier</title>
 
     <!-- Bootstrap -->
@@ -14,12 +14,14 @@
     <!-- Font Awesome -->
     <link href="{{asset('assets/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
     <!-- jQuery custom content scroller -->
-    <link href="{{asset('assets/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
+    <link href="{{asset('assets/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}"
+          rel="stylesheet"/>
     <!-- NProgress -->
     <link href="{{asset('assets/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
-    @stack('style')
+@stack('style')
 <!-- bootstrap-progressbar -->
-    <link href="{{asset('assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}"
+          rel="stylesheet">
     <!-- JQVMap -->
     <link href="{{asset('assets/vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet"/>
     <!-- iCheck -->
@@ -28,7 +30,8 @@
     <link href="{{asset('assets/vendors/google-code-prettify/bin/prettify.min.css')}}" rel="stylesheet">
     <!-- Select2 -->
     <link href="{{asset('assets/vendors/select2/dist/css/select2.min.css')}}" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css"
+          rel="stylesheet"/>
     <!-- Switchery -->
     <link href="{{asset('assets/vendors/switchery/dist/switchery.min.css')}}" rel="stylesheet">
     <!-- starrr -->
@@ -97,6 +100,36 @@
 @stack('scripts')
 <!-- Custom Theme Scripts -->
 <script src="{{asset('assets/build/js/custom.js')}}"></script>
+<script>
+    $('.search').keyup(function (e) {
+        if (e.keyCode === 13) {
+            search();
+        }
+    });
+    $('.search-btn').click(function (e) {
+        search();
+    });
 
+    function search() {
+        let id = $('.search').val();
+        $.ajax({
+            url: "{{ route('AdminTrack') }}",
+            type: 'get',
+            data: {id: id,},
+            success: function (data) {
+                if (data == 'error') {
+                    swal({
+                        title: 'Message',
+                        text: "Wrong Tracking Number",
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    });
+                } else {
+                    window.location.href = data;
+                }
+            }
+        });
+    }
+</script>
 </body>
 </html>

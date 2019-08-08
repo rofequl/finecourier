@@ -20,10 +20,14 @@ use Session;
 use Mail;
 use MenaraSolutions\Geographer\Earth;
 use App\country;
+use function Psy\sh;
 
 class ShippingpriceController extends Controller
 {
-
+//    public function __construct()
+//    {
+//        set_time_limit(8000000);
+//    }
 
     public function AdminCountry()
     {
@@ -80,13 +84,14 @@ class ShippingpriceController extends Controller
 //                    $insert->latitude = $citys['latitude'];
 //                    $insert->longitude = $citys['longitude'];
 //                    $insert->population = $citys['population'];
+//                    $insert->name = $citys['name'];
 //                    $insert->state_code = $states['code'];
 //                    $insert->country_code = $gloves['code'];
 //                    $insert->save();
 //                }
 //            }
 //        }
-        //dd(' ');
+//        dd(' ');
 
 
         return view('admin.shipping_price.country_manage', compact('earth'));
@@ -375,6 +380,23 @@ class ShippingpriceController extends Controller
 
         Session::flash('message', 'Booking request has been Approve');
         return redirect()->back();
+    }
+
+    public function AdminShipmentDelete(Request $request)
+    {
+        if ($request->id){
+            $data = shipment::where('id',base64_decode($request->id))->where('payment_status',0)->first();
+            if ($data){
+                $data->delete();
+                return redirect('admin-shipment');
+            }else{
+                Session::flash('message', 'You cant delete this, Payment Complete');
+                return redirect()->back();
+            }
+        }else{
+            Session::flash('message', 'Something Wrong.');
+            return redirect()->back();
+        }
     }
 
     public function AdminShippingRate()

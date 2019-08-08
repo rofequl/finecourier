@@ -116,7 +116,7 @@
 
 @push('scripts')
     <script src="{{asset('assets/vendors/sweetalert/sweetalert.js')}}"></script>
-    <script src="{{asset('assets/vendors/bootstrap-toggle/script.js')}}"></script>
+
     <script>
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
@@ -184,9 +184,9 @@
                             $('.shipping-type').html(data.data.shipping_type);
                             $('.weight').html(data.data.weight + data.data.weight_type);
                             if (data.data.payment_status == 1){
-                                $('.payment-input').bootstrapToggle('on');
+                                $('.payment-input').prop('checked',true);
                             }else {
-                                $('.payment-input').bootstrapToggle('off');
+                                $('.payment-input').prop('checked',false);
                             }
                             if (data.data.shipment == 1){
                                 $('.shipment').html('International');
@@ -316,7 +316,7 @@
                         type: 'post',
                         data: {_token: CSRF_TOKEN, id: id, action: action, value:value},
                         success: function (response) {
-                            $('.status').html('Picked');
+
                         }
                     });
                 }else {
@@ -328,7 +328,7 @@
                         type: 'post',
                         data: {_token: CSRF_TOKEN, id: id, action: action, value:value},
                         success: function (response) {
-                            $('.status').html('Ready for pickup');
+
                         }
                     });
                 }

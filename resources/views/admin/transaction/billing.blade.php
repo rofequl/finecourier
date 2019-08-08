@@ -1,5 +1,5 @@
 @extends('admin.layout.app')
-@section('pageTitle','Dashboard')
+@section('pageTitle','Billing')
 @section('content')
 
     <div class="right_col" role="main" style="min-height: 1962px;">
@@ -14,14 +14,14 @@
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                     <div class="icon"><i class="fa fa-check-square-o"></i></div>
-                    <div class="count">{{$user_count}}</div>
+                    <div class="count">{{$shipment_paid}}</div>
                     <h3>Total Paid</h3>
                 </div>
             </div>
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                     <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
-                    <div class="count">{{$delivered_count}}</div>
+                    <div class="count">{{$shipment_not_paid}}</div>
                     <h3>Not Paid</h3>
                 </div>
             </div>
@@ -32,6 +32,16 @@
                     <h3>Amount</h3>
                 </div>
             </div>
+        </div>
+
+        <div class="row tile_count">
+
+            @foreach($money as $moneys)
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-money"></i> Total {{$moneys->currency}}</span>
+                    <div class="count">{{$moneys->sum}}</div>
+                </div>
+            @endforeach
         </div>
 
         <div class="row" style="margin-top: 30px">
@@ -45,17 +55,16 @@
 
                         <!-- start project list -->
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered projects">
+                            <table class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
                                     <th class="text-center" style="width: 1%">#</th>
                                     <th class="text-center">Tracking Code</th>
                                     <th class="text-center">Date</th>
-                                    <th class="text-center">Name</th>
-                                    <th class="text-center">From</th>
-                                    <th class="text-center">To</th>
+                                    <th class="text-center">Biller Name</th>
+                                    <th class="text-center">Biller Address</th>
                                     <th class="text-center">Shipping type</th>
-                                    <th class="text-center">Shipping content</th>
+                                    <th class="text-center">Cost</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -77,38 +86,40 @@
                                         <td>
                                             <a title="Header" data-toggle="popover" data-trigger="hover"
                                                data-content="Some content">
-                                                {{get_user_by_id($shipments->user_id)->first_name}}
-                                                {{get_user_by_id($shipments->user_id)->last_name}}
+                                                {{get_address_by_id(get_shipment_by_tracking_code($shipments->tracking_code)->biller_address)->name}}
                                             </a>
                                         </td>
-                                        <td>{{$shipments->address_one}}</td>
-                                        <td>{{$shipments->address_two}}</td>
+                                        <td>{{get_address_by_id(get_shipment_by_tracking_code($shipments->tracking_code)->biller_address)->address_one}}</td>
+
                                         <td>
-                                            @if($shipments->shipment == 1)
+                                            @if(get_shipment_by_tracking_code($shipments->tracking_code)->shipment == 1)
                                                 International
                                             @else
                                                 Domestic
                                             @endif
                                         </td>
                                         <td>
-                                            {{$shipments->shipping_type}}
+                                            {{get_shipment_by_tracking_code($shipments->tracking_code)->price.' '.get_shipment_by_tracking_code($shipments->tracking_code)->currency}}
                                         </td>
                                         <td>
-
-                                                <span class="label label-success">
-                                                    {{$shipments->status==1?'Confirm Shipment':''}}
-                                                    {{$shipments->status==2?'Picked':''}}
-                                                    {{$shipments->status==3?'Container':''}}
-                                                    {{$shipments->status==4?'Shipped':''}}
-                                                    {{$shipments->status==5?'Delivered':''}}
-                                                    {{$shipments->status==6?'Block':''}}
+                                            @if(get_shipment_by_tracking_code($shipments->tracking_code)->block == 1)
+                                                <span class="label label-danger">Reject</span>
+                                                @else
+                                                {!!get_shipment_by_tracking_code($shipments->tracking_code)->status==1?' <span class="label label-default">Label Create':''!!}
+                                                {!!get_shipment_by_tracking_code($shipments->tracking_code)->status==2?' <span class="label label-primary">Picked':''!!}
+                                                {!!get_shipment_by_tracking_code($shipments->tracking_code)->status==3?' <span class="label label-info">Dispatch Center':''!!}
+                                                {!!get_shipment_by_tracking_code($shipments->tracking_code)->status==4?' <span class="label label-warning">In Transit':''!!}
+                                                {!!get_shipment_by_tracking_code($shipments->tracking_code)->status==5?' <span class="label label-success">Out for Delivery':''!!}
+                                                {!!get_shipment_by_tracking_code($shipments->tracking_code)->status==6?' <span class="label label-primary">Delivered':''!!}
                                                 </span><br>
-                                            @if($shipments->status != 1)
-                                                {{get_shipment_status($shipments->tracking_code, $shipments->status)->time}}
+                                                @if(get_shipment_by_tracking_code($shipments->tracking_code)->status != 1)
+                                                    {{get_shipment_status(get_shipment_by_tracking_code($shipments->tracking_code)->tracking_code, get_shipment_by_tracking_code($shipments->tracking_code)->status)->time}}
+                                                @endif
                                             @endif
+
                                         </td>
                                         <td>
-                                            <a href="{{route('AdminShipmentView','data='.base64_encode($shipments->id))}}"
+                                            <a href="{{route('AdminShipmentView','data='.base64_encode(get_shipment_by_tracking_code($shipments->tracking_code)->id))}}"
                                                class="btn btn-success">View</a>
                                         </td>
                                     </tr>
@@ -134,7 +145,8 @@
 
 @push('scripts')
     <!-- jQuery Sparklines -->
-    <script src="{{asset('assets/')}}{{asset('assets/')}}vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+    <script
+        src="{{asset('assets/')}}{{asset('assets/')}}vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
     <!-- morris.js -->
     <script src="{{asset('assets/vendors/raphael/raphael.min.js')}}"></script>
     <script src="{{asset('assets/vendors/morris.js/morris.min.js')}}"></script>

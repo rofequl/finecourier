@@ -234,8 +234,13 @@ class UserController extends Controller
 
     public function SelectAddressAll(Request $request)
     {
-        $address = address::where('address_type', $request->id)->where('user_id',$request->user_id)->get();
-        return $address;
+        if ($request->id){
+            $address = address::where('address_type', $request->id)->where('user_id',$request->user_id)->get();
+            return $address;
+        }else{
+            $address = address::where('user_id',$request->user_id)->get();
+            return $address;
+        }
     }
 
     public function PrepareShipment()

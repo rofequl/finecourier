@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use DataTables;
 use Session;
 use Illuminate\Support\Facades\DB;
+use Torann\Currency\Currency;
+
 
 class BookingController extends Controller
 {
@@ -269,12 +271,18 @@ class BookingController extends Controller
 
     public function AdminBilling(Request $request)
     {
-        $shipment_count = shipment::all()->count();
-        $user_count = shipment::all()->count();
-        $delivered_count = shipment::where('status',5)->get()->count();
-        $container_count = container::all()->count();
-        $shipment = shipment::orderBy('id','DESC')->paginate(15);
-        return view('admin.transaction.billing',compact('shipment','shipment_count','delivered_count',
-            'user_count','container_count'));
+
+        $shipment_count = shipment::where('block',0)->get()->count();
+        $shipment_paid = shipment::where('payment_status',1)->get()->count();
+        $shipment_not_paid = shipment::where('payment_status',0)->get()->count();
+        $container_count = 0;
+        $money = payment::groupBy('currency')
+            ->selectRaw('*, sum(price) as sum')
+            ->get();
+        $shipment = payment::orderBy('id','DESC')->paginate(15);
+        return view('admin.transaction.billing',compact('shipment','shipment_count','shipment_paid',
+            'shipment_not_paid','container_count','money'));
     }
+
+
 }

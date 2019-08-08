@@ -8,6 +8,7 @@ use App\country_manage;
 use App\driver;
 use App\our_inmormation;
 use App\service;
+use App\shipment;
 use App\shipment_status;
 use App\state;
 use App\user;
@@ -136,4 +137,14 @@ function get_shipment_status($tracking_code, $status=false){
             return false;
         }
     }
+}
+
+function get_shipment_by_tracking_code($tracking_code){
+
+        $shipment = shipment::where('tracking_code',$tracking_code)->first();
+        if ($shipment->count() > 0){
+            return $shipment;
+        }else{
+            return false;
+        }
 }

@@ -115,6 +115,26 @@ class AdminController extends Controller
         return redirect('/admin-profile');
     }
 
+    public function AdminTrack(Request $request)
+    {
+        $value = substr($request->id,0,2);
+        if($value == "UR"){
+            $check = user::where('user_id',$request->id)->first();
+            if ($check){
+                return route('AdminCustomerView','profile='.base64_encode($check->id));
+            }else{
+                return 'error';
+            }
+        }else{
+            $check2 = shipment::where('tracking_code',$request->id)->first();
+            if ($check2){
+                return route('AdminShipmentView','data='.base64_encode($check2->id));
+            }else{
+                return 'error';
+            }
+        }
+    }
+
     public function Logout()
     {
         Session::forget('admin-username');
