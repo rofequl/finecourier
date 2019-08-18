@@ -97,8 +97,10 @@
                                             </td>
                                             <td>
                                                 <a href="{{route('AdminShipmentView','data='.base64_encode($shipment->id))}}"
-                                                   class="btn btn-success"><i class="mdi mdi-teamviewer"
+                                                   class="btn btn-sm btn-success"><i class="mdi mdi-teamviewer"
                                                                               style="margin-right: 4px;"></i>View</a>
+                                                <a href="{{route('ShipmentLabel',base64_encode($shipment->id))}}"
+                                                   class="btn btn-sm btn-success mt-2 w-100">LABEL</a>
                                             </td>
                                         </tr>
                                     @endforeach

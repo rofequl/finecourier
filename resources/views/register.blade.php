@@ -92,7 +92,24 @@
     =================================-->
 
 
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     @push('scripts')
         <script>
@@ -304,30 +321,37 @@
                 }
             }
 
+            // $("#Signup-Form").submit(function (event) {
+            //     SignInputFirstName();
+            //     SignInputLastName();
+            //     SignInputEmail();
+            //     SignInputPass();
+            //     SignInputRePass();
+            //     SignInputPhone();
+            //     SignInputCountry();
+            //     SignInputPostCode();
+            //     SignInputCity();
+            //     SignInputState();
+            //     if (SignInputFirstName() !== true) {
+            //     } else if (SignInputLastName() !== true) {
+            //     } else if (SignInputEmail() !== true) {
+            //     } else if (SignInputPass() !== true) {
+            //     } else if (SignInputRePass() !== true) {
+            //     } else if (SignInputPhone() !== true) {
+            //     } else if (SignInputCountry() !== true) {
+            //     } else if (SignInputPostCode() !== true) {
+            //     } else if (SignInputCity() !== true) {
+            //     } else if (SignInputState() !== true) {
+            //     } else {
+            //         return;
+            //     }
+            //     event.preventDefault();
+            // });
+
+
             $("#Signup-Form").submit(function (event) {
-                SignInputFirstName();
-                SignInputLastName();
-                SignInputEmail();
-                SignInputPass();
-                SignInputRePass();
-                SignInputPhone();
-                SignInputCountry();
-                SignInputPostCode();
-                SignInputCity();
-                SignInputState();
-                if (SignInputFirstName() !== true) {
-                } else if (SignInputLastName() !== true) {
-                } else if (SignInputEmail() !== true) {
-                } else if (SignInputPass() !== true) {
-                } else if (SignInputRePass() !== true) {
-                } else if (SignInputPhone() !== true) {
-                } else if (SignInputCountry() !== true) {
-                } else if (SignInputPostCode() !== true) {
-                } else if (SignInputCity() !== true) {
-                } else if (SignInputState() !== true) {
-                } else {
-                    return;
-                }
+
+                $("#myModal").modal();
                 event.preventDefault();
             });
 

@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('post_code');
             $table->string('city');
             $table->string('division');
-            $table->string('placeName');
+            $table->string('placeName')->nullable();
             $table->string('image')->nullable();
             $table->boolean('status')->default(1);
 

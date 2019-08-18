@@ -36,9 +36,9 @@
                         <form action="{{route('LoginCheck')}}" method="post">
                             {{csrf_field()}}
                             <input type="text" placeholder="Email" name="email">
-                            <input type="text" placeholder="Password" name="password">
+                            <input type="password" placeholder="Password" name="password">
                             <div class="rem_for">
-                                <input id="remeber" type="checkbox" name="remember" value=""><label for="remeber"><span></span>Remember Me</label>
+                                <input id="remeber" type="checkbox" name="remember_me" value=""><label for="remeber"><span></span>Remember Me</label>
                                 <a href="#">Forgot Password?</a>
                             </div>
                             <div class="login_content">

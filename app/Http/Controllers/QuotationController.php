@@ -475,7 +475,7 @@ class QuotationController extends Controller
 
     public function ShipmentLabel($id)
     {
-        $shipment = shipment::where('user_id',session('user-id'))->where('id',base64_decode($id))->first();
+        $shipment = shipment::find(base64_decode($id));
 
         //return view('pdf.label',compact('shipment'));
 

@@ -255,8 +255,16 @@ class FrontendController extends Controller
             ->first();
         if (!empty($admin)) {
             if ($admin && Hash::check($request->password, $admin->password)) {
-                Session::put('user-email', $request->email);
-                Session::put('user-id', $admin->id);
+                if ($request->remember_me) {
+                    setcookie('user-email', $request->email, time() + (86400 * 30), "/");
+                    setcookie('user-id', $admin->id, time() + (86400 * 30), "/");
+
+                    Session::put('user-email', $request->email);
+                    Session::put('user-id', $admin->id);
+                }else{
+                    Session::put('user-email', $request->email);
+                    Session::put('user-id', $admin->id);
+                }
                 return redirect('/dashboard');
             } else {
                 $request->session()->flash('login_error', 'password not match');
@@ -272,7 +280,9 @@ class FrontendController extends Controller
     {
         Session::forget('user-email');
         Session::forget('user-id');
-        Session::flush();
+
+        setcookie('user-email', '', time() - 3600);
+        setcookie('user-id', '', time() - 3600);
         return redirect('/');
     }
 }
